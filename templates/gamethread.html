@@ -1,0 +1,133 @@
+{% set home = game.home_team %}
+{% set away = game.away_team %}
+
+[{{away.name}}](/r/{{away_sr}}#away) [at](#at) [{{home.name}}](/r/{{home_sr}}#home)
+
+----
+
+* {{ game.stadium.name }}
+* {{ game.stadium.address.locality }}, {{ game.stadium.address.administrative_area_abbreviation }}
+
+----
+
+{% set ot = boxscore|length > 5 %}
+{% set q = game.status.quarter %}
+{% set phase = game.status.phase %}
+
+{% if game.clock.seconds %}
+{% set s = game.clock.seconds %}
+{% set gameclock_minutes = s / 60|int %}
+{% set gameclock_seconds = s % 60 %}
+{% set gameclock = "%d:%02d"|format(gameclock_minutes, gameclock_seconds) %}
+{% else %}
+{% set gameclock = "--:--" %}
+{% endif %}
+
+| | | | | | |{% if ot %} |{% endif %}
+| :-- | :-- | :-- | :-- | :-- |  :-- |{% if ot %} :--|{% endif %}
+|      |**{% if q == 1 %}{{ gameclock }}{% else %}First{% endif %}**|**{% if q == 2 %}{{ gameclock }}{% else %}Second{% endif %}**|**{% if q == 3 %}{{ gameclock }}{% else %}Third{% endif %}**|**{% if q == 4 %}{{ gameclock }}{% else %}Fourth{% endif %}**{% if ot %}|**{% if q == 5 %}{{ gameclock }}{% else %}OT{% endif %}**{% endif %}| {% if phase == 'COMPLETE' %}**Final**{% elif phase != 'PLAYING' %}**{{ phase|title }}**{% endif %} |
+|**{{ away.nickname }}**| {{ box_score[1]['away'] }} | {{ box_score[2]['away'] }} | {{ box_score[3]['away'] }} | {{ box_score[4]['away'] }}{% if ot %} | {{ box_score[5]['away'] }}{% endif %} | {{ game.status.away_team_points }} |
+|**{{ home.nickname }}**| {{ box_score[1]['home'] }} | {{ box_score[2]['home'] }} | {{ box_score[3]['home'] }} | {{ box_score[4]['home'] }}{% if ot %} | {{ box_score[5]['home'] }}{% endif %} | {{ game.status.home_team_points }} |
+
+----
+
+* General information
+* 
+
+----
+
+| | |
+| :-- | --: |
+| **Coverage** | **Odds** |
+| {%if game.tv %}{{game.tv}}{% else %}-{% endif %} | {% if lines and "Caesar's" in lines %}{{ home.region_name }} {{ lines["Caesar's"].spread }} O/U {{ lines["Caesar's"].total }}{% endif %} |
+
+{% if forecast %}
+| |
+|:---|
+| **Weather** |
+| [{{ forecast.temp_f }}°F/Wind {{ forecast.windspeed_mph }}mph/{{ forecast.symbol_name }}/{% if forecast.prec_mm > 0 %}{{ forecast.prec_mm }} mm{% else %}No{% endif %} precipitation expected](https://www.yr.no/place/{{ game.place }}#weather-{{forecast.symbol_var}} "{{ forecast.credit }}") |
+{% endif %}
+
+{% if headlines %}
+
+----
+
+| | |
+| :-- | --: |
+| **Headlines** | **Communities** |
+| [{{ headlines.home[0].title }}]({{ headlines.home[0].url }}) | /r/{{game.home.subreddit}} |
+{% if headlines.home[0].url != headlines.away[0].url %}
+| [{{ headlines.away[0].title}}]({{ headlines.away[0].url }}) | /r/{{game.away.subreddit}} |
+{% else %}
+| [{{ headlines.away[1].title }}]({{ headlines.away[1].url }}) | /r/{{game.away.subreddit}} |
+{% endif %}
+|  |  |
+{% endif %}
+
+----
+
+{% if boxscore and boxscore.performers %}
+
+* Game Stats
+*
+
+----
+
+| | | | | | |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+| **Passing** |  | **Cmp/Att** | **Yds** | **Tds** | **Ints** |
+{% for apas in boxscore.performers['away']['passing'][:1] %}| {{ apas['name'] }} | [](/r/{{ game.away.subreddit }}) | {{ apas['cmp'] }}/{{ apas['att'] }} | {{ apas['yds'] }}| {{ apas['tds'] }} | {{ apas['ints'] }} |
+{% endfor -%}
+{% for hpas in boxscore.performers['home']['passing'][:1] %}| {{ hpas['name'] }} | [](/r/{{ game.home.subreddit }}) | {{ hpas['cmp'] }}/{{ hpas['att'] }} | {{ hpas['yds'] }}| {{ hpas['tds'] }} | {{ hpas['ints'] }} |
+{% endfor -%}
+| **Rushing** |  | **Car** | **Yds** | **Lng** | **Tds** |
+{% for arus in boxscore.performers['away']['rushing'][:1] %}| {{ arus['name'] }} | [](/r/{{ game.away.subreddit }}) | {{ arus['att'] }} | {{ arus['yds'] }}| {{ arus['lng'] }} | {{ arus['tds'] }} |
+{% endfor -%}
+{% for hrus in boxscore.performers['home']['rushing'][:1] %}| {{ hrus['name'] }} | [](/r/{{ game.home.subreddit }}) | {{ hrus['att'] }} | {{ hrus['yds'] }}| {{ hrus['lng'] }} | {{ hrus['tds'] }} |
+{% endfor -%}
+| **Receiving** |  | **Rec** | **Yds** | **Lng** | **Tds** |
+{% for arec in boxscore.performers['away']['receiving'][:2] %}| {{ arec['name'] }} | [](/r/{{ game.away.subreddit }}) | {{ arec['rec'] }} | {{ arec['yds'] }}| {{ arec['lng'] }} | {{ arec['tds'] }} |
+{% endfor -%}
+{% for hrec in boxscore.performers['home']['receiving'][:2] %}| {{ hrec['name'] }} | [](/r/{{ game.home.subreddit }}) | {{ hrec['rec'] }} | {{ hrec['yds'] }}| {{ hrec['lng'] }} | {{ hrec['tds'] }} |
+{% endfor -%}
+
+{% endif %}
+
+{% if scoring and scoring|length > 0 %}
+----
+
+* Scoring Summary
+*
+
+----
+
+| | | | |
+| :--: | :--: | :-- | :-- |
+| **Team** | **Q** | **Type** | **Drive** |
+{% for drive_id, drive in scoring|dictsort %}| [*{{ drive.team.short }}*]({{ drive.team.subreddit }}) | {{ drive.qtr }} | {{ drive.type }} | {{ drive.desc }} |
+{% endfor -%}
+
+{% endif %}
+
+----
+
+* Thread Notes
+* [Message The Moderators](http://www.reddit.com/message/compose?to=%2Fr%2Faafb)
+
+----
+
+| |
+| :-- |
+| Discuss whatever you wish. You can trash talk, but keep it civil. |
+| If you are experiencing problems with comment sorting in the official reddit app, we suggest using a third-party client instead ([Android](/r/Android/comments/7ctdf4/lets_settle_this_randroid_what_is_the_best_reddit/), [iOS](/r/ios/comments/68odw1/what_is_the_best_reddit_app_for_ios/)) |
+{%- if thread -%}
+| Turning comment sort to ['new']({{ thread.url }}?sort=new) will help you see the newest comments. |
+{%- endif %}
+| Try [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) to auto-refresh this tab. |
+{%- if thread -%}
+| Use [reddit-stream.com](http://reddit-stream.com/comments/{{ thread.thread_id }}) to get an autorefreshing version of this page |
+{%- endif -%}
+{#-
+| Check in on the r/nfl chat: **#reddit-nfl** on FreeNode ([open in browser](http://webchat.freenode.net/?channels=reddit-nfl)). |
+#}
+| Show your team affiliation - pick your team's logo in the sidebar. |
