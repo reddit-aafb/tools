@@ -52,6 +52,13 @@ def make_box_score(statuses):
     }
     for status in statuses:
         quarters[status.quarter] = {'home': status.home_team_points, 'away': status.away_team_points}
+    home_acc = 0
+    away_acc = 0
+    for q in quarters:
+        quarters[q]['home'] -= home_acc
+        quarters[q]['away'] -= away_acc
+        home_acc += quarters[q]['home']
+        away_acc += quarters[q]['away']
     return quarters
 
 
