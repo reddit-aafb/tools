@@ -79,7 +79,7 @@ def main():
     new_sidebar = marker_replace('#### [](/blank "START standings")', '#### [](/blank "END standings")', standings,
                                  new_sidebar)
     if old_sidebar != new_sidebar:
-        print(diff_strings(old_sidebar, new_sidebar, fromfile='old_sidebar_%s' % sub.display_name, tofile='new_sidebar_%s' % sub.display_name, n=0, lineterm=""))
+        print(diff_strings(old_sidebar, new_sidebar, fromfile='old_sidebar_%s' % sub.display_name, tofile='new_sidebar_%s' % sub.display_name, n=0))
         sub.mod.update(description=new_sidebar)
 
 
