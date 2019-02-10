@@ -213,8 +213,8 @@ fragment gameTeamEdge on GameTeamEdge {
 
         def standings_key(team):
             stats = team.seasons_connection.edges[0].stats
-            pct = 1 - (stats.games_won / stats.games_played if stats.games_played != 0 else 0.5)
-            return [pct, team.region_name]
+            pct = 1 - (stats.games_won / stats.games_played if stats.games_played != 0 else 0.0)
+            return [pct, -stats.games_played, team.region_name]
         for div in standings:
             standings[div] = sorted(standings[div], key=standings_key)
         return standings
