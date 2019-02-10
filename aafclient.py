@@ -142,6 +142,7 @@ fragment gameTeamEdge on GameTeamEdge {
         games.nodes.id()
         games.nodes.time()
         games.nodes.clock().seconds()
+        games.nodes.availability().short_name()
 
         home_team = games.nodes.home_team()
         home_team.region_name()
@@ -166,7 +167,8 @@ fragment gameTeamEdge on GameTeamEdge {
         players.edges.stats().__fields__('passes_completed', 'passes_attempted', 'passing_yards', 'passing_touchdowns',
                                    'passes_intercepted', 'rushes_attempted', 'rushing_yards', 'rushing_longest_gain',
                                    'rushing_touchdowns', 'receptions', 'receiving_yards', 'receiving_touchdowns',
-                                   'receiving_touchdowns')
+                                   'receiving_longest_gain')
+        players.edges.node.legal_name().__fields__('family_name', 'given_name')
 
         games.nodes.stadium().__fields__('name')
         games.nodes.stadium().address().__fields__('locality', 'administrative_area_abbreviation')

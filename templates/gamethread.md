@@ -39,7 +39,7 @@
 | | |
 | :-- | --: |
 | **Coverage** | **Odds** |
-| {%if game.tv %}{{game.tv}}{% else %}-{% endif %} | {% if lines and "Caesar's" in lines %}{{ home.region_name }} {{ lines["Caesar's"].spread }} O/U {{ lines["Caesar's"].total }}{% endif %} |
+| {%if game.availability %}{{ game.availability[0].short_name }}{% else %}[aaf.com](https://aaf.com/){% endif %} | {% if lines and "Caesar's" in lines %}{{ home.region_name }} {{ lines["Caesar's"].spread }} O/U {{ lines["Caesar's"].total }}{% endif %} |
 
 {% if forecast %}
 | |
@@ -55,41 +55,51 @@
 | | |
 | :-- | --: |
 | **Headlines** | **Communities** |
-| [{{ headlines.home[0].title }}]({{ headlines.home[0].url }}) | /r/{{game.home.subreddit}} |
+| [{{ headlines.home[0].title }}]({{ headlines.home[0].url }}) | /r/{{home_sr}} |
 {% if headlines.home[0].url != headlines.away[0].url %}
-| [{{ headlines.away[0].title}}]({{ headlines.away[0].url }}) | /r/{{game.away.subreddit}} |
+| [{{ headlines.away[0].title}}]({{ headlines.away[0].url }}) | /r/{{away_sr}} |
 {% else %}
-| [{{ headlines.away[1].title }}]({{ headlines.away[1].url }}) | /r/{{game.away.subreddit}} |
+| [{{ headlines.away[1].title }}]({{ headlines.away[1].url }}) | /r/{{away_sr}} |
 {% endif %}
 |  |  |
 {% endif %}
 
 ----
 
-{% if boxscore and boxscore.performers %}
+{% if performers %}
 
 * Game Stats
-*
+* 
+
+{% set ph=performers[0] %}
+{% set pa=performers[1] %}
 
 ----
 
 | | | | | | |
 | :-- | :-- | :-- | :-- | :-- | :-- |
 | **Passing** |  | **Cmp/Att** | **Yds** | **Tds** | **Ints** |
-{% for apas in boxscore.performers['away']['passing'][:1] %}| {{ apas['name'] }} | [](/r/{{ game.away.subreddit }}) | {{ apas['cmp'] }}/{{ apas['att'] }} | {{ apas['yds'] }}| {{ apas['tds'] }} | {{ apas['ints'] }} |
+{% for p in pa['passing'][:1] -%}
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
 {% endfor -%}
-{% for hpas in boxscore.performers['home']['passing'][:1] %}| {{ hpas['name'] }} | [](/r/{{ game.home.subreddit }}) | {{ hpas['cmp'] }}/{{ hpas['att'] }} | {{ hpas['yds'] }}| {{ hpas['tds'] }} | {{ hpas['ints'] }} |
+{% for p in ph['passing'][:1] -%}
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
 {% endfor -%}
 | **Rushing** |  | **Car** | **Yds** | **Lng** | **Tds** |
-{% for arus in boxscore.performers['away']['rushing'][:1] %}| {{ arus['name'] }} | [](/r/{{ game.away.subreddit }}) | {{ arus['att'] }} | {{ arus['yds'] }}| {{ arus['lng'] }} | {{ arus['tds'] }} |
+{% for p in pa['rushing'][:1] -%}
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
 {% endfor -%}
-{% for hrus in boxscore.performers['home']['rushing'][:1] %}| {{ hrus['name'] }} | [](/r/{{ game.home.subreddit }}) | {{ hrus['att'] }} | {{ hrus['yds'] }}| {{ hrus['lng'] }} | {{ hrus['tds'] }} |
+{% for p in ph['rushing'][:1] -%}
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
 {% endfor -%}
 | **Receiving** |  | **Rec** | **Yds** | **Lng** | **Tds** |
-{% for arec in boxscore.performers['away']['receiving'][:2] %}| {{ arec['name'] }} | [](/r/{{ game.away.subreddit }}) | {{ arec['rec'] }} | {{ arec['yds'] }}| {{ arec['lng'] }} | {{ arec['tds'] }} |
+{% for p in pa['receiving'][:2] -%}
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
 {% endfor -%}
-{% for hrec in boxscore.performers['home']['receiving'][:2] %}| {{ hrec['name'] }} | [](/r/{{ game.home.subreddit }}) | {{ hrec['rec'] }} | {{ hrec['yds'] }}| {{ hrec['lng'] }} | {{ hrec['tds'] }} |
+{% for p in ph['receiving'][:2] -%}
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
 {% endfor -%}
+
 
 {% endif %}
 

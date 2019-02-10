@@ -21,12 +21,12 @@ from fcache.cache import FileCache
 from praw import Reddit
 from praw.models import Submission
 from recordclass import recordclass
-from reddittoken import ensure_scopes
 
 from aaf_schema import GamePhase
 from aafclient import AAFClient
 from helpers import RenderHelper
 from redditdata import subreddits
+from reddittoken import ensure_scopes
 
 GameThreadGame = recordclass('GameThreadGame', ['game_id', 'time', 'threads', 'archived'])
 
@@ -55,22 +55,33 @@ def make_box_score(statuses):
     return quarters
 
 
-def build_stats(nodes):
-    key_passing = lambda p: [getattr(p, key, 0) for key in
-                             ['passes_completed', 'passes_attempted', 'passing_yards', 'passing_touchdowns',
-                              'passes_intercepted']]
-    # print(repr(key_passing(list(nodes)[7])))
-    for node in sorted(nodes, key=key_passing, reverse=True)[0:3]:
-        print(node)
+def build_stats(players):
+    def stats_sorter(keys):
+        def f(p):
+            return [getattr(p.stats, key, 0) for key in keys]
+        return f
+    players = list(players)
+    passing_keys = ['passes_completed', 'passing_yards', 'passes_attempted', 'passing_touchdowns', 'passes_intercepted']
+    rushing_keys = ['rushing_yards', 'rushes_attempted', 'rushing_longest_gain', 'rushing_touchdowns']
+    receiving_keys = ['receiving_yards', 'receptions', 'receiving_longest_gain', 'receiving_touchdowns']
+    return {
+        'passing': sorted(players, key=stats_sorter(passing_keys), reverse=True)[0:5],
+        'rushing': sorted(players, key=stats_sorter(rushing_keys), reverse=True)[0:5],
+        'receiving': sorted(players, key=stats_sorter(receiving_keys), reverse=True)[0:5],
+    }
 
 
 class GameThreadRenderer(RenderHelper):
     def render_game(self, game, template):
-        #home_player_stats = build_stats(filter(lambda p: p.team.abbreviation==game.home_team.abbreviation, game.players_connection.edges))
+        players = game.players_connection.edges
+        performers_home = build_stats(filter(lambda p: p.team.abbreviation == game.home_team.abbreviation, players))
+        performers_away = build_stats(filter(lambda p: p.team.abbreviation == game.away_team.abbreviation, players))
         ctx = dict(game=game,
                    box_score=make_box_score(game.status_history_connection.nodes),
                    away_sr=subreddits[game.away_team.abbreviation],
-                   home_sr=subreddits[game.home_team.abbreviation])
+                   home_sr=subreddits[game.home_team.abbreviation],
+                   performers=(performers_home, performers_away)
+                   )
         title = self.try_render(template + '_title.html', ctx)
         body = self.try_render(template + '.html', ctx)
         return title, body
@@ -82,7 +93,9 @@ class AAFGameThread:
 
     def __init__(self, reddit_session, sr_name, teams):
         self.r = reddit_session
-        self.sub = self.r.subreddit(sr_name)
+        if reddit_session is not None:
+            # You can set it to None if you know you're not going to need it.
+            self.sub = self.r.subreddit(sr_name)
         self.teams = teams.split(',')
         self.aaf = AAFClient('aafgamethread;reddit.com/r/%s' % sr_name)
         self.games = FileCache('aafgamethread_%s' % sr_name, flag='cs')
@@ -129,6 +142,7 @@ class AAFGameThread:
             return
         print("Posting to %s: %s" % (self.sub.display_name, title))
         submission = self.sub.submit(title, body)
+        submission.disable_inbox_replies()
         thread_id = submission.id
         stored_game = self.games[game.id]
         stored_game.threads[thread_type] = thread_id
@@ -168,20 +182,56 @@ def main():
     r = Reddit('aaf_gamethread')
     ensure_scopes(r)
 
-    #gt = AAFGameThread(r, 'aafb_dev', "BIR")
     gt = AAFGameThread(r, sys.argv[1], ",".join(subreddits.keys()))
 
     while True:
         gt.get_games()
-
         active_games = gt.active_games()
         gt.archive_completed(active_games)
         if len(active_games) > 0:
             gt.post_due_threads(active_games)
             gt.update_existing(active_games)
-        #break
         time.sleep(60)
-    # gt.dump()
+
+
+def test_render():
+    # Render all past threads according to the current template
+    gt = AAFGameThread(None, 'aafb_dev', ",".join(subreddits.keys()))
+    gt.active_buffer = timedelta(days=180)
+    active_games = gt.active_games()
+    for game in active_games:
+        title, body = gt.renderer.render_game(game, 'gamethread')
+        with open(title + ".md", 'w') as fp:
+            fp.write(body)
+
+
+def update(sr_name):
+    # Update all past threads according to the current template
+    r = Reddit('aaf_gamethread')
+    ensure_scopes(r)
+    gt = AAFGameThread(r, sr_name, ",".join(subreddits.keys()))
+    gt.active_buffer = timedelta(days=180)
+    active_games = gt.active_games()
+    gt.update_existing(active_games)
+
+
+def clean_cache(sr_name):
+    # Remove references to threads that were deleted. House cleaning.
+    r = Reddit('aaf_gamethread')
+    ensure_scopes(r)
+    gt = AAFGameThread(r, sr_name, ",".join(subreddits.keys()))
+    for game_id in gt.games:
+        game = gt.games[game_id]
+        for thread_type in ('gamethread', 'post_gamethread'):
+            if thread_type not in game.threads:
+                continue
+            if game.threads[thread_type] is None:
+                del(game.threads[thread_type])
+                continue
+            thread = r.submission(id=game.threads[thread_type])
+            if thread.author is None:
+                del(game.threads[thread_type])
+        gt.games[game_id] = game
 
 
 if __name__ == '__main__':
