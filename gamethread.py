@@ -24,7 +24,7 @@ from recordclass import recordclass
 
 from aaf_schema import GamePhase
 from aafclient import AAFClient
-from helpers import RenderHelper
+from helpers import RenderHelper, diff_strings
 from redditdata import subreddits
 from reddittoken import ensure_scopes
 
@@ -72,7 +72,7 @@ def build_stats(players):
 
 
 class GameThreadRenderer(RenderHelper):
-    def render_game(self, game, template):
+    def render_game(self, game, template, **kwargs):
         players = game.players_connection.edges
         performers_home = build_stats(filter(lambda p: p.team.abbreviation == game.home_team.abbreviation, players))
         performers_away = build_stats(filter(lambda p: p.team.abbreviation == game.away_team.abbreviation, players))
@@ -82,6 +82,7 @@ class GameThreadRenderer(RenderHelper):
                    home_sr=subreddits[game.home_team.abbreviation],
                    performers=(performers_home, performers_away)
                    )
+        ctx.update(kwargs)
         title = self.try_render(template + '_title.md', ctx)
         body = self.try_render(template + '.md', ctx)
         return title, body
@@ -159,9 +160,10 @@ class AAFGameThread:
                     # Update body
                     thread_id = stored_game.threads[thread_type]
                     thread = Submission(self.r, id=thread_id)
-                    title, body = self.renderer.render_game(game, thread_type)
+                    title, body = self.renderer.render_game(game, thread_type, thread=thread)
                     if body != thread.selftext:
                         print("Update %s (/r/%s, %s)" % (title, self.sub.display_name, thread_id))
+                        print(diff_strings(thread.selftext, body))
                         thread.edit(body)
 
     def archive_completed(self, active_games):

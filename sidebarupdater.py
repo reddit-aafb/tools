@@ -20,7 +20,7 @@ import pendulum
 from praw import Reddit
 
 from aafclient import AAFClient
-from helpers import RenderHelper
+from helpers import RenderHelper, diff_strings
 from redditdata import subreddits
 from reddittoken import ensure_scopes
 
@@ -79,7 +79,7 @@ def main():
     new_sidebar = marker_replace('#### [](/blank "START standings")', '#### [](/blank "END standings")', standings,
                                  new_sidebar)
     if old_sidebar != new_sidebar:
-        print("\n".join(difflib.unified_diff(old_sidebar.split("\n"), new_sidebar.split("\n"), fromfile='old_sidebar_%s' % sub.display_name, tofile='new_sidebar_%s' % sub.display_name, n=0, lineterm="")))
+        print(diff_strings(old_sidebar, new_sidebar, fromfile='old_sidebar_%s' % sub.display_name, tofile='new_sidebar_%s' % sub.display_name, n=0, lineterm=""))
         sub.mod.update(description=new_sidebar)
 
 

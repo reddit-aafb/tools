@@ -130,13 +130,13 @@
 | :-- |
 | Discuss whatever you wish. You can trash talk, but keep it civil. |
 | If you are experiencing problems with comment sorting in the official reddit app, we suggest using a third-party client instead ([Android](/r/Android/comments/7ctdf4/lets_settle_this_randroid_what_is_the_best_reddit/), [iOS](/r/ios/comments/68odw1/what_is_the_best_reddit_app_for_ios/)) |
-{%- if thread -%}
-| Turning comment sort to ['new']({{ thread.url }}?sort=new) will help you see the newest comments. |
+{%- if thread %}
+| Turning comment sort to ['new']({{ thread.permalink }}?sort=new) will help you see the newest comments. |
 {%- endif %}
 | Try [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) to auto-refresh this tab. |
-{%- if thread -%}
-| Use [reddit-stream.com](http://reddit-stream.com/comments/{{ thread.thread_id }}) to get an autorefreshing version of this page |
-{%- endif -%}
+{%- if thread %}
+| Use [reddit-stream.com](http://reddit-stream.com/comments/{{ thread.id }}) to get an autorefreshing version of this page |
+{%- endif %}
 {#-
 | Check in on the r/nfl chat: **#reddit-nfl** on FreeNode ([open in browser](http://webchat.freenode.net/?channels=reddit-nfl)). |
 #}

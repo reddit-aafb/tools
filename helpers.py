@@ -11,7 +11,7 @@
 #  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
 #  OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 #  CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
+import difflib
 import traceback
 
 from jinja2 import FileSystemLoader
@@ -34,3 +34,8 @@ class RenderHelper:
     def render(self, template_file, ctx):
         template = self.env.get_template(template_file)
         return template.render(**ctx)
+
+def diff_strings(a, b, **kwargs):
+    opts = {'fromfile': 'from', 'tofile': 'to'}
+    opts.update(kwargs)
+    return "\n".join(difflib.unified_diff(a.split("\n"), b.split("\n"), lineterm='', **opts))
