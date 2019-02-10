@@ -1,1 +1,1 @@
-Post Game Thread: {% include "title.html" %}
+Post Game Thread: {% include "title.md" %}

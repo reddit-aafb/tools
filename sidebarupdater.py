@@ -42,7 +42,7 @@ def main():
     aaf = AAFClient('aaf_standings;reddit.com/r/aafb')
     week, games = aaf.schedule(for_week=pendulum.now())
     ctx = make_schedule_ctx(week, games)
-    schedule = renderer.render('schedule.html', ctx)
+    schedule = renderer.render('schedule.md', ctx)
     print(schedule)
 
 

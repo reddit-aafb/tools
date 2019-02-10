@@ -82,8 +82,8 @@ class GameThreadRenderer(RenderHelper):
                    home_sr=subreddits[game.home_team.abbreviation],
                    performers=(performers_home, performers_away)
                    )
-        title = self.try_render(template + '_title.html', ctx)
-        body = self.try_render(template + '.html', ctx)
+        title = self.try_render(template + '_title.md', ctx)
+        body = self.try_render(template + '.md', ctx)
         return title, body
 
 

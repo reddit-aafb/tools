@@ -1,1 +1,1 @@
-{% include "gamethread.html" %}
+{% include "gamethread.md" %}

@@ -1,1 +1,1 @@
-Game Thread: {% include "title.html" %}
+Game Thread: {% include "title.md" %}
