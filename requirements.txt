@@ -3,3 +3,4 @@ Jinja2==2.10
 pendulum==2.0.4
 praw==6.1.1
 sgqlc==6.0
+recordclass==0.9
