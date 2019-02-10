@@ -38,7 +38,7 @@ class AAFClient:
         games.nodes.named_time_range().id()
         games.nodes.home_team().__fields__('abbreviation', 'name', 'region_name', 'nickname')
         games.nodes.away_team().__fields__('abbreviation', 'name', 'region_name', 'nickname')
-        games.nodes.status().__fields__('home_team_points', 'away_team_points')
+        games.nodes.status().__fields__('home_team_points', 'away_team_points', 'phase')
         result = self._execute(op)
 
         weeks = {}
