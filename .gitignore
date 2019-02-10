@@ -224,3 +224,5 @@ tags
 # End of https://www.gitignore.io/api/vim,python,pycharm
 
 praw.ini
+# I don't know why I even bothered with gitignore.io
+.idea
