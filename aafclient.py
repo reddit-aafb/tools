@@ -96,7 +96,7 @@ fragment gameTeamEdge on GameTeamEdge {
         gametime = games[0].time
 
         op = Operation(schema.Query)
-        games = op.games_connection(first=100, at_or_after_time=gametime, before_time=gametime + timedelta(hours=12))
+        games = op.games_connection(first=60, at_or_after_time=gametime, before_time=gametime + timedelta(hours=12))
         games.nodes.id()
 
         home_team = games.nodes.home_team()
@@ -138,7 +138,7 @@ fragment gameTeamEdge on GameTeamEdge {
 
     def games_between(self, dateafter, datebefore):
         op = Operation(schema.Query)
-        games = op.games_connection(first=100, at_or_after_time=dateafter, before_time=datebefore)
+        games = op.games_connection(first=60, at_or_after_time=dateafter, before_time=datebefore)
         games.nodes.id()
         games.nodes.time()
         games.nodes.clock().seconds()
