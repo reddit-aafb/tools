@@ -182,3 +182,39 @@ fragment gameTeamEdge on GameTeamEdge {
         if hasattr(result, 'games_connection'):
             return result.games_connection.nodes
         return []
+
+    def standings(self):
+        op = Operation(schema.Query)
+        teams = op.teams_connection(first=8)
+        division = teams.nodes.division()
+        division.name()
+        division.id()
+        division.abbreviation()
+        teams.nodes.abbreviation()
+        teams.nodes.nickname()
+        teams.nodes.region_name()
+        season = teams.nodes.seasons_connection(last=1)
+        stats = season.edges.stats()
+        stats.games_won()
+        stats.games_lost()
+        stats.games_played()
+        result = self._execute(op)
+
+        standings = {}
+        divs = {}
+        for team in result.teams_connection.nodes:
+            # Some hoop-jumping to use a single division object as the key and get things grouped nicely
+            if team.division.id not in divs:
+                divs[team.division.id] = team.division
+            key = divs[team.division.id]
+            if key not in standings:
+                standings[key] = []
+            standings[key].append(team)
+
+        def standings_key(team):
+            stats = team.seasons_connection.edges[0].stats
+            pct = 1 - (stats.games_won / stats.games_played if stats.games_played != 0 else 0.5)
+            return [pct, team.region_name]
+        for div in standings:
+            standings[div] = sorted(standings[div], key=standings_key)
+        return standings

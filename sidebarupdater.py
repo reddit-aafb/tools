@@ -39,6 +39,17 @@ def make_schedule_ctx(week, games):
         ctx['games'].append(game)
     return ctx
 
+def make_standings_ctx(divisions):
+    ctx = {
+        'divisions': {}
+    }
+    for division, teams in divisions.items():
+        ctx['divisions'][division] = []
+        for team in teams:
+            team.stats = team.seasons_connection.edges[0].stats
+            team.subreddit = subreddits[team.abbreviation]
+            ctx['divisions'][division].append(team)
+    return ctx
 
 def marker_replace(marker_start, marker_end, content, subject):
     replacement = "%s\n\n%s\n\n%s" % (marker_start, content, marker_end)
@@ -49,6 +60,11 @@ def main():
     import sys
     renderer = RenderHelper()
     aaf = AAFClient('aaf_standings;reddit.com/r/aafb')
+
+    standings = aaf.standings()
+    ctx = make_standings_ctx(standings)
+    standings = renderer.render('standings.md', ctx)
+
     week, games = aaf.schedule(for_week=pendulum.now())
     ctx = make_schedule_ctx(week, games)
     schedule = renderer.render('schedule.md', ctx)
@@ -60,6 +76,8 @@ def main():
     old_sidebar = sub.description
     new_sidebar = marker_replace('#### [](/blank "START schedule")', '#### [](/blank "END schedule")', schedule,
                                  old_sidebar)
+    new_sidebar = marker_replace('#### [](/blank "START standings")', '#### [](/blank "END standings")', standings,
+                                 new_sidebar)
     if old_sidebar != new_sidebar:
         print("\n".join(difflib.unified_diff(old_sidebar.split("\n"), new_sidebar.split("\n"), fromfile='old_sidebar_%s' % sub.display_name, tofile='new_sidebar_%s' % sub.display_name, n=0, lineterm="")))
         sub.mod.update(description=new_sidebar)
