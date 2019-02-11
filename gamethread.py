@@ -43,23 +43,33 @@ def filters(fs, seq):
     return seq
 
 
-def make_box_score(statuses):
-    quarters = {
+def squash_boxscore(quarters):
+    home_acc = 0
+    away_acc = 0
+    result = {
         1: {'home': 0, 'away': 0},
         2: {'home': 0, 'away': 0},
         3: {'home': 0, 'away': 0},
         4: {'home': 0, 'away': 0},
     }
-    for status in statuses:
-        quarters[status.quarter] = {'home': status.home_team_points, 'away': status.away_team_points}
-    home_acc = 0
-    away_acc = 0
     for q in quarters:
-        quarters[q]['home'] -= home_acc
-        quarters[q]['away'] -= away_acc
-        home_acc += quarters[q]['home']
-        away_acc += quarters[q]['away']
-    return quarters
+        result[q] = {}
+        hp = quarters[q]['home'] - home_acc
+        ap = quarters[q]['away'] - away_acc
+        result[q]['home'] = hp
+        result[q]['away'] = ap
+        home_acc += hp
+        away_acc += ap
+    return result
+
+def make_box_score(statuses):
+    quarters = {}
+    for status in statuses:
+        if status.quarter == 0:
+            continue
+        quarters[status.quarter] = {'home': status.home_team_points, 'away': status.away_team_points}
+
+    return squash_boxscore(quarters)
 
 
 def build_stats(players):
@@ -136,11 +146,9 @@ class AAFGameThread:
             gt_buffer = self.gamethread_buffer
             stored_game = self.games[game.id]
             if now() > game.time - gt_buffer and 'gamethread' not in stored_game.threads:
-                print("Should have a game thread for %s" % game)
                 self.submit_thread(game, 'gamethread')
             # If game.phase = COMPLETED a post game thread has been posted
             if game.status and game.status.phase == GamePhase.COMPLETE and 'post_gamethread' not in stored_game.threads:
-                print("Should have a post game thread for %s" % game)
                 self.submit_thread(game, 'post_gamethread')
 
     def submit_thread(self, game, thread_type):

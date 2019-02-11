@@ -173,7 +173,7 @@ fragment gameTeamEdge on GameTeamEdge {
         games.nodes.stadium().__fields__('name')
         games.nodes.stadium().address().__fields__('locality', 'administrative_area_abbreviation')
 
-        statuses = games.nodes.status_history_connection(first=500)
+        statuses = games.nodes.status_history_connection(last=500)
         statuses.nodes.quarter()
         statuses.nodes.home_team_points()
         statuses.nodes.away_team_points()
