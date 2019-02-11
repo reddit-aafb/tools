@@ -38,7 +38,7 @@
 
 | | |
 | :-- | --: |
-| **Coverage** | **Odds** |
+| **Coverage** | {% if lines and "Caesar's" in lines %}**Odds**{% endif %} |
 | {%if game.availability %}{{ game.availability[0].short_name }}{% else %}[aaf.com](https://aaf.com/){% endif %} | {% if lines and "Caesar's" in lines %}{{ home.region_name }} {{ lines["Caesar's"].spread }} O/U {{ lines["Caesar's"].total }}{% endif %} |
 
 {% if forecast %}
