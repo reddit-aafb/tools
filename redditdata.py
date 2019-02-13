@@ -12,14 +12,57 @@
 #  OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 #  CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-
-subreddits = {
-    'SD': 'SDFleet',
-    'SA': 'CommandersSA',
-    'ATL': 'ATLLegends',
-    'ORL': 'OrlApollos',
-    'MEM': 'MemExpress',
-    'BIR': 'BHIron',
-    'SL': 'SLCStallions',
-    'ARI': 'ARZHotshots',
+aaf_teams = {
+    'SD': {
+        'subreddit': 'SDFleet',
+        'flair_class': 'Fleet',
+        'flair_text': 'Fleet',
+    },
+    'SA': {
+        'subreddit': 'CommandersSA',
+        'flair_class': 'Commanders',
+        'flair_text': 'Commanders',
+    },
+    'ATL': {
+        'subreddit': 'ATLLegends',
+        'flair_class': 'Legends',
+        'flair_text': 'Legends',
+    },
+    'ORL': {
+        'subreddit': 'OrlApollos',
+        'flair_class': 'Apollos',
+        'flair_text': 'Apollos',
+    },
+    'MEM': {
+        'subreddit': 'MemExpress',
+        'flair_class': 'Express',
+        'flair_text': 'Express',
+    },
+    'BIR': {
+        'subreddit': 'BHIron',
+        'flair_class': 'Iron',
+        'flair_text': 'Iron',
+    },
+    'SL': {
+        'subreddit': 'SLCStallions',
+        'flair_class': 'Stallions',
+        'flair_text': 'Stallions',
+    },
+    'ARI': {
+        'subreddit': 'ARZHotshots',
+        'flair_class': 'Hotshots',
+        'flair_text': 'Hotshots',
+    },
 }
+
+nfl_teams = {
+    'ARI': {
+        'flair_class': 'nfl-cardinals',
+        'flair_text': 'Cardinals',
+    },
+}
+
+subreddits = {key: v['subreddit'] for key, v in aaf_teams.items()}
+aaf_flair = {key: (t['flair_class'], t['flair_text']) for key, t in aaf_teams.items()}
+nfl_flair = {key: (t['flair_class'], t['flair_text']) for key, t in nfl_teams.items()}
+aaf_flair['AAF'] = ('aaf', 'AAF')
