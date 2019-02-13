@@ -58,7 +58,8 @@ def marker_replace(marker_start, marker_end, content, subject):
 
 def main():
     import sys
-    renderer = RenderHelper()
+    sr_name = sys.argv[1]
+    renderer = RenderHelper(sr_name)
     aaf = AAFClient('aaf_standings;reddit.com/r/aafb')
 
     standings = aaf.standings()
@@ -72,7 +73,7 @@ def main():
     r = Reddit('aaf_robot')
     ensure_scopes(r)
 
-    sub = r.subreddit(sys.argv[1])
+    sub = r.subreddit(sr_name)
     old_sidebar = sub.description
     new_sidebar = marker_replace('#### [](/blank "START schedule")', '#### [](/blank "END schedule")', schedule,
                                  old_sidebar)
