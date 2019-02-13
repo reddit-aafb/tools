@@ -22,7 +22,7 @@ class RenderHelper:
     def __init__(self, sr_name=None):
         template_dirs = ['templates/']
         if sr_name:
-            template_dirs.append('templates/%s' % sr_name)
+            template_dirs.insert(0, 'templates/%s' % sr_name)
         self.env = SandboxedEnvironment(loader=FileSystemLoader(template_dirs))
 
     def try_render(self, template_file, ctx):
@@ -35,7 +35,20 @@ class RenderHelper:
         template = self.env.get_template(template_file)
         return template.render(**ctx)
 
+
 def diff_strings(a, b, **kwargs):
     opts = {'fromfile': 'from', 'tofile': 'to'}
     opts.update(kwargs)
     return "\n".join(difflib.unified_diff(a.split("\n"), b.split("\n"), lineterm='', **opts))
+
+
+def passer_rating(attempts: int, completions: int, yards: int, tds: int, ints: int) -> float:
+    def clamp(v):
+        return max(min(v, 2.375), 0.0)
+
+    a = clamp(5 * ((completions / attempts) - 0.3))
+    b = clamp(0.25 * ((yards / attempts) - 3))
+    c = clamp(20 * (tds / attempts))
+    d = clamp(2.375 - ((ints / attempts) * 25))
+
+    return round(((a + b + c + d) / 6) * 100, 1)
