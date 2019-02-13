@@ -162,7 +162,7 @@ fragment gameTeamEdge on GameTeamEdge {
         status.phase()
         status.quarter()
 
-        players = games.nodes.players_connection(first=120)
+        players = games.nodes.players_connection(first=500)
         players.edges.team.abbreviation()
         players.edges.stats().__fields__('passes_completed', 'passes_attempted', 'passing_yards', 'passing_touchdowns',
                                    'passes_intercepted', 'rushes_attempted', 'rushing_yards', 'rushing_longest_gain',
@@ -173,7 +173,7 @@ fragment gameTeamEdge on GameTeamEdge {
         games.nodes.stadium().__fields__('name')
         games.nodes.stadium().address().__fields__('locality', 'administrative_area_abbreviation')
 
-        statuses = games.nodes.status_history_connection(last=500)
+        statuses = games.nodes.status_history_connection(last=2500)
         statuses.nodes.quarter()
         statuses.nodes.home_team_points()
         statuses.nodes.away_team_points()
