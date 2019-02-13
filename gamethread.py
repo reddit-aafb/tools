@@ -223,11 +223,11 @@ def test_render():
 
 
 def update(sr_name):
-    # Update all past threads according to the current template
+    # Update past week's threads according to the current template
     r = Reddit('aaf_gamethread')
     ensure_scopes(r)
     gt = AAFGameThread(r, sr_name, ",".join(subreddits.keys()))
-    gt.active_buffer = timedelta(days=180)
+    gt.active_buffer = timedelta(days=7)
     active_games = gt.active_games()
     gt.update_existing(active_games)
 
