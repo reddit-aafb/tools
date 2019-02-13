@@ -32,7 +32,7 @@
 ----
 
 * General information
-* 
+* {% if phase == 'COMPLETE' %}[Boxscore](https://noextrapoints.com/boxscores/{{ game.id }}){% endif %}
 
 ----
 
