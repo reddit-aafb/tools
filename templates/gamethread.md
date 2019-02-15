@@ -130,7 +130,7 @@
 | :-- |
 | Discuss whatever you wish. You can trash talk, but keep it civil. |
 | If you are experiencing problems with comment sorting in the official reddit app, we suggest using a third-party client instead ([Android](/r/Android/comments/7ctdf4/lets_settle_this_randroid_what_is_the_best_reddit/), [iOS](/r/ios/comments/68odw1/what_is_the_best_reddit_app_for_ios/)) |
-| Check out our game coverage on [@redditAAF](https://twitter.com/redditaaf)
+| Check out our game coverage on [@redditAAF](https://twitter.com/redditaaf) |
 {%- if thread %}
 | Turning comment sort to ['new']({{ thread.permalink }}?sort=new) will help you see the newest comments. |
 {%- endif %}
