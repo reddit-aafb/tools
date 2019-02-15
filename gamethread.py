@@ -95,8 +95,6 @@ class GameThreadRenderer(RenderHelper):
         performers_away = build_stats(filter(lambda p: p.team.abbreviation == game.away_team.abbreviation, players))
         ctx = dict(game=game,
                    box_score=make_box_score(game.status_history_connection.nodes),
-                   away_sr=subreddits[game.away_team.abbreviation],
-                   home_sr=subreddits[game.home_team.abbreviation],
                    performers=(performers_home, performers_away)
                    )
         ctx.update(kwargs)

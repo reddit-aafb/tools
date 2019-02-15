@@ -1,7 +1,7 @@
 {% set home = game.home_team %}
 {% set away = game.away_team %}
 
-[{{away.name}}](/r/{{away_sr}}#away) [at](#at) [{{home.name}}](/r/{{home_sr}}#home)
+[{{away.name}}](/r/{{away|team_sr}}#away) [at](#at) [{{home.name}}](/r/{{away|team_sr}}#home)
 
 ----
 
@@ -55,11 +55,11 @@
 | | |
 | :-- | --: |
 | **Headlines** | **Communities** |
-| [{{ headlines.home[0].title }}]({{ headlines.home[0].url }}) | /r/{{home_sr}} |
+| [{{ headlines.home[0].title }}]({{ headlines.home[0].url }}) | /r/{{home|team_sr}} |
 {% if headlines.home[0].url != headlines.away[0].url %}
-| [{{ headlines.away[0].title}}]({{ headlines.away[0].url }}) | /r/{{away_sr}} |
+| [{{ headlines.away[0].title}}]({{ headlines.away[0].url }}) | /r/{{away|team_sr}} |
 {% else %}
-| [{{ headlines.away[1].title }}]({{ headlines.away[1].url }}) | /r/{{away_sr}} |
+| [{{ headlines.away[1].title }}]({{ headlines.away[1].url }}) | /r/{{away|team_sr}} |
 {% endif %}
 |  |  |
 {% endif %}
@@ -80,24 +80,24 @@
 | :-- | :-- | :-- | :-- | :-- | :-- |
 | **Passing** |  | **Cmp/Att** | **Yds** | **Tds** | **Ints** |
 {% for p in pa['passing'][:1] -%}
-| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
 {% endfor -%}
 {% for p in ph['passing'][:1] -%}
-| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
 {% endfor -%}
 | **Rushing** |  | **Car** | **Yds** | **Lng** | **Tds** |
 {% for p in pa['rushing'][:1] -%}
-| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
 {% endfor -%}
 {% for p in ph['rushing'][:1] -%}
-| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
 {% endfor -%}
 | **Receiving** |  | **Rec** | **Yds** | **Lng** | **Tds** |
 {% for p in pa['receiving'][:2] -%}
-| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
 {% endfor -%}
 {% for p in ph['receiving'][:2] -%}
-| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
+| {{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
 {% endfor -%}
 
 
@@ -130,6 +130,7 @@
 | :-- |
 | Discuss whatever you wish. You can trash talk, but keep it civil. |
 | If you are experiencing problems with comment sorting in the official reddit app, we suggest using a third-party client instead ([Android](/r/Android/comments/7ctdf4/lets_settle_this_randroid_what_is_the_best_reddit/), [iOS](/r/ios/comments/68odw1/what_is_the_best_reddit_app_for_ios/)) |
+| Check out our game coverage on [@redditAAF](https://twitter.com/redditaaf)
 {%- if thread %}
 | Turning comment sort to ['new']({{ thread.permalink }}?sort=new) will help you see the newest comments. |
 {%- endif %}
@@ -137,7 +138,5 @@
 {%- if thread %}
 | Use [reddit-stream.com](http://reddit-stream.com/comments/{{ thread.id }}) to get an autorefreshing version of this page |
 {%- endif %}
-{#-
-| Check in on the r/nfl chat: **#reddit-nfl** on FreeNode ([open in browser](http://webchat.freenode.net/?channels=reddit-nfl)). |
-#}
+| Check in on the r/nfl chat: **##reddit-aaf** on FreeNode ([open in browser](http://webchat.freenode.net/?channels=%23%23reddit-aaf)). |
 | Show your team affiliation - pick your team's logo in the sidebar. |
