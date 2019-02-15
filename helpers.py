@@ -14,16 +14,20 @@
 import difflib
 import traceback
 
+import pendulum
 from jinja2 import FileSystemLoader
 from jinja2.sandbox import SandboxedEnvironment
+
+from redditdata import subreddits
 
 
 class RenderHelper:
     def __init__(self, sr_name=None):
         template_dirs = ['templates/']
         if sr_name:
-            template_dirs.insert(0, 'templates/%s' % sr_name)
+            template_dirs.insert(0, 'templates/%s' % sr_name.lower())
         self.env = SandboxedEnvironment(loader=FileSystemLoader(template_dirs))
+        self.load_filters()
 
     def try_render(self, template_file, ctx):
         try:
@@ -34,6 +38,33 @@ class RenderHelper:
     def render(self, template_file, ctx):
         template = self.env.get_template(template_file)
         return template.render(**ctx)
+
+    def load_filters(self):
+        self.env.filters['team_sr'] = team_sr
+        self.env.filters['format_date'] = format_date
+        self.env.filters['short_channel'] = short_channel
+
+
+def team_sr(team):
+    if team in subreddits:
+        return subreddits[team]
+    if hasattr(team, 'abbreviation'):
+        return team_sr(team.abbreviation)
+    return 'aafb'
+
+
+def format_date(datetime, format, tz='US/Eastern'):
+    return pendulum.instance(datetime).in_timezone(tz).format(format)
+
+
+def short_channel(channel):
+    channels = {
+        'NFL Network': 'NFLN',
+        'CBS Sports Network': 'CBS SN',
+        'B/R Live': 'B/R',
+        'TNT': 'TNT',
+    }
+    return channels.get(channel, channel)
 
 
 def diff_strings(a, b, **kwargs):

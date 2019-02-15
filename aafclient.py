@@ -31,7 +31,7 @@ class AAFClient:
     def schedule(self, for_week=None):
         op = Operation(schema.Query)
         season = op.seasons_connection(last=1)
-        season.nodes.named_time_ranges_connection(last=25).nodes.__fields__('id', 'name', 'time',
+        season.nodes.named_time_ranges_connection(last=25).nodes.__fields__('id', 'name', 'time', 'subseason',
                                                                             'duration_milliseconds')
         games = season.nodes.games_connection(last=80)
         games.nodes.time()
@@ -39,6 +39,7 @@ class AAFClient:
         games.nodes.home_team().__fields__('abbreviation', 'name', 'region_name', 'nickname')
         games.nodes.away_team().__fields__('abbreviation', 'name', 'region_name', 'nickname')
         games.nodes.status().__fields__('home_team_points', 'away_team_points', 'phase')
+        games.nodes.availability().short_name()
         result = self._execute(op)
 
         weeks = {}

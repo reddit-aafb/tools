@@ -3,5 +3,7 @@
 | Time | Away |   |  @  |   | Home |
 |:-----|:----:|--:|:---:|:--|:----:|
 {%- for game in games %}
-| {{ game.time_eastern.format('ddd h:mmA') }} | [*{{game.away_team.abbreviation}}*](/r/{{game.away_team.sr}}) | {% if game.status.phase == 'COMPLETE' and game.away_points > game.home_points %}**{{game.away_points}}**{% else %}{{game.away_points}}{% endif %} | @ | {% if game.status.phase == 'COMPLETE' and game.home_points > game.away_points %}**{{game.home_points}}**{% else %}{{game.home_points}}{% endif %} | [*{{game.home_team.abbreviation}}*](/r/{{game.home_team.sr}}) |
+{% set hs = game.status.home_team_points if game.status else 0 -%}
+{% set as = game.status.away_team_points if game.status else 0 -%}
+| {{ game.time|format_date('ddd h:mmA', tz=tz) }} | [*{{game.away_team.abbreviation}}*](/r/{{game.away_team|team_sr}}) | {% if game.status.phase == 'COMPLETE' and as > hs %}**{{as}}**{% else %}{{as}}{% endif %} | @ | {% if game.status.phase == 'COMPLETE' and hs > as %}**{{hs}}**{% else %}{{hs}}{% endif %} | [*{{game.home_team.abbreviation}}*](/r/{{game.home_team|team_sr}}) |
 {%- endfor -%}

@@ -1,5 +1,4 @@
 # Standings
-
 {% for division, teams in divisions.items() %}
 ## {{ division.name }}
 
@@ -11,6 +10,6 @@
 {%- else -%}
 {%- set pct=0 -%}
 {%- endif -%}
-| [{{ team.nickname }}](/r/{{team.subreddit}}) | {{ team.stats.games_won }} | {{ team.stats.games_lost }} | {{ "%0.3f"|format(pct) }} |
+| [{{ team.nickname }}](/r/{{team|team_sr}}) | {{ team.stats.games_won }} | {{ team.stats.games_lost }} | {{ "%0.3f"|format(pct) }} |
 {% endfor -%}
 {%- endfor -%}

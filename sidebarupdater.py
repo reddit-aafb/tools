@@ -25,18 +25,12 @@ from redditdata import subreddits
 from reddittoken import ensure_scopes
 
 
-def make_schedule_ctx(week, games):
+def make_schedule_ctx(week, week_games, all_weeks):
     ctx = {
         'week': week,
-        'games': [],
+        'games': week_games,
+        'all_weeks': all_weeks,
     }
-    for game in games:
-        game.time_eastern = pendulum.instance(game.time).in_timezone("US/Eastern")
-        game.home_team.sr = subreddits[game.home_team.abbreviation]
-        game.away_team.sr = subreddits[game.away_team.abbreviation]
-        game.home_points = game.status.home_team_points if game.status else 0
-        game.away_points = game.status.away_team_points if game.status else 0
-        ctx['games'].append(game)
     return ctx
 
 def make_standings_ctx(divisions):
@@ -47,7 +41,6 @@ def make_standings_ctx(divisions):
         ctx['divisions'][division] = []
         for team in teams:
             team.stats = team.seasons_connection.edges[0].stats
-            team.subreddit = subreddits[team.abbreviation]
             ctx['divisions'][division].append(team)
     return ctx
 
@@ -67,7 +60,8 @@ def main():
     standings = renderer.render('standings.md', ctx)
 
     week, games = aaf.schedule(for_week=pendulum.now())
-    ctx = make_schedule_ctx(week, games)
+    all_weeks = aaf.schedule()
+    ctx = make_schedule_ctx(week, games, all_weeks)
     schedule = renderer.render('schedule.md', ctx)
 
     r = Reddit('aaf_robot')
