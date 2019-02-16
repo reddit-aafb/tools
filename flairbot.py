@@ -14,7 +14,8 @@
 import re
 import sys
 import traceback
-from typing import Tuple
+from pathlib import Path
+from typing import Tuple, List
 
 from praw import Reddit
 from praw.exceptions import ClientException
@@ -24,25 +25,55 @@ from helpers import RenderHelper, diff_strings, parent_parser
 from redditdata import aaf_flair, nfl_flair, aaf_teams
 from reddittoken import ensure_scopes
 
-APPLICATION_SCOPES = "read,modflair,privatemessages,flair,wikiread,wikiedit"
+APPLICATION_SCOPES = "read,modflair,privatemessages,flair,wikiread,wikiedit,structuredstyles"
 
 
-def determine_flair(aaf: str, nfl: str) -> Tuple[str, str]:
+def determine_flair(aaf: str, nfl: str) -> Tuple[str, str, List[str]]:
     flair_string = []
     flair_classes = []
+    flair_emojis = []
 
     if aaf not in aaf_flair:
         raise Exception("Unknonwn AAF flair: %s" % aaf)
-    css, text = aaf_flair[aaf]
+    css, text, emoji = aaf_flair[aaf]
     flair_string.append(text)
     flair_classes.append(css)
+    flair_emojis.append(emoji)
 
     if nfl and nfl in nfl_flair:
-        css, text = nfl_flair[nfl]
+        css, text, emoji = nfl_flair[nfl]
         flair_string.append(text)
         flair_classes.append(css)
+        flair_emojis.append(emoji)
 
-    return " / ".join(flair_string), " ".join(flair_classes)
+    return " / ".join(flair_string), " ".join(flair_classes), flair_emojis
+
+
+def create_template(sub: Subreddit, text: str, css_class: str, emojis: List[str], mod_only: bool = True) -> str:
+    """
+    Create a flair template that fullfills the following criteria:
+    * Only shows text on old reddit (no emoji)
+    * Shows emoji + Text on new reddit
+
+    :param sub: The subreddit to work on
+    :param text: (Plain) Text for the flair
+    :param css_class: CSS class
+    :param emojis: Emojis to add in front
+    :param mod_only: Whether to make the template mod_only (Default: True)
+    :return: The id of the created template
+    """
+    templates_before = [template['id'] for template in sub.flair.templates]
+    # First we create an old-style template
+    x = sub.flair.templates.add(text=text, css_class=css_class)
+    new_template = list(filter(lambda t: t['id'] not in templates_before, sub.flair.templates))[0]
+    # Then we update the text with the emojis in it on the new flair endpoint. This seems to be preferable.
+    if emojis:
+        # Prepend any emojis
+        text = ":" + ("::".join(emojis)) + ": " + text
+    sub.flair.templates.update(new_template['id'], mod_only=mod_only, text_editable=False,
+                               background_color='transparent', text=text)
+    new_template = list(filter(lambda t: t['id'] not in templates_before, sub.flair.templates))[0]
+    return new_template['id']
 
 
 def assignflair(r: Reddit, sub: Subreddit, dry_run: bool) -> None:
@@ -54,11 +85,17 @@ def assignflair(r: Reddit, sub: Subreddit, dry_run: bool) -> None:
             if not subject.startswith("Flair "):
                 print("Ignoring and marking as read: %s" % subject)
                 messages.append(message)
-            elif subject == "Flair " + sub.display_name:
+            elif subject.lower() == "flair " + sub.display_name.lower():
                 m = re.match(r"^aaf:(?P<aaf>[A-Z]{2,3})( nfl:(?P<nfl>[A-Z]{2,3}))?", body.split("\n")[0])
                 if m:
-                    flair_str, flair_css = determine_flair(m.group('aaf'), m.group('nfl'))
-                    print("Assign text=<%s>, classes=<%s> to %s" % (flair_str, flair_css, message.author))
+                    flair_str, flair_css, emojis = determine_flair(m.group('aaf'), m.group('nfl'))
+                    print("Assign text=<%s>, classes=<%s>, emoji=<%r> to %s" % (
+                    flair_str, flair_css, emojis, message.author))
+                    if not dry_run:
+                        template_id = create_template(sub, flair_str, flair_css, emojis)
+                        sub.flair.set(message.author, flair_template_id=template_id)
+                        # Maybe we should save it for later
+                        sub.flair.templates.delete(template_id)
                 else:
                     print("Body <%s> from %s doesn't match" % (body, message.author))
                 messages.append(message)
@@ -99,11 +136,34 @@ def updatestats(sub: Subreddit, dry_run: bool) -> None:
             page.edit(rdr, reason="Updated flair stats  ")
 
 
+def reset_flair(sub: Subreddit, aaf_folder: Path, nfl_folder: Path, dry_run: bool) -> None:
+    print("Deleting all templates")
+    if not dry_run:
+        sub.flair.templates.clear()
+    for emoji in sub.emoji:
+        print("Delete emoji %s" % emoji)
+        if not dry_run:
+            emoji.delete()
+    for flair_class, (flair_class, flair_text, emoji) in aaf_flair.items():
+        logo = aaf_folder / (flair_text + ".png")
+        print("Upload %s as :%s:" % (logo, emoji))
+        print("Create template class=<%s>, text=<%s>, emojis=<%s>" % (flair_class, flair_text, emoji))
+        if not dry_run:
+            sub.emoji.add(emoji, str(logo))
+            create_template(sub, flair_text, flair_class, [emoji], False)
+    for flair_class, (flair_class, flair_text, emoji) in nfl_flair.items():
+        logo = nfl_folder / (flair_text + ".png")
+        print("Upload %s as :%s:" % (logo, emoji))
+        if not dry_run:
+            sub.emoji.add(emoji, str(logo))
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Flair swiss army knife", parents=[parent_parser])
     parser.add_argument('sr_name', help="Name of subreddit to run on")
-    parser.add_argument('cmd', help="Command to run", choices=['assignflair', 'updatestats'])
+    parser.add_argument('cmd', help="Command to run",
+                        choices=[f.__name__ for f in (assignflair, updatestats, reset_flair)])
     args = parser.parse_args()
 
     sr_name = args.sr_name
@@ -120,16 +180,14 @@ def main():
 
     ensure_scopes(r, scopes=APPLICATION_SCOPES)
 
-    # r.inbox.message('fdvvse').mark_unread()
-    r.inbox.message('fdx6vp').mark_unread()
-    # r.inbox.message('fdxnek').mark_unread()
-
     sub = r.subreddit(sr_name)
 
-    if action == 'assignflair':
+    if action == assignflair.__name__:
         assignflair(r, sub, args.dry_run)
-    elif action == 'updatestats':
+    elif action == updatestats.__name__:
         updatestats(sub, args.dry_run)
+    elif action == reset_flair.__name__:
+        reset_flair(sub, Path('aaf'), Path('nfl'), args.dry_run)
 
 
 if __name__ == '__main__':
