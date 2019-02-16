@@ -162,6 +162,8 @@ fragment gameTeamEdge on GameTeamEdge {
         status.away_team_points()
         status.phase()
         status.quarter()
+        status.away_team_points_by_quarter()
+        status.home_team_points_by_quarter()
 
         players = games.nodes.players_connection(first=500)
         players.edges.team.abbreviation()
@@ -173,11 +175,6 @@ fragment gameTeamEdge on GameTeamEdge {
 
         games.nodes.stadium().__fields__('name')
         games.nodes.stadium().address().__fields__('locality', 'administrative_area_abbreviation')
-
-        statuses = games.nodes.status_history_connection(last=2500)
-        statuses.nodes.quarter()
-        statuses.nodes.home_team_points()
-        statuses.nodes.away_team_points()
 
         result = self._execute(op)
         if hasattr(result, 'games_connection'):
@@ -215,7 +212,7 @@ fragment gameTeamEdge on GameTeamEdge {
         def standings_key(team):
             stats = team.seasons_connection.edges[0].stats
             pct = 1 - (stats.games_won / stats.games_played if stats.games_played != 0 else 0.0)
-            return [pct, -stats.games_played, team.region_name]
+            return [pct, -stats.games_won, -stats.games_played, team.region_name]
         for div in standings:
             standings[div] = sorted(standings[div], key=standings_key)
         return standings

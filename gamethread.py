@@ -30,8 +30,6 @@ from reddittoken import ensure_scopes
 
 GameThreadGame = recordclass('GameThreadGame', ['game_id', 'time', 'threads', 'archived'])
 
-assert GamePhase.__choices__[0] == 'COMPLETE'
-
 
 def now():
     return pendulum.now()
@@ -41,35 +39,6 @@ def filters(fs, seq):
     for f in fs:
         seq = filter(f, seq)
     return seq
-
-
-def squash_boxscore(quarters):
-    home_acc = 0
-    away_acc = 0
-    result = {
-        1: {'home': 0, 'away': 0},
-        2: {'home': 0, 'away': 0},
-        3: {'home': 0, 'away': 0},
-        4: {'home': 0, 'away': 0},
-    }
-    for q in quarters:
-        result[q] = {}
-        hp = quarters[q]['home'] - home_acc
-        ap = quarters[q]['away'] - away_acc
-        result[q]['home'] = hp
-        result[q]['away'] = ap
-        home_acc += hp
-        away_acc += ap
-    return result
-
-def make_box_score(statuses):
-    quarters = {}
-    for status in statuses:
-        if status.quarter == 0:
-            continue
-        quarters[status.quarter] = {'home': status.home_team_points, 'away': status.away_team_points}
-
-    return squash_boxscore(quarters)
 
 
 def build_stats(players):
@@ -94,7 +63,6 @@ class GameThreadRenderer(RenderHelper):
         performers_home = build_stats(filter(lambda p: p.team.abbreviation == game.home_team.abbreviation, players))
         performers_away = build_stats(filter(lambda p: p.team.abbreviation == game.away_team.abbreviation, players))
         ctx = dict(game=game,
-                   box_score=make_box_score(game.status_history_connection.nodes),
                    performers=(performers_home, performers_away)
                    )
         ctx.update(kwargs)

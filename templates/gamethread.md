@@ -10,10 +10,11 @@
 
 ----
 
-{% set ot = boxscore|length > 5 %}
+{% set ot = game.status.home_team_points_by_quarter|length > 4 %}
 {% set q = game.status.quarter %}
 {% set phase = game.status.phase %}
-
+{% set home_quarters = game.status.home_team_points_by_quarter %}
+{% set away_quarters = game.status.away_team_points_by_quarter %}
 {% if game.clock.seconds %}
 {% set s = game.clock.seconds %}
 {% set gameclock_minutes = s / 60|int %}
@@ -26,8 +27,8 @@
 | | | | | | |{% if ot %} |{% endif %}
 | :-- | :-- | :-- | :-- | :-- |  :-- |{% if ot %} :--|{% endif %}
 |      |**{% if q == 1 %}{{ gameclock }}{% else %}First{% endif %}**|**{% if q == 2 %}{{ gameclock }}{% else %}Second{% endif %}**|**{% if q == 3 %}{{ gameclock }}{% else %}Third{% endif %}**|**{% if q == 4 %}{{ gameclock }}{% else %}Fourth{% endif %}**{% if ot %}|**{% if q == 5 %}{{ gameclock }}{% else %}OT{% endif %}**{% endif %}| {% if phase == 'COMPLETE' %}**Final**{% elif phase != 'PLAYING' %}**{{ phase|title }}**{% endif %} |
-|**{{ away.nickname }}**| {{ box_score[1]['away'] }} | {{ box_score[2]['away'] }} | {{ box_score[3]['away'] }} | {{ box_score[4]['away'] }}{% if ot %} | {{ box_score[5]['away'] }}{% endif %} | {{ game.status.away_team_points }} |
-|**{{ home.nickname }}**| {{ box_score[1]['home'] }} | {{ box_score[2]['home'] }} | {{ box_score[3]['home'] }} | {{ box_score[4]['home'] }}{% if ot %} | {{ box_score[5]['home'] }}{% endif %} | {{ game.status.home_team_points }} |
+|**{{ away.nickname }}**| {{ away_quarters[0] }} | {{ away_quarters[1] }} | {{ away_quarters[2] }} | {{ away_quarters[3] }}{% if ot %} | {{ away_quarters[4] }}{% endif %} | {{ game.status.away_team_points }} |
+|**{{ home.nickname }}**| {{ home_quarters[0] }} | {{ home_quarters[1] }} | {{ home_quarters[2] }} | {{ home_quarters[3] }}{% if ot %} | {{ home_quarters[4] }}{% endif %} | {{ game.status.home_team_points }} |
 
 ----
 
