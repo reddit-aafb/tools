@@ -28,11 +28,9 @@ class RenderHelper:
     def __init__(self, sr_name: str = None, base_dir: Path = None) -> None:
         if base_dir is None:
             base_dir = Path(os.path.dirname(os.path.realpath(__file__)))
-        print(base_dir)
         template_dirs = [base_dir / 'templates/']
         if sr_name:
             template_dirs.insert(0, base_dir / 'templates' / sr_name.lower())
-        print(repr(template_dirs))
         self.env = SandboxedEnvironment(loader=FileSystemLoader(template_dirs))
         self.load_filters()
 
