@@ -1,5 +1,16 @@
-# Schedule
-{%- set ourteam='SD' -%}
+{%- set tz= 'US/Eastern' -%}
+# {{ week.name }}
+
+| Time | Away |   |  @  |   | Home |
+|:-----|:----:|--:|:---:|:--|:----:|
+{%- for game in games %}
+{% set hs = game.status.home_team_points if game.status else 0 -%}
+{% set as = game.status.away_team_points if game.status else 0 -%}
+| {{ game.time|format_date('ddd h:mmA', tz=tz) }} | [*{{game.away_team.abbreviation}}*](/r/{{game.away_team|team_sr}}) | {% if game.status.phase == 'COMPLETE' and as > hs %}**{{as}}**{% else %}{{as}}{% endif %} | @ | {% if game.status.phase == 'COMPLETE' and hs > as %}**{{hs}}**{% else %}{{hs}}{% endif %} | [*{{game.home_team.abbreviation}}*](/r/{{game.home_team|team_sr}}) |
+{%- endfor %}
+
+# Iron Schedule
+{%- set ourteam='BIR' -%}
 {%- set tz= 'US/Eastern' -%}
 {%- set includepost=False -%}
 
@@ -30,3 +41,5 @@
 | {{ week_no }} | {{ game.time|format_date('ddd MMM D', tz=tz) }} | {% if awaygame %}@[*{{ game.home_team.abbreviation }}*](/r/{{ game.home_team|team_sr }}){% else %}[*{{ game.away_team.abbreviation }}*](/r/{{ game.away_team|team_sr }}){% endif %} | {% if game.status and game.status.phase == 'COMPLETE' %}**{% if game.status.home_team_points == game.status.away_team_points %}T{% else %}{{ 'W' if (awaygame and game.status.away_team_points > game.status.home_team_points) or (not away and game.status.home_team_points > game.status.away_team_points) else 'L' }}{% endif %}** | {{ game.status.home_team_points }} - {{ game.status.away_team_points }}{% else %}{{ game.time|format_date('h', tz=tz) }} | {{ game.availability[0].short_name|short_channel }}{% endif %} |
     {%- endfor -%}
 {% endfor -%}
+
+{# {{ all_weeks|pprint }} #}

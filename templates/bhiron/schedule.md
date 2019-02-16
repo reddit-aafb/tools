@@ -1,5 +1,5 @@
 # Schedule
-{%- set ourteam='SD' -%}
+{%- set ourteam='BIR' -%}
 {%- set tz= 'US/Eastern' -%}
 {%- set includepost=False -%}
 
