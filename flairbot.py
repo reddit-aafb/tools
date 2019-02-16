@@ -112,7 +112,7 @@ def updatestats(sub: Subreddit, dry_run: bool) -> None:
         team = f['flair_css_class'].replace('official', '').strip()
         if team == 'aafb':
             # This is hardcoded because it doesn't belong in the teams list... grr
-            team = {'subreddit': 'aafb', 'flair_class': 'aafb', 'flair_text': 'AAF'}
+            team = {'subreddit': 'aafb', 'flair_class': 'aafb', 'flair_text': 'AAF', 'flair_emoji': 'AAF'}
         else:
             team = list(filter(lambda v: v[1]['flair_class'] == team, aaf_teams.items()))
             team = team[0][1] if len(team) > 0 else None
