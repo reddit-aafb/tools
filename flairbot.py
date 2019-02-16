@@ -12,16 +12,19 @@
 #  OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 #  CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 import re
+import sys
 import traceback
 from typing import Tuple
 
-import pendulum
 from praw import Reddit
+from praw.exceptions import ClientException
 from praw.models import Subreddit
 
-from helpers import RenderHelper, diff_strings
+from helpers import RenderHelper, diff_strings, parent_parser
 from redditdata import aaf_flair, nfl_flair, aaf_teams
 from reddittoken import ensure_scopes
+
+APPLICATION_SCOPES = "read,modflair,privatemessages,flair,wikiread,wikiedit"
 
 
 def determine_flair(aaf: str, nfl: str) -> Tuple[str, str]:
@@ -42,7 +45,7 @@ def determine_flair(aaf: str, nfl: str) -> Tuple[str, str]:
     return " / ".join(flair_string), " ".join(flair_classes)
 
 
-def assignflair(r: Reddit, sub: Subreddit) -> None:
+def assignflair(r: Reddit, sub: Subreddit, dry_run: bool) -> None:
     messages = []
     for message in r.inbox.unread(limit=None):
         try:
@@ -63,10 +66,11 @@ def assignflair(r: Reddit, sub: Subreddit) -> None:
                 print("Ignoring: %s" % subject)
         except Exception:
             traceback.print_exc()
-    r.inbox.mark_read(messages)
+    if not dry_run:
+        r.inbox.mark_read(messages)
 
 
-def updatestats(sub: Subreddit) -> None:
+def updatestats(sub: Subreddit, dry_run: bool) -> None:
     stats = {}
     for f in sub.flair(limit=None):
         team = f['flair_css_class'].replace('official', '').strip()
@@ -91,16 +95,30 @@ def updatestats(sub: Subreddit) -> None:
     if page.content_md != rdr:
         print("Updating page")
         print(diff_strings(page.content_md, rdr))
-        page.edit(rdr, reason="Updated flair stats  ")
+        if not dry_run:
+            page.edit(rdr, reason="Updated flair stats  ")
 
 
 def main():
-    import sys
-    sr_name = sys.argv[1]
-    action = sys.argv[2]
+    import argparse
+    parser = argparse.ArgumentParser(description="Flair swiss army knife", parents=[parent_parser])
+    parser.add_argument('sr_name', help="Name of subreddit to run on")
+    parser.add_argument('cmd', help="Command to run", choices=['assignflair', 'updatestats'])
+    args = parser.parse_args()
 
-    r = Reddit('aaf_robot')
-    ensure_scopes(r)
+    sr_name = args.sr_name
+    action = args.cmd
+
+    try:
+        r = Reddit(args.site)
+    except ClientException:
+        traceback.print_exc()
+        sys.stderr.write("\nOh dear, something broke. Most likely you need to pass the --site "
+                         "parameter or set the praw_site environment variable\n\n")
+        parser.print_help()
+        sys.exit(1)
+
+    ensure_scopes(r, scopes=APPLICATION_SCOPES)
 
     # r.inbox.message('fdvvse').mark_unread()
     r.inbox.message('fdx6vp').mark_unread()
@@ -109,9 +127,9 @@ def main():
     sub = r.subreddit(sr_name)
 
     if action == 'assignflair':
-        assignflair(r, sub)
+        assignflair(r, sub, args.dry_run)
     elif action == 'updatestats':
-        updatestats(sub)
+        updatestats(sub, args.dry_run)
 
 
 if __name__ == '__main__':

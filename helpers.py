@@ -11,6 +11,7 @@
 #  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
 #  OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 #  CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+import argparse
 import difflib
 import os
 import traceback
@@ -89,3 +90,9 @@ def passer_rating(attempts: int, completions: int, yards: int, tds: int, ints: i
     d = clamp(2.375 - ((ints / attempts) * 25))
 
     return round(((a + b + c + d) / 6) * 100, 1)
+
+
+parent_parser = argparse.ArgumentParser('Subreddit flair swiss army knife', add_help=False)
+parent_parser.add_argument('--site', help="Reddit 'site' (praw.ini section) to use")
+parent_parser.add_argument('--dry-run', action="store_true", help="Prevent any action on reddit being taken "
+                                                                  "(other side-effects are not prevented!)")
