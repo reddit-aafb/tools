@@ -66,7 +66,7 @@
 
 ----
 
-{% if performers %}
+{% if performers and game.status and game.status.phase != 'PREGAME' %}
 
 * Game Stats
 * 
@@ -138,5 +138,5 @@
 {%- if thread %}
 | Use [reddit-stream.com](http://reddit-stream.com/comments/{{ thread.id }}) to get an autorefreshing version of this page |
 {%- endif %}
-| Check in on the r/nfl chat: **##reddit-aaf** on FreeNode ([open in browser](http://webchat.freenode.net/?channels=%23%23reddit-aaf)). |
+| Check in on the r/aafb chat: **##reddit-aaf** on FreeNode ([open in browser](http://webchat.freenode.net/?channels=%23%23reddit-aaf)). |
 | Show your team affiliation - pick your team's logo in the sidebar. |
