@@ -1,3 +1,4 @@
+{%- set tz= 'US/Eastern' -%}
 # {{ week.name }}
 
 | Time | Away |   |  @  |   | Home |
