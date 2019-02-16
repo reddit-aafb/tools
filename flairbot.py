@@ -135,6 +135,15 @@ def updatestats(sub: Subreddit, dry_run: bool) -> None:
             page.edit(rdr, reason="Updated flair stats  ")
 
 
+def dump(sub: Subreddit):
+    import csv
+    writer = csv.DictWriter(sys.stdout, ['username', 'flair_text', 'flair_css_class'], extrasaction='ignore')
+    writer.writeheader()
+    for user in sub.flair():
+        user['username'] = user['user'].name
+        writer.writerow(user)
+
+
 def reset_flair(sub: Subreddit, aaf_folder: Path, nfl_folder: Path, dry_run: bool) -> None:
     print("Deleting all templates")
     if not dry_run:
@@ -162,7 +171,7 @@ def main():
     parser = argparse.ArgumentParser(description="Flair swiss army knife", parents=[parent_parser])
     parser.add_argument('sr_name', help="Name of subreddit to run on")
     parser.add_argument('cmd', help="Command to run",
-                        choices=[f.__name__ for f in (assignflair, updatestats, reset_flair)])
+                        choices=[f.__name__ for f in (assignflair, updatestats, reset_flair, dump)])
     args = parser.parse_args()
 
     sr_name = args.sr_name
@@ -187,6 +196,8 @@ def main():
         updatestats(sub, args.dry_run)
     elif action == reset_flair.__name__:
         reset_flair(sub, Path('aaf'), Path('nfl'), args.dry_run)
+    elif action == dump.__name__:
+        dump(sub)
 
 
 if __name__ == '__main__':
