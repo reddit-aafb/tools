@@ -1,7 +1,7 @@
 {% set home = game.home_team %}
 {% set away = game.away_team %}
 
-[{{away.name}}](/r/{{away|team_sr}}#away) [at](#at) [{{home.name}}](/r/{{away|team_sr}}#home)
+[{{away.name}}](/r/{{away|team_sr}}#away) [at](#at) [{{home.name}}](/r/{{home|team_sr}}#home)
 
 ----
 
