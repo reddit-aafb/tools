@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #  Copyright (c) 2019 by Jonas Häggqvist
 #
 #  Permission to use, copy, modify, and/or distribute this software for any
@@ -89,13 +90,11 @@ def assignflair(r: Reddit, sub: Subreddit, dry_run: bool) -> None:
                 m = re.match(r"^aaf:(?P<aaf>[A-Z]{2,3})( nfl:(?P<nfl>[A-Z]{2,3}))?", body.split("\n")[0])
                 if m:
                     flair_str, flair_css, emojis = determine_flair(m.group('aaf'), m.group('nfl'))
-                    print("Assign text=<%s>, classes=<%s>, emoji=<%r> to %s" % (
-                    flair_str, flair_css, emojis, message.author))
+                    print("Assign text=<%s>, classes=<%s>, emoji=<%r> to %s" %
+                          (flair_str, flair_css, emojis, message.author))
                     if not dry_run:
-                        template_id = create_template(sub, flair_str, flair_css, emojis)
-                        sub.flair.set(message.author, flair_template_id=template_id)
-                        # Maybe we should save it for later
-                        sub.flair.templates.delete(template_id)
+                        sub.flair.set(message.author, text=":" + ("::".join(emojis)) + ": " + flair_str,
+                                      css_class=flair_css)
                 else:
                     print("Body <%s> from %s doesn't match" % (body, message.author))
                 messages.append(message)
