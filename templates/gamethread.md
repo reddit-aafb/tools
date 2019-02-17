@@ -30,11 +30,24 @@
 {% endif %}
 [](/# "GT-PHASE-{{ phase }}")
 
+{% if phase == 'PREGAME' %}
+----
+
+* First snap
+* 
+
+| | | | | |
+|:--|:--|:--|:--|:--|
+| **{{ game.time|format_date('zz', tz='US/Eastern') }}** | **{{ game.time|format_date('zz', tz='US/Central') }}** | **{{ game.time|format_date('zz', tz='US/Mountain') }}** | **{{ game.time|format_date('zz', tz='US/Pacific') }}** | **{{ game.time|format_date('zz', tz='UTC') }}** |
+| {{ game.time|format_date('h:mmA', tz='US/Eastern') }} | {{ game.time|format_date('h:mmA', tz='US/Central') }} | {{ game.time|format_date('h:mmA', tz='US/Mountain') }} | {{ game.time|format_date('h:mmA', tz='US/Pacific') }} | {{ game.time|format_date('h:mmA', tz='UTC') }} |
+ 
+{% else %}
 | | | | | | |{% if ot %} |{% endif %}
 | :-- | :-- | :-- | :-- | :-- |  :-- |{% if ot %} :--|{% endif %}
 |      |**{% if q == 1 %}{{ gameclock }}{% else %}First{% endif %}**|**{% if q == 2 %}{{ gameclock }}{% else %}Second{% endif %}**|**{% if q == 3 %}{{ gameclock }}{% else %}Third{% endif %}**|**{% if q == 4 %}{{ gameclock }}{% else %}Fourth{% endif %}**{% if ot %}|**{% if q == 5 %}{{ gameclock }}{% else %}OT{% endif %}**{% endif %}| {% if phase == 'COMPLETE' %}**Final**{% elif phase != 'PLAYING' %}**{{ phase|title }}**{% endif %} |
 |**{{ away.nickname }}**| {{ away_quarters[0] }} | {{ away_quarters[1] }} | {{ away_quarters[2] }} | {{ away_quarters[3] }}{% if ot %} | {{ away_quarters[4] }}{% endif %} | {{ game.status.away_team_points }} |
 |**{{ home.nickname }}**| {{ home_quarters[0] }} | {{ home_quarters[1] }} | {{ home_quarters[2] }} | {{ home_quarters[3] }}{% if ot %} | {{ home_quarters[4] }}{% endif %} | {{ game.status.home_team_points }} |
+{% endif %}
 
 ----
 
