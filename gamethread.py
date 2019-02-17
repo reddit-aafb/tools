@@ -73,7 +73,7 @@ class GameThreadRenderer(RenderHelper):
 
 class AAFGameThread:
     active_buffer = timedelta(hours=8)
-    gamethread_buffer = timedelta(minutes=120)
+    gamethread_buffer = timedelta(minutes=60)
 
     def __init__(self, reddit_session, sr_name, teams):
         self.r = reddit_session
