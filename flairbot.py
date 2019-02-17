@@ -47,7 +47,7 @@ def determine_flair(aaf: str, nfl: str) -> Tuple[str, str, List[str]]:
         flair_classes.append(css)
         flair_emojis.append(emoji)
 
-    return " / ".join(flair_string), " ".join(flair_classes), flair_emojis
+    return " \u2022 ".join(flair_string), " ".join(flair_classes), flair_emojis
 
 
 def create_template(sub: Subreddit, text: str, css_class: str, emojis: List[str], mod_only: bool = True) -> str:
