@@ -66,7 +66,7 @@ class GameThreadRenderer(RenderHelper):
                    performers=(performers_home, performers_away)
                    )
         ctx.update(kwargs)
-        title = self.try_render(template + '_title.md', ctx)
+        title = self.try_render(template + '_title.md', ctx).replace("\n", " ").strip()
         body = self.try_render(template + '.md', ctx)
         return title, body
 

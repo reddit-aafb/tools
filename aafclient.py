@@ -150,12 +150,14 @@ fragment gameTeamEdge on GameTeamEdge {
         home_team.nickname()
         home_team.abbreviation()
         home_team.name()
+        home_team.seasons_connection(last=1).edges.stats().__fields__('games_won', 'games_lost')
 
         away_team = games.nodes.away_team()
         away_team.region_name()
         away_team.nickname()
         away_team.abbreviation()
         away_team.name()
+        away_team.seasons_connection(last=1).edges.stats().__fields__('games_won', 'games_lost')
 
         status = games.nodes.status()
         status.home_team_points()
