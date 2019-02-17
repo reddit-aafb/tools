@@ -12,9 +12,14 @@
 
 {% set ot = game.status.home_team_points_by_quarter|length > 4 %}
 {% set q = game.status.quarter %}
-{% set phase = game.status.phase %}
+{% set phase = game.status.phase if game.status and game.status.phase else 'PREGAME' %}
+{% if game.status and game.status.home_team_points_by_quarter %}
 {% set home_quarters = game.status.home_team_points_by_quarter %}
 {% set away_quarters = game.status.away_team_points_by_quarter %}
+{% else %}
+{% set home_quarters = ('','','','') %}
+{% set away_quarters = ('','','','') %}
+{% endif %}
 {% if game.clock.seconds %}
 {% set s = game.clock.seconds %}
 {% set gameclock_minutes = s / 60|int %}
@@ -23,6 +28,7 @@
 {% else %}
 {% set gameclock = "--:--" %}
 {% endif %}
+[](/# "GT-PHASE-{{ phase }}")
 
 | | | | | | |{% if ot %} |{% endif %}
 | :-- | :-- | :-- | :-- | :-- |  :-- |{% if ot %} :--|{% endif %}
