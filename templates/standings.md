@@ -1,4 +1,4 @@
-# Standings
+{% if not widget %}# Standings{%endif %}
 {% for division, teams in divisions.items() %}
 ## {{ division.name }}
 

@@ -17,6 +17,7 @@ import re
 
 import pendulum
 from praw import Reddit
+from praw.models import TextArea
 
 from aafclient import AAFClient
 from helpers import RenderHelper, diff_strings
@@ -54,13 +55,13 @@ def main():
     aaf = AAFClient('aaf_standings;reddit.com/r/%s' % sr_name)
 
     standings = aaf.standings()
-    ctx = make_standings_ctx(standings)
-    standings = renderer.render('standings.md', ctx)
+    standings_ctx = make_standings_ctx(standings)
+    standings = renderer.render('standings.md', standings_ctx)
 
     week, games = aaf.schedule(for_week=pendulum.now())
     all_weeks = aaf.schedule()
-    ctx = make_schedule_ctx(week, games, all_weeks)
-    schedule = renderer.render('schedule.md', ctx)
+    schedule_ctx = make_schedule_ctx(week, games, all_weeks)
+    schedule = renderer.render('schedule.md', schedule_ctx)
 
     r = Reddit('aaf_robot')
     ensure_scopes(r)
@@ -74,6 +75,19 @@ def main():
     if old_sidebar != new_sidebar:
         print(diff_strings(old_sidebar, new_sidebar, fromfile='old_sidebar_%s' % sub.display_name, tofile='new_sidebar_%s' % sub.display_name, n=0))
         sub.mod.update(description=new_sidebar)
+
+    for widget in sub.widgets.sidebar:
+        if not isinstance(widget, TextArea) or widget.shortName not in ('Standings', 'Schedule'):
+            continue
+        if widget.shortName == 'Standings':
+            new_text = renderer.render('standings.md', standings_ctx, widget=True)
+        elif widget.shortName == 'Schedule':
+            new_text = renderer.render('schedule.md', schedule_ctx, widget=True)
+        if widget.text != new_text:
+            widget_name = "%s_%s_widget" % (sub.display_name, widget.shortName)
+            print(diff_strings(widget.text, new_text, fromfile='old_%s' % widget_name, tofile='new_%s' % widget_name, n=3))
+            widget.mod.update(text=new_text)
+
 
 
 if __name__ == '__main__':

@@ -40,7 +40,8 @@ class RenderHelper:
         except Exception:
             traceback.print_exc()
 
-    def render(self, template_file, ctx):
+    def render(self, template_file, ctx, **kwargs):
+        ctx.update(kwargs)
         template = self.env.get_template(template_file)
         return template.render(**ctx)
 
