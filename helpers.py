@@ -18,6 +18,7 @@ import traceback
 from pathlib import Path
 
 import pendulum
+import yaml
 from jinja2 import FileSystemLoader
 from jinja2.sandbox import SandboxedEnvironment
 
@@ -89,6 +90,26 @@ def passer_rating(attempts: int, completions: int, yards: int, tds: int, ints: i
     d = clamp(2.375 - ((ints / attempts) * 25))
 
     return round(((a + b + c + d) / 6) * 100, 1)
+
+
+def dir_path_type(must_exist=True, create=False, mode=0o777):
+    def f(path):
+        p = Path(path)
+        if not p.is_dir():
+            if must_exist:
+                raise argparse.ArgumentError("Path %s does not exist" % path)
+            elif create:
+                try:
+                    p.mkdir(parents=True, mode=mode)
+                except Exception as e:
+                    raise argparse.ArgumentError("Could not create path %s" % path) from e
+        return p
+    return f
+
+
+def yaml_file_type(filename):
+    with open(filename) as fp:
+        return yaml.load(fp)
 
 
 parent_parser = argparse.ArgumentParser('Subreddit flair swiss army knife', add_help=False)
