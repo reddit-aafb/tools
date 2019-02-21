@@ -17,7 +17,6 @@ import re
 import sys
 import traceback
 from pathlib import Path
-from pprint import pprint
 from typing import Tuple, List, TextIO, Dict
 
 from praw import Reddit
@@ -90,10 +89,11 @@ def assignflair(r: Reddit, sub: Subreddit, dry_run: bool, flairconfig: Dict) -> 
         try:
             body = message.body
             subject = message.subject
-            if not subject.startswith("Flair "):
+            subject_start = "request flair /r/"
+            if not subject.lower().startswith(subject_start):
                 print("Ignoring and marking as read: %s" % subject)
                 messages.append(message)
-            elif subject.lower() == "Request flair /r/" + sub.display_name.lower():
+            elif subject.lower() == subject_start + sub.display_name.lower():
                 result = determine_flair(body, flairconfig)
                 if result is not None:
                     flair_str, flair_css = result
@@ -150,7 +150,7 @@ def dump(sub: Subreddit, outfile: TextIO):
         writer.writerow(user)
 
 
-def reset_flair(sub: Subreddit, aaf_folder: Path, nfl_folder: Path, dry_run: bool) -> None:
+def reset_flair(sub: Subreddit, flairconfig: Dict, emoji_dir: Path, dry_run: bool) -> None:
     print("Deleting all templates")
     if not dry_run:
         sub.flair.templates.clear()
@@ -158,18 +158,20 @@ def reset_flair(sub: Subreddit, aaf_folder: Path, nfl_folder: Path, dry_run: boo
         print("Delete emoji %s" % emoji)
         if not dry_run:
             emoji.delete()
-    for flair_class, (flair_class, flair_text, emoji) in aaf_flair.items():
-        logo = aaf_folder / (flair_text + ".png")
-        print("Upload %s as :%s:" % (logo, emoji))
-        print("Create template class=<%s>, text=<%s>, emojis=<%s>" % (flair_class, flair_text, emoji))
-        if not dry_run:
-            sub.emoji.add(emoji, str(logo))
-            create_template(sub, flair_text, flair_class, [emoji], False)
-    for flair_class, (flair_class, flair_text, emoji) in nfl_flair.items():
-        logo = nfl_folder / (flair_text + ".png")
-        print("Upload %s as :%s:" % (logo, emoji))
-        if not dry_run:
-            sub.emoji.add(emoji, str(logo))
+
+    for section, groups in flairconfig.items():
+        for group in groups.values():
+            for flair in group.values():
+                emoji_file = emoji_dir / (flair['emoji'] + ".png")
+                if not emoji_file.exists():
+                    raise Exception("File does not exist: %s" % emoji_file)
+                print("Upload %s as :%s:" % (emoji_file, flair['emoji']))
+                if not dry_run:
+                    sub.emoji.add(flair['emoji'], str(emoji_file))
+                if section == 'primary':
+                    print("Create template class=<{class}>, text=<{text}>, emojis=<{emoji}>".format(**flair))
+                    if not dry_run:
+                        create_template(sub, flair['text'], flair['class'], [flair['emoji']], False)
 
 
 def update_or_create(sub: Subreddit, page: WikiPage, new_content: str, dry_run):
@@ -215,8 +217,7 @@ def main():
     sp.add_parser(updatestats.__name__, help="Update stats and post to wiki")
     x = sp.add_parser(reset_flair.__name__, help="Reset flair templates for primary flair and upload emoji.",
                       description="All flair templates will be removed and created for primary flair.")
-    x.add_argument('primarydir', type=dir_path_type(), help="Directory containing images of primary flair")
-    x.add_argument('secondarydir', type=dir_path_type(), help="Directory containing images of secondary flair")
+    x.add_argument('emojidir', type=dir_path_type(), help="Directory containing emoji images")
 
     x = sp.add_parser(dump.__name__, help="Dump subreddit flair")
     x.add_argument('outfile', nargs='?', type=argparse.FileType('w', encoding="UTF-8"), default=sys.stdout)
@@ -247,7 +248,7 @@ def main():
     elif action == updatestats.__name__:
         updatestats(sub, args.dry_run)
     elif action == reset_flair.__name__:
-        reset_flair(sub, args.primarydir, args.secondarydir, args.dry_run)
+        reset_flair(sub, args.flairconfig, args.emojidir, args.dry_run)
     elif action == dump.__name__:
         dump(sub, args.outfile)
     elif action == wikipages.__name__:
