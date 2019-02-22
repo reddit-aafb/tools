@@ -25,7 +25,7 @@ from praw.models import Subreddit, WikiPage
 from prawcore import NotFound
 
 from helpers import RenderHelper, diff_strings, parent_parser, dir_path_type, yaml_file_type
-from redditdata import aaf_flair, nfl_flair, aaf_teams
+from redditdata import aaf_teams
 from reddittoken import ensure_scopes
 
 APPLICATION_SCOPES = "read,modflair,privatemessages,flair,wikiread,wikiedit,structuredstyles"
@@ -90,10 +90,7 @@ def assignflair(r: Reddit, sub: Subreddit, dry_run: bool, flairconfig: Dict) -> 
             body = message.body
             subject = message.subject
             subject_start = "request flair /r/"
-            if not subject.lower().startswith(subject_start):
-                print("Ignoring and marking as read: %s" % subject)
-                messages.append(message)
-            elif subject.lower() == subject_start + sub.display_name.lower():
+            if subject.lower() == subject_start + sub.display_name.lower():
                 result = determine_flair(body, flairconfig)
                 if result is not None:
                     flair_str, flair_css = result

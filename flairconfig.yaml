@@ -188,15 +188,15 @@ secondary:
       text: Lions
       emoji: CFL-Lions
     CGY:
-      class: cfl-Stampeders
+      class: cfl-stampeders
       text: Stampeders
       emoji: CFL-Stampeders
     EDM:
-      class: cfl-Eskimos
+      class: cfl-eskimos
       text: Eskimos
       emoji: CFL-Eskimos
     SSK:
-      class: cfl-Roughriders
+      class: cfl-roughriders
       text: Roughriders
       emoji: CFL-Roughriders
     WPG:
