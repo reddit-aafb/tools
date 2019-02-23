@@ -210,15 +210,62 @@ def wikipages(sub: Subreddit, flairconfig: Dict, wikiroot: str, dry_run: bool):
             update_or_create(sub, page, content, dry_run)
 
 
+def repair_flair(sub: Subreddit, flair_config: Dict, dry_run: bool):
+    valid_emojis = [emoji.name for emoji in sub.emoji]
+
+    for f in sub.flair(limit=None):
+        classes = f['flair_css_class'].lower().strip() if f['flair_css_class'] else None
+        if classes == 'aafb':
+            # Hardcoded mistake here
+            print("Replace %r with text=<:AAF: AAF>, class=<aaf>" % f)
+            if not dry_run:
+                sub.flair.set(f['user'], text=":AAF: AAF", css_class="aaf")
+            continue
+        if not classes or 'official' in classes or 'ranker' in classes:
+            print("Not touching %r" % f)
+            continue
+        primary = find_flair(classes, flair_config['primary'])
+        secondary = find_flair(classes, flair_config['secondary'])
+        if not primary:
+            print("Couldn't find primary for %r" % f)
+            continue
+        if len(classes.split(" ")) == 2 and secondary is None:
+            print("Two classes but couldn't find secondary for %r" % f)
+            continue
+        if len(classes.split(" ")) > 2:
+            print("More than two classes for %r" % f)
+            continue
+
+        flair_emojis = re.findall(":([^:]+):", f['flair_text'])
+        msg = "primary:%s-%s" % (primary[0], primary[1])
+        if secondary:
+            msg += " secondary:%s-%s" % (secondary[0], secondary[1])
+        real_text, real_class = determine_flair(msg, flair_config)
+        if not flair_emojis:
+            print("%r is missing emoji" % f)
+            print("Replace %r with text=<%s>, class=<%s>" % (f, real_text, real_class))
+            if not dry_run:
+                sub.flair.set(f['user'], text=real_text, css_class=real_class)
+            continue
+        for flair_emoji in flair_emojis:
+            if flair_emoji not in valid_emojis:
+                print("%r has invalid emoji %s" % (f, flair_emoji))
+                print("Replace %r with text=<%s>, class=<%s>" % (f, real_text, real_class))
+                if not dry_run:
+                    sub.flair.set(f['user'], text=real_text, css_class=real_class)
+                continue
+
+
 def main():
     parser = argparse.ArgumentParser(description="Flair swiss army knife", parents=[parent_parser])
     parser.add_argument('sr_name', help="Name of subreddit to run on")
     parser.add_argument('flairconfig', help='Config file detailing primary and secondary flair', type=yaml_file_type)
 
     sp = parser.add_subparsers(help="Sub-command help", dest='cmd')
+    sp.add_parser(repair_flair.__name__, help="Repair flair for users with broken flair")
 
-    x = sp.add_parser(assignflair.__name__, help="Assign flair according to inbox",
-                      description='Read inbox and assign flair to users')
+    sp.add_parser(assignflair.__name__, help="Assign flair according to inbox",
+                  description='Read inbox and assign flair to users')
     sp.add_parser(updatestats.__name__, help="Update stats and post to wiki")
     x = sp.add_parser(reset_flair.__name__, help="Reset flair templates for primary flair and upload emoji.",
                       description="All flair templates will be removed and created for primary flair.")
@@ -258,6 +305,8 @@ def main():
         dump(sub, args.outfile)
     elif action == wikipages.__name__:
         wikipages(sub, args.flairconfig, args.wikiroot, args.dry_run)
+    elif action == repair_flair.__name__:
+        repair_flair(sub, args.flairconfig, args.dry_run)
 
 
 if __name__ == '__main__':
