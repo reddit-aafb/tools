@@ -28,7 +28,7 @@
 {% else %}
 {% set gameclock = "--:--" %}
 {% endif %}
-[](/# "GT-PHASE-{{ phase }}")
+[](/# "GT-PHASE-{{ phase|lower }}")
 
 {% if phase == 'PREGAME' %}
 ----
