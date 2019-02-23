@@ -1,0 +1,205 @@
+primary:
+  aaf:
+    SD:
+      class: fleet
+      text: Fleet
+      emoji: Fleet
+    SA:
+      class: commanders
+      text: Commanders
+      emoji: Commanders
+    ATL:
+      class: legends
+      text: Legends
+      emoji: Legends
+    ORL:
+      class: apollos
+      text: Apollos
+      emoji: Apollos
+    MEM:
+      class: express
+      text: Express
+      emoji: Express
+    BIR:
+      class: iron
+      text: Iron
+      emoji: Iron
+    SL:
+      class: stallions
+      text: Stallions
+      emoji: Stallions
+    ARI:
+      class: hotshots
+      text: Hotshots
+      emoji: Hotshots
+    AAF:
+      class: aaf
+      text: AAF
+      emoji: AAF
+secondary:
+  nfl:
+    TB:
+      class: nfl-buccaneers
+      text: Buccaneers
+      emoji: NFL-Buccaneers
+    TEN:
+      class: nfl-titans
+      text: Titans
+      emoji: NFL-Titans
+    PHI:
+      class: nfl-eagles
+      text: Eagles
+      emoji: NFL-Eagles
+    DEN:
+      class: nfl-broncos
+      text: Broncos
+      emoji: NFL-Broncos
+    JAX:
+      class: nfl-jaguars
+      text: Jaguars
+      emoji: NFL-Jaguars
+    SEA:
+      class: nfl-seahawks
+      text: Seahawks
+      emoji: NFL-Seahawks
+    OAK:
+      class: nfl-raiders
+      text: Raiders
+      emoji: NFL-Raiders
+    ATL:
+      class: nfl-falcons
+      text: Falcons
+      emoji: NFL-Falcons
+    BUF:
+      class: nfl-bills
+      text: Bills
+      emoji: NFL-Bills
+    CAR:
+      class: nfl-panthers
+      text: Panthers
+      emoji: NFL-Panthers
+    DAL:
+      class: nfl-cowboys
+      text: Cowboys
+      emoji: NFL-Cowboys
+    DET:
+      class: nfl-lions
+      text: Lions
+      emoji: NFL-Lions
+    NYJ:
+      class: nfl-jets
+      text: Jets
+      emoji: NFL-Jets
+    IND:
+      class: nfl-colts
+      text: Colts
+      emoji: NFL-Colts
+    CLE:
+      class: nfl-browns
+      text: Browns
+      emoji: NFL-Browns
+    WAS:
+      class: nfl-redskins
+      text: Redskins
+      emoji: NFL-Redskins
+    BAL:
+      class: nfl-ravens
+      text: Ravens
+      emoji: NFL-Ravens
+    PIT:
+      class: nfl-steelers
+      text: Steelers
+      emoji: NFL-Steelers
+    MIA:
+      class: nfl-dolphins
+      text: Dolphins
+      emoji: NFL-Dolphins
+    CHI:
+      class: nfl-bears
+      text: Bears
+      emoji: NFL-Bears
+    ARI:
+      class: nfl-cardinals
+      text: Cardinals
+      emoji: NFL-Cardinals
+    'NO':
+      class: nfl-saints
+      text: Saints
+      emoji: NFL-Saints
+    HOU:
+      class: nfl-texans
+      text: Texans
+      emoji: NFL-Texans
+    LAC:
+      class: nfl-chargers
+      text: Chargers
+      emoji: NFL-Chargers
+    SF:
+      class: nfl-49ers
+      text: 49ers
+      emoji: NFL-49ers
+    GB:
+      class: nfl-packers
+      text: Packers
+      emoji: NFL-Packers
+    KC:
+      class: nfl-chiefs
+      text: Chiefs
+      emoji: NFL-Chiefs
+    NE:
+      class: nfl-patriots
+      text: Patriots
+      emoji: NFL-Patriots
+    MIN:
+      class: nfl-vikings
+      text: Vikings
+      emoji: NFL-Vikings
+    LA:
+      class: nfl-rams
+      text: Rams
+      emoji: NFL-Rams
+    NYG:
+      class: nfl-giants
+      text: Giants
+      emoji: NFL-Giants
+    CIN:
+      class: nfl-bengals
+      text: Bengals
+      emoji: NFL-Bengals
+  cfl:
+    HAM:
+      class: cfl-tigercats
+      text: Tiger-Cats
+      emoji: CFL-TigerCats
+    MTL:
+      class: cfl-alouettes
+      text: Alouettes
+      emoji: CFL-Alouettes
+    OTT:
+      class: cfl-redblacks
+      text: Redblacks
+      emoji: CFL-Redblacks
+    TOR:
+      class: cfl-argonauts
+      text: Argonauts
+      emoji: CFL-Argonauts
+    BC:
+      class: cfl-lions
+      text: Lions
+      emoji: CFL-Lions
+    CGY:
+      class: cfl-stampeders
+      text: Stampeders
+      emoji: CFL-Stampeders
+    EDM:
+      class: cfl-eskimos
+      text: Eskimos
+      emoji: CFL-Eskimos
+    SSK:
+      class: cfl-roughriders
+      text: Roughriders
+      emoji: CFL-Roughriders
+    WPG:
+      class: cfl-bluebombers
+      text: Blue Bombers
+      emoji: CFL-BlueBombers
