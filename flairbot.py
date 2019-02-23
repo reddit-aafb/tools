@@ -109,33 +109,41 @@ def assignflair(r: Reddit, sub: Subreddit, dry_run: bool, flairconfig: Dict) -> 
         r.inbox.mark_read(messages)
 
 
-def updatestats(sub: Subreddit, dry_run: bool) -> None:
+def find_flair(param: str, flair_config: Dict):
+    classes = param.split(" ")
+    for group, teams in flair_config.items():
+        for abbr, team in teams.items():
+            if team['class'] in classes:
+                return tuple([group, abbr] + list(team.values()))
+
+
+def updatestats(sub: Subreddit, flair_config: Dict, dry_run: bool) -> None:
     stats = {}
     for f in sub.flair(limit=None):
-        team = f['flair_css_class'].replace('official', '').strip()
-        if team == 'aafb':
-            # This is hardcoded because it doesn't belong in the teams list... grr
-            team = {'subreddit': 'aafb', 'flair_class': 'aafb', 'flair_text': 'AAF', 'flair_emoji': 'AAF'}
-        else:
-            team = list(filter(lambda v: v[1]['flair_class'] == team, aaf_teams.items()))
-            team = team[0][1] if len(team) > 0 else None
-        if team is None:
+        classes = f['flair_css_class'].lower().strip() if f['flair_css_class'] else None
+        if not classes:
             continue
-        team = tuple(team.values())
-        if team not in stats:
-            stats[team] = 0
-        stats[team] += 1
+        primary = find_flair(classes, flair_config['primary'])
+        secondary = find_flair(classes, flair_config['secondary'])
+
+        if primary is None:
+            continue
+
+        if primary not in stats:
+            stats[primary] = {'_total': 0}
+        stats[primary]['_total'] += 1
+
+        if secondary is not None:
+            if secondary not in stats[primary]:
+                stats[primary][secondary] = 0
+            stats[primary][secondary] += 1
 
     renderer = RenderHelper(sub.display_name)
     rdr = renderer.render('flair_stats.md', {'stats': stats})
 
     page = sub.wiki['/flair/stats']
 
-    if page.content_md != rdr:
-        print("Updating page")
-        print(diff_strings(page.content_md, rdr))
-        if not dry_run:
-            page.edit(rdr, reason="Updated flair stats")
+    update_or_create(sub, page, rdr, dry_run, edit_reason="Updated flair stats")
 
 
 def dump(sub: Subreddit, outfile: TextIO):
@@ -171,19 +179,19 @@ def reset_flair(sub: Subreddit, flairconfig: Dict, emoji_dir: Path, dry_run: boo
                         create_template(sub, flair['text'], flair['class'], [flair['emoji']], False)
 
 
-def update_or_create(sub: Subreddit, page: WikiPage, new_content: str, dry_run):
+def update_or_create(sub: Subreddit, page: WikiPage, new_content: str, dry_run, edit_reason='Automatic update'):
     try:
         if new_content != page.content_md:
             print(diff_strings(page.content_md, new_content))
             if not dry_run:
-                page.edit(new_content, reason='Automatic update')
+                page.edit(new_content, reason=edit_reason)
     except NotFound:
         name = page.name
         while name.startswith('/'):
             name = name[1:]
         print(diff_strings("", new_content))
         if not dry_run:
-            sub.wiki.create(name, new_content, reason='Automatic creation')
+            sub.wiki.create(name, new_content, reason=edit_reason)
 
 
 def wikipages(sub: Subreddit, flairconfig: Dict, wikiroot: str, dry_run: bool):
@@ -243,7 +251,7 @@ def main():
     if action == assignflair.__name__:
         assignflair(r, sub, args.dry_run, args.flairconfig)
     elif action == updatestats.__name__:
-        updatestats(sub, args.dry_run)
+        updatestats(sub, args.flairconfig, args.dry_run)
     elif action == reset_flair.__name__:
         reset_flair(sub, args.flairconfig, args.emojidir, args.dry_run)
     elif action == dump.__name__:
