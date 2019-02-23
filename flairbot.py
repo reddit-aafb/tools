@@ -25,7 +25,6 @@ from praw.models import Subreddit, WikiPage
 from prawcore import NotFound
 
 from helpers import RenderHelper, diff_strings, parent_parser, dir_path_type, yaml_file_type
-from redditdata import aaf_teams
 from reddittoken import ensure_scopes
 
 APPLICATION_SCOPES = "read,modflair,privatemessages,flair,wikiread,wikiedit,structuredstyles"
@@ -35,6 +34,7 @@ def determine_flair(body: str, flairconfig: Dict) -> Tuple[str, str]:
     m = re.match(r"^primary:(?P<primary_group>[^-]+)-(?P<primary_abbr>[^ ]+)( secondary:(?P<secondary_group>[^-]+)-(?P<secondary_abbr>[^ ]+))?", body.split("\n")[0])
     if not m:
         return None
+    m = m.groupdict()
 
     flair_string = []
     flair_classes = []
