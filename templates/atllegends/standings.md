@@ -1,7 +1,7 @@
-{% set ourdivision = 'East' %}
-{% set ourteam = 'ATL' %}
-{% for division, teams in divisions.items() %}
-{% if division.name == ourdivision %}
+{% set ourdivision = 'East' -%}
+{% set ourteam = 'ATL' -%}
+{% for division, teams in divisions.items() -%}
+{% if division.name == ourdivision -%}
 # {{ division.name }} Standings
 
 | Team | W | L | PCT |
