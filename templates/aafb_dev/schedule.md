@@ -49,7 +49,7 @@
             {%- set home_points = 0 -%}
             {%- set away_points = 0 -%}
         {%- endif %}
-| {{ week_no }} | {{ game.time|format_date('ddd MMM D', tz=tz) }} | {% if awaygame %}@[*{{ game.home_team.abbreviation }}*](/r/{{ game.home_team|team_sr }}){% else %}[*{{ game.away_team.abbreviation }}*](/r/{{ game.away_team|team_sr }}){% endif %} | {% if game.status and game.status.phase == 'COMPLETE' %}**{{ result }}** | {{ game.status.home_team_points }} - {{ game.status.away_team_points }}{% else %}{{ game.time|format_date('h', tz=tz) }} | {{ game.availability[0].short_name|short_channel }}{% endif %} |
+| {{ week_no }} | {{ game.time|format_date('ddd MMM D', tz=tz) }} | {% if awaygame %}@[*{{ game.home_team.abbreviation }}*](/r/{{ game.home_team|team_sr }}){% else %}[*{{ game.away_team.abbreviation }}*](/r/{{ game.away_team|team_sr }}){% endif %} | {% if game.status and game.status.phase == 'COMPLETE' %}**{{ result }}** | {{ game.status.home_team_points }} - {{ game.status.away_team_points }}{% else %}{{ game.time|format_date('hA', tz=tz) }} | {{ game.availability[0].short_name|short_channel }}{% endif %} |
     {%- endfor -%}
 {% endfor -%}
 
