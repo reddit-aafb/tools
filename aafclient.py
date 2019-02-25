@@ -25,8 +25,7 @@ URL = "https://api.platform.aaf.com/v1/graphql"
 class AAFClient:
 
     def __init__(self, user_agent):
-        self.endpoint = HTTPEndpoint(URL, {'User-Agent': user_agent})
-        pass
+        self.endpoint = HTTPEndpoint(URL, base_headers={'User-Agent': user_agent}, timeout=15)
 
     def schedule(self, for_week=None):
         op = Operation(schema.Query)
