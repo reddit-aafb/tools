@@ -28,7 +28,9 @@
 {% else %}
 {% set gameclock = "--:--" %}
 {% endif %}
-[](/# "GT-PHASE-{{ phase }}")
+{% set early_game=game.time|format_date('H', tz='US/Eastern')|int < 20 -%}
+[](/# "GT-TIMESLOT-{% if early_game %}EARLY{% else %}LATE{% endif %}")
+[](/# "GT-PHASE-{{ phase|lower }}")
 
 {% if phase == 'PREGAME' %}
 ----
@@ -42,6 +44,7 @@
 | {{ game.time|format_date('h:mmA', tz='US/Eastern') }} | {{ game.time|format_date('h:mmA', tz='US/Central') }} | {{ game.time|format_date('h:mmA', tz='US/Mountain') }} | {{ game.time|format_date('h:mmA', tz='US/Pacific') }} | {{ game.time|format_date('h:mmA', tz='UTC') }} |
 
 {% if gameclock != "--:--" %}Countdown to first snap: `{{ gameclock }}`{% endif %}
+
 {% else %}
 | | | | | | |{% if ot %} |{% endif %}
 | :-- | :-- | :-- | :-- | :-- |  :-- |{% if ot %} :--|{% endif %}
@@ -60,7 +63,7 @@
 | | |
 | :-- | --: |
 | **Coverage** | {% if lines and "Caesar's" in lines %}**Odds**{% endif %} |
-| {%if game.availability %}{{ game.availability[0].short_name }}{% else %}[aaf.com](https://aaf.com/){% endif %} | {% if lines and "Caesar's" in lines %}{{ home.region_name }} {{ lines["Caesar's"].spread }} O/U {{ lines["Caesar's"].total }}{% endif %} |
+| {%if game.availability %}{{ game.availability[0].short_name }} - {% endif %} [aaf.com](https://aaf.com/live/{{ game.id }}) | {% if lines and "Caesar's" in lines %}{{ home.region_name }} {{ lines["Caesar's"].spread }} O/U {{ lines["Caesar's"].total }}{% endif %} |
 
 {% if forecast %}
 | |
@@ -161,3 +164,5 @@
 {%- endif %}
 | Check in on the r/aafb chat: **##reddit-aaf** on FreeNode ([open in browser](http://webchat.freenode.net/?channels=%23%23reddit-aaf)). |
 | Show your team affiliation - pick your team's logo in the sidebar. |
+
+Dev.

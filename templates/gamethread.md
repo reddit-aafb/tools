@@ -28,6 +28,8 @@
 {% else %}
 {% set gameclock = "--:--" %}
 {% endif %}
+{% set early_game=game.time|format_date('H', tz='US/Eastern')|int < 20 -%}
+[](/# "GT-TIMESLOT-{% if early_game %}EARLY{% else %}LATE{% endif %}")
 [](/# "GT-PHASE-{{ phase|lower }}")
 
 {% if phase == 'PREGAME' %}
@@ -61,7 +63,7 @@
 | | |
 | :-- | --: |
 | **Coverage** | {% if lines and "Caesar's" in lines %}**Odds**{% endif %} |
-| {%if game.availability %}{{ game.availability[0].short_name }}{% else %}[aaf.com](https://aaf.com/){% endif %} | {% if lines and "Caesar's" in lines %}{{ home.region_name }} {{ lines["Caesar's"].spread }} O/U {{ lines["Caesar's"].total }}{% endif %} |
+| {%if game.availability %}{{ game.availability[0].short_name }} - {% endif %} [aaf.com](https://aaf.com/live/{{ game.id }}) | {% if lines and "Caesar's" in lines %}{{ home.region_name }} {{ lines["Caesar's"].spread }} O/U {{ lines["Caesar's"].total }}{% endif %} |
 
 {% if forecast %}
 | |
