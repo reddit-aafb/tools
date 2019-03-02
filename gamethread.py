@@ -229,5 +229,21 @@ def clean_cache(sr_name):
         gt.games[game_id] = game
 
 
+def redirect_game(sr_name, game_id, thread_type, thread_id):
+    from pprint import pprint
+    gt = AAFGameThread(None, sr_name, ",".join(subreddits.keys()))
+    if game_id in gt.games:
+        game = gt.games[game_id]
+        pprint(game)
+        print(repr(dir(game)))
+        if thread_type in game.threads:
+            if game.threads[thread_type] != thread_id:
+                print("%s: %s -> %s" % (thread_type, game.threads[thread_type], thread_id))
+                game.threads[thread_type] = thread_id
+                gt.games[game_id] = game
+            else:
+                print("Already correct")
+
+
 if __name__ == '__main__':
     main()
