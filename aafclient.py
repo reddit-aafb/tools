@@ -172,7 +172,7 @@ fragment gameTeamEdge on GameTeamEdge {
                                    'passes_intercepted', 'rushes_attempted', 'rushing_yards', 'rushing_longest_gain',
                                    'rushing_touchdowns', 'receptions', 'receiving_yards', 'receiving_touchdowns',
                                    'receiving_longest_gain')
-        players.edges.node.legal_name().__fields__('family_name', 'given_name')
+        players.edges.node.legal_name().__fields__('family_name', 'given_name', 'pronunciation')
 
         games.nodes.stadium().__fields__('name')
         games.nodes.stadium().address().__fields__('locality', 'administrative_area_abbreviation')
