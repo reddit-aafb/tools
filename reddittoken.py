@@ -82,6 +82,10 @@ def ensure_scopes(reddit, scopes = None, implicit = False):
         scopes = list(map(lambda s: s.strip().lower(), scopes.split(',')))
 
     if reddit.read_only or not reddit.auth.scopes().issuperset(scopes):
+        print("Have scopes: %r" % reddit.auth.scopes())
+        print("Want scopes: %r" % scopes)
+        print("Missing: %r" % (set(scopes) - reddit.auth.scopes()))
+
         refresh_token = obtain(reddit, scopes, implicit = False)
         print("Insert the following into your praw.ini:\nrefresh_token = {}".format(refresh_token))
         sys.exit(1)
