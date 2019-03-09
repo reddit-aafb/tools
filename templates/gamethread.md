@@ -104,27 +104,37 @@
 {% if p.node.legal_name.pronunciation %}[{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}](//# "{{ p.node.legal_name.pronunciation }}"){% else %}{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}{% endif %}
 {%- endmacro -%}
 
+{% if phase == 'COMPLETE' -%}
+{%set passers=2 -%}
+{%set rushers=2 -%}
+{%set receivers=3 -%}
+{% else %}
+{%set passers=1 -%}
+{%set rushers=1 -%}
+{%set receivers=2 -%}
+{% endif %}
+
 | | | | | | |
 | :-- | :-- | :-- | :-- | :-- | :-- |
 | **Passing** |  | **Cmp/Att** | **Yds** | **Tds** | **Ints** |
-{% for p in pa['passing'][:1] -%}
+{% for p in pa['passing'][:passers] -%}
 | {{ player_name(p) }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
 {% endfor -%}
-{% for p in ph['passing'][:1] -%}
+{% for p in ph['passing'][:passers] -%}
 | {{ player_name(p) }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
 {% endfor -%}
 | **Rushing** |  | **Car** | **Yds** | **Lng** | **Tds** |
-{% for p in pa['rushing'][:1] -%}
+{% for p in pa['rushing'][:rushers] -%}
 | {{ player_name(p) }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
 {% endfor -%}
-{% for p in ph['rushing'][:1] -%}
+{% for p in ph['rushing'][:rushers] -%}
 | {{ player_name(p) }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
 {% endfor -%}
 | **Receiving** |  | **Rec** | **Yds** | **Lng** | **Tds** |
-{% for p in pa['receiving'][:2] -%}
+{% for p in pa['receiving'][:receivers] -%}
 | {{ player_name(p) }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
 {% endfor -%}
-{% for p in ph['receiving'][:2] -%}
+{% for p in ph['receiving'][:receivers] -%}
 | {{ player_name(p) }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
 {% endfor -%}
 
