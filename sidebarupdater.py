@@ -39,7 +39,8 @@ def make_standings_ctx(divisions):
     for division, teams in divisions.items():
         ctx['divisions'][division] = []
         for team in teams:
-            team.stats = team.seasons_connection.edges[0].stats
+            team.stats = team.seasons_connection.edges[0].standing
+            team.stats.games_played = team.stats.wins + team.stats.losses + team.stats.ties
             ctx['divisions'][division].append(team)
     return ctx
 

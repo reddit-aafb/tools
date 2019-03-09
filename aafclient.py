@@ -193,10 +193,8 @@ fragment gameTeamEdge on GameTeamEdge {
         teams.nodes.nickname()
         teams.nodes.region_name()
         season = teams.nodes.seasons_connection(last=1)
-        stats = season.edges.stats()
-        stats.games_won()
-        stats.games_lost()
-        stats.games_played()
+        standing = season.edges.standing()
+        standing.__fields__()
         result = self._execute(op)
 
         standings = {}
@@ -211,9 +209,7 @@ fragment gameTeamEdge on GameTeamEdge {
             standings[key].append(team)
 
         def standings_key(team):
-            stats = team.seasons_connection.edges[0].stats
-            pct = 1 - (stats.games_won / stats.games_played if stats.games_played != 0 else 0.0)
-            return [pct, -stats.games_won, -stats.games_played, team.region_name]
+            return team.seasons_connection.edges[0].standing.division_rank
         for div in standings:
             standings[div] = sorted(standings[div], key=standings_key)
         return standings
