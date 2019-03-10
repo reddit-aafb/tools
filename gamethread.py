@@ -72,8 +72,8 @@ def build_stats(players):
 class GameThreadRenderer(RenderHelper):
     def render_game(self, game, template, **kwargs):
         players = game.players_connection.edges
-        performers_home = build_stats(filter(lambda p: p.team.abbreviation == game.home_team.abbreviation, players))
-        performers_away = build_stats(filter(lambda p: p.team.abbreviation == game.away_team.abbreviation, players))
+        performers_home = build_stats(filter(lambda p: p.team.abbreviation == game.home_team_edge.node.abbreviation, players))
+        performers_away = build_stats(filter(lambda p: p.team.abbreviation == game.away_team_edge.node.abbreviation, players))
         ctx = dict(game=game,
                    performers=(performers_home, performers_away)
                    )
@@ -115,7 +115,7 @@ class AAFGameThread:
     def active_games(self):
         games = self.aaf.games_between(now() - self.active_buffer, now() + (2 * self.gamethread_buffer))
         return list(
-            filter(lambda g: g.home_team.abbreviation in self.teams or g.away_team.abbreviation in self.teams, games))
+            filter(lambda g: g.home_team_edge.node.abbreviation in self.teams or g.away_team_edge.node.abbreviation in self.teams, games))
 
     def post_due_threads(self, active_games):
         # For each game, verify that

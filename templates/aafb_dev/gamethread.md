@@ -1,5 +1,5 @@
-{% set home = game.home_team %}
-{% set away = game.away_team %}
+{% set home = game.home_team_edge.node %}
+{% set away = game.away_team_edge.node %}
 
 [{{away.name}}](/r/{{away|team_sr}}#away) [at](#at) [{{home.name}}](/r/{{home|team_sr}}#home)
 
@@ -92,7 +92,7 @@
 
 {% if performers and game.status and game.status.phase != 'PREGAME' %}
 
-* Game Stats
+* Top performers
 * 
 
 {% set ph=performers[0] %}
@@ -118,28 +118,57 @@
 | :-- | :-- | :-- | :-- | :-- | :-- |
 | **Passing** |  | **Cmp/Att** | **Yds** | **Tds** | **Ints** |
 {% for p in pa['passing'][:passers] -%}
-| {{ player_name(p) }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
+| {{ player_name(p) }} | [*{{ away.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
 {% endfor -%}
 {% for p in ph['passing'][:passers] -%}
-| {{ player_name(p) }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
+| {{ player_name(p) }} | [*{{ home.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.passes_completed }}/{{ p.stats.passes_attempted }} | {{ p.stats.passing_yards }} | {{ p.stats.passing_touchdowns }} | {{ p.stats.passes_intercepted }} |
 {% endfor -%}
 | **Rushing** |  | **Car** | **Yds** | **Lng** | **Tds** |
 {% for p in pa['rushing'][:rushers] -%}
-| {{ player_name(p) }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
+| {{ player_name(p) }} | [*{{ away.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
 {% endfor -%}
 {% for p in ph['rushing'][:rushers] -%}
-| {{ player_name(p) }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
+| {{ player_name(p) }} | [*{{ home.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.rushes_attempted }} | {{ p.stats.rushing_yards }} | {{ p.stats.rushing_longest_gain }} | {{ p.stats.rushing_touchdowns }} |
 {% endfor -%}
 | **Receiving** |  | **Rec** | **Yds** | **Lng** | **Tds** |
 {% for p in pa['receiving'][:receivers] -%}
-| {{ player_name(p) }} | [*{{ game.away_team.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
+| {{ player_name(p) }} | [*{{ away.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
 {% endfor -%}
 {% for p in ph['receiving'][:receivers] -%}
-| {{ player_name(p) }} | [*{{ game.home_team.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
+| {{ player_name(p) }} | [*{{ home.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
 {% endfor -%}
 
 
 {% endif %}
+
+{% if game.status and game.status.phase != 'PREGAME' %}
+
+----
+
+* Team Stats
+* 
+
+{% set home_stats=game.home_team_edge.stats -%}
+{% set away_stats=game.away_team_edge.stats -%}
+
+| | | |
+| :-- | --: | --: |
+| | **{{ home.nickname }}** | **{{ away.nickname }}**  |
+| Pass/Rush yards | {{ home_stats.passing_yards_net }}/{{ home_stats.rushing_yards_net }} | {{ away_stats.passing_yards_net }}/{{ away_stats.rushing_yards_net }} |
+| First downs | {{ home_stats.first_downs_by_passing + home_stats.first_downs_by_rushing + home_stats.first_downs_by_penalty }} | {{ away_stats.first_downs_by_passing + away_stats.first_downs_by_rushing + away_stats.first_downs_by_penalty }} |
+{% set s = home_stats.time_of_possession_milliseconds / 1000 -%}
+{% set home_top_minutes = s / 60|int -%}
+{% set home_top_seconds = s % 60 -%}
+{% set home_top = "%d:%02d"|format(home_top_minutes, home_top_seconds) -%}
+{% set s = away_stats.time_of_possession_milliseconds / 1000 -%}
+{% set away_top_minutes = s / 60|int -%}
+{% set away_top_seconds = s % 60 -%}
+{% set away_top = "%d:%02d"|format(away_top_minutes, away_top_seconds) -%}
+| Time of Possession | {{ home_top }} | {{ away_top }} |
+| Third down conv. | {{ home_stats.third_downs_converted }}/{{ home_stats.third_downs_converted + home_stats.third_downs_unconverted }} | {{ away_stats.third_downs_converted }}/{{ away_stats.third_downs_converted + away_stats.third_downs_unconverted }} |
+| Penalties (yds) | {{ home_stats.penalties }} ({{ home_stats.penalty_yards }}) | {{ away_stats.penalties }} ({{ away_stats.penalty_yards }}) |
+
+{%  endif %}
 
 {% if scoring and scoring|length > 0 %}
 ----
