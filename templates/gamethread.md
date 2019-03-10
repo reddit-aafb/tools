@@ -107,7 +107,7 @@
 {% if phase == 'COMPLETE' -%}
 {%set passers=2 -%}
 {%set rushers=2 -%}
-{%set receivers=3 -%}
+{%set receivers=4 -%}
 {% else %}
 {%set passers=1 -%}
 {%set rushers=1 -%}
@@ -150,23 +150,25 @@
 
 {% set home_stats=game.home_team_edge.stats -%}
 {% set away_stats=game.away_team_edge.stats -%}
-
-| | | |
-| :-- | --: | --: |
-| | **{{ home.nickname }}** | **{{ away.nickname }}**  |
-| Pass/Rush yards | {{ home_stats.passing_yards_net }}/{{ home_stats.rushing_yards_net }} | {{ away_stats.passing_yards_net }}/{{ away_stats.rushing_yards_net }} |
-| First downs | {{ home_stats.first_downs_by_passing + home_stats.first_downs_by_rushing + home_stats.first_downs_by_penalty }} | {{ away_stats.first_downs_by_passing + away_stats.first_downs_by_rushing + away_stats.first_downs_by_penalty }} |
-{% set s = home_stats.time_of_possession_milliseconds / 1000 -%}
-{% set home_top_minutes = s / 60|int -%}
-{% set home_top_seconds = s % 60 -%}
-{% set home_top = "%d:%02d"|format(home_top_minutes, home_top_seconds) -%}
 {% set s = away_stats.time_of_possession_milliseconds / 1000 -%}
 {% set away_top_minutes = s / 60|int -%}
 {% set away_top_seconds = s % 60 -%}
 {% set away_top = "%d:%02d"|format(away_top_minutes, away_top_seconds) -%}
-| Time of Possession | {{ home_top }} | {{ away_top }} |
-| Third down conv. | {{ home_stats.third_downs_converted }}/{{ home_stats.third_downs_converted + home_stats.third_downs_unconverted }} | {{ away_stats.third_downs_converted }}/{{ away_stats.third_downs_converted + away_stats.third_downs_unconverted }} |
-| Penalties (yds) | {{ home_stats.penalties }} ({{ home_stats.penalty_yards }}) | {{ away_stats.penalties }} ({{ away_stats.penalty_yards }}) |
+{% set s = home_stats.time_of_possession_milliseconds / 1000 -%}
+{% set home_top_minutes = s / 60|int -%}
+{% set home_top_seconds = s % 60 -%}
+{% set home_top = "%d:%02d"|format(home_top_minutes, home_top_seconds) -%}
+
+| | | |
+| :-- | --: | --: |
+| | [](/r/{{ away|team_sr }}) **{{ away.nickname }}** | [](/r/{{ home|team_sr }}) **{{ home.nickname }}**  |
+| Pass/Rush yards | {{ away_stats.passing_yards_net }}/{{ away_stats.rushing_yards_net }} | {{ home_stats.passing_yards_net }}/{{ home_stats.rushing_yards_net }} |
+| First downs | {{ away_stats.first_downs_by_passing + away_stats.first_downs_by_rushing + away_stats.first_downs_by_penalty }} | {{ home_stats.first_downs_by_passing + home_stats.first_downs_by_rushing + home_stats.first_downs_by_penalty }} |
+| Time of Possession | {{ away_top }} | {{ home_top }} |
+| Third down conv. | {{ away_stats.third_downs_converted }}/{{ away_stats.third_downs_converted + away_stats.third_downs_unconverted }} | {{ home_stats.third_downs_converted }}/{{ home_stats.third_downs_converted + home_stats.third_downs_unconverted }} |
+| Penalties (yds) | {{ away_stats.penalties }} ({{ away_stats.penalty_yards }}) | {{ home_stats.penalties }} ({{ home_stats.penalty_yards }}) |
+| Turnovers lost (int/fumble) | {{ away_stats.passes_intercepted }}/{{ away_stats.fumbles - away_stats.own_fumbles_recovered }} | {{ home_stats.passes_intercepted }}/{{ home_stats.fumbles - home_stats.own_fumbles_recovered }} |
+| 2pt. conversions | {{ away_stats.two_point_conversions_completed }}/{{ away_stats.two_point_conversions_attempted }} | {{ home_stats.two_point_conversions_completed }}/{{ home_stats.two_point_conversions_attempted }} |
 
 {%  endif %}
 
