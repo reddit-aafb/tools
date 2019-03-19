@@ -226,3 +226,4 @@ tags
 praw.ini
 # I don't know why I even bothered with gitignore.io
 .idea
+emojis
