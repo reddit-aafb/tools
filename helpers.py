@@ -50,6 +50,7 @@ class RenderHelper:
         self.env.filters['team_sr'] = team_sr
         self.env.filters['format_date'] = format_date
         self.env.filters['short_channel'] = short_channel
+        self.env.filters['passer_rating'] = pr_filter
 
 
 def team_sr(team):
@@ -72,6 +73,11 @@ def short_channel(channel):
         'TNT': 'TNT',
     }
     return channels.get(channel, channel)
+
+def pr_filter(s):
+    if hasattr(s, "stats"):
+        return pr_filter(s.stats)
+    return passer_rating(s.passes_attempted, s.passes_completed, s.passing_yards, s.passing_touchdowns, s.passes_intercepted)
 
 
 def diff_strings(a, b, **kwargs):
