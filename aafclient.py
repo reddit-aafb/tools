@@ -174,10 +174,7 @@ fragment gameTeamEdge on GameTeamEdge {
 
         players = games.nodes.players_connection(first=500)
         players.edges.team.abbreviation()
-        players.edges.stats().__fields__('passes_completed', 'passes_attempted', 'passing_yards', 'passing_touchdowns',
-                                   'passes_intercepted', 'rushes_attempted', 'rushing_yards', 'rushing_longest_gain',
-                                   'rushing_touchdowns', 'receptions', 'receiving_yards', 'receiving_touchdowns',
-                                   'receiving_longest_gain')
+        players.edges.stats().__fields__()
         players.edges.node.legal_name().__fields__('family_name', 'given_name', 'pronunciation')
 
         games.nodes.stadium().__fields__('name')

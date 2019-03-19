@@ -57,15 +57,18 @@ def build_stats(players):
     passing_keys = ['passes_completed', 'passing_yards', 'passes_attempted', 'passing_touchdowns', 'passes_intercepted']
     rushing_keys = ['rushing_yards', 'rushes_attempted', 'rushing_longest_gain', 'rushing_touchdowns']
     receiving_keys = ['receiving_yards', 'receptions', 'receiving_longest_gain', 'receiving_touchdowns']
+    kicking_keys = ['field_goals_attempted', 'field_goals_made', 'field_goals_longest_made']
 
     passers = list(filter(stats_filter(passing_keys), players))
     rushers = list(filter(stats_filter(rushing_keys), players))
     receivers = list(filter(stats_filter(receiving_keys), players))
+    kickers = list(filter(stats_filter(kicking_keys), players))
 
     return {
         'passing': sorted(passers, key=stats_sorter(passing_keys), reverse=True)[0:5],
         'rushing': sorted(rushers, key=stats_sorter(rushing_keys), reverse=True)[0:5],
         'receiving': sorted(receivers, key=stats_sorter(receiving_keys), reverse=True)[0:5],
+        'kicking': sorted(kickers, key=stats_sorter(kicking_keys), reverse=True)[0:5],
     }
 
 

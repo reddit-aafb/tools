@@ -46,6 +46,11 @@
 {% if gameclock != "--:--" %}Countdown to first snap: `{{ gameclock }}`{% endif %}
 
 {% else %}
+
+{% if phase == 'HALFTIME' %}
+{% if gameclock != "--:--" %}Halftime countdown: `{{ gameclock }}`{% endif %}
+{% endif %}
+
 | | | | | | |{% if ot %} |{% endif %}
 | :-- | :-- | :-- | :-- | :-- |  :-- |{% if ot %} :--|{% endif %}
 |      |**{% if q == 1 %}{{ gameclock }}{% else %}First{% endif %}**|**{% if q == 2 %}{{ gameclock }}{% else %}Second{% endif %}**|**{% if q == 3 %}{{ gameclock }}{% else %}Third{% endif %}**|**{% if q == 4 %}{{ gameclock }}{% else %}Fourth{% endif %}**{% if ot %}|**{% if q == 5 %}{{ gameclock }}{% else %}OT{% endif %}**{% endif %}| {% if phase == 'COMPLETE' %}**Final**{% elif phase != 'PLAYING' %}**{{ phase|title }}**{% endif %} |
@@ -137,7 +142,15 @@
 {% for p in ph['receiving'][:receivers] -%}
 | {{ player_name(p) }} | [*{{ home.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.receptions }} | {{ p.stats.receiving_yards }} | {{ p.stats.receiving_longest_gain }} | {{ p.stats.receiving_touchdowns }} |
 {% endfor -%}
-
+{% if pa['kicking']|length > 0 or ph['kicking']|length > 0 -%}
+| **Kicking** |  | **Att** | **Made** | **Blocked** | **Lng** |
+{% for p in pa['kicking'][:1] -%}
+| {{ player_name(p) }} | [*{{ away.abbreviation }}*](/r/{{ away|team_sr }}) | {{ p.stats.field_goals_attempted }} | {{ p.stats.field_goals_made }} | {{ p.stats.field_goals_blocked }} | {{ p.stats.field_goals_longest_made }} |
+{% endfor -%}
+{% for p in ph['kicking'][:1] -%}
+| {{ player_name(p) }} | [*{{ home.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.field_goals_attempted }} | {{ p.stats.field_goals_made }} | {{ p.stats.field_goals_blocked }} | {{ p.stats.field_goals_longest_made }} |
+{% endfor -%}
+{% endif -%}
 
 {% endif %}
 
@@ -167,7 +180,7 @@
 | Time of Possession | {{ away_top }} | {{ home_top }} |
 | Third down conv. | {{ away_stats.third_downs_converted }}/{{ away_stats.third_downs_converted + away_stats.third_downs_unconverted }} | {{ home_stats.third_downs_converted }}/{{ home_stats.third_downs_converted + home_stats.third_downs_unconverted }} |
 | Penalties (yds) | {{ away_stats.penalties }} ({{ away_stats.penalty_yards }}) | {{ home_stats.penalties }} ({{ home_stats.penalty_yards }}) |
-| Turnovers lost (int/fumble) | {{ away_stats.passes_intercepted }}/{{ away_stats.fumbles - away_stats.own_fumbles_recovered }} | {{ home_stats.passes_intercepted }}/{{ home_stats.fumbles - home_stats.own_fumbles_recovered }} |
+| Turnovers lost (int-fumble) | {{ away_stats.passes_intercepted }}-{{ away_stats.fumbles - away_stats.own_fumbles_recovered }} | {{ home_stats.passes_intercepted }}-{{ home_stats.fumbles - home_stats.own_fumbles_recovered }} |
 | 2pt. conversions | {{ away_stats.two_point_conversions_completed }}/{{ away_stats.two_point_conversions_attempted }} | {{ home_stats.two_point_conversions_completed }}/{{ home_stats.two_point_conversions_attempted }} |
 
 {%  endif %}
@@ -207,5 +220,6 @@
 {%- if thread %}
 | Use [reddit-stream.com](http://reddit-stream.com/comments/{{ thread.id }}) to get an autorefreshing version of this page |
 {%- endif %}
+| [Come join the largest AAF Discord community!](https://discord.gg/e9pxFqN) |
 | Check in on the r/aafb chat: **##reddit-aaf** on FreeNode ([open in browser](http://webchat.freenode.net/?channels=%23%23reddit-aaf)). |
 | Show your team affiliation - pick your team's logo in the sidebar. |
