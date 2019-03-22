@@ -115,7 +115,7 @@ def dir_path_type(must_exist=True, create=False, mode=0o777):
 
 def yaml_file_type(filename):
     with open(filename) as fp:
-        return yaml.load(fp)
+        return yaml.load(fp, loader=yaml.SafeLoader)
 
 
 parent_parser = argparse.ArgumentParser('Subreddit flair swiss army knife', add_help=False)
