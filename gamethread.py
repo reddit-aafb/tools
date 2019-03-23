@@ -28,6 +28,9 @@ from helpers import RenderHelper, diff_strings
 from redditdata import subreddits
 from reddittoken import ensure_scopes
 
+ACTIVE_SLEEP = timedelta(seconds=30)
+LONG_SLEEP = timedelta(hours=1)
+
 GameThreadGame = recordclass('GameThreadGame', ['game_id', 'time', 'threads', 'archived'])
 
 
@@ -172,6 +175,30 @@ class AAFGameThread:
         for game in self.games.values():
             print(game)
 
+    def decide_sleep(self, games):
+        def updating(g):
+            return hasattr(g, "status") and g.status.phase in (GamePhase.PREGAME, GamePhase.PLAYING, GamePhase.HALFTIME, GamePhase.SUSPENDED)
+
+        def completed(g):
+            return hasattr(g, "status") and g.status.phase == GamePhase.COMPLETE
+
+        def first_snap(g):
+            return g.time
+
+        # If we have either no games, or only completed games, sleep a long time
+        if len(games) == 0 or all(map(completed, games)):
+            return LONG_SLEEP
+
+        # If we have an active game, sleep only a little bit
+        if any(map(updating, games)):
+            return ACTIVE_SLEEP
+
+        # Else we find the next game to start, and sleep until two buffer-times before first snap
+        # Min. ACTIVE_SLEEP, max LONG_SLEEP
+        for game in sorted(games, key=first_snap):
+            if game.time > now():
+                return min(LONG_SLEEP, max(game.time - now() - (self.gamethread_buffer*2), ACTIVE_SLEEP))
+
 
 def main():
     import sys
@@ -189,7 +216,8 @@ def main():
         if len(active_games) > 0:
             gt.post_due_threads(active_games)
             gt.update_existing(active_games)
-        time.sleep(30)
+        sleep = gt.decide_sleep(active_games)
+        time.sleep(sleep.total_seconds())
 
 
 def test_render():
