@@ -80,8 +80,8 @@ class GameThreadRenderer(RenderHelper):
         players = game.players_connection.edges
         performers_home = build_stats(filter(lambda p: p.team.abbreviation == game.home_team_edge.node.abbreviation, players))
         performers_away = build_stats(filter(lambda p: p.team.abbreviation == game.away_team_edge.node.abbreviation, players))
-        inactives_home = list(filter(lambda p: p.team.abbreviation == game.home_team_edge.node.abbreviation and not p.active, players))
-        inactives_away = list(filter(lambda p: p.team.abbreviation == game.away_team_edge.node.abbreviation and not p.active, players))
+        inactives_home = list(filter(lambda p: p.team.abbreviation == game.home_team_edge.node.abbreviation and p.active is False, players))
+        inactives_away = list(filter(lambda p: p.team.abbreviation == game.away_team_edge.node.abbreviation and p.active is False, players))
         ctx = dict(game=game,
                    performers=(performers_home, performers_away),
                    inactives=(inactives_home, inactives_away),
