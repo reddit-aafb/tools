@@ -19,12 +19,12 @@ Boolean = sgqlc.types.Boolean
 
 class CoachPosition(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('SPECIAL_TEAMS_COACH', 'HEAD_COACH', 'OFFENSIVE_COORDINATOR', 'DEFENSIVE_COORDINATOR')
+    __choices__ = ('HEAD_COACH', 'OFFENSIVE_COORDINATOR', 'DEFENSIVE_COORDINATOR', 'SPECIAL_TEAMS_COACH')
 
 
 class CoinTossChoiceOption(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('DEFER', 'RECEIVE', 'KICK')
+    __choices__ = ('RECEIVE', 'KICK', 'DEFER')
 
 
 class Color(sgqlc.types.Scalar):
@@ -39,7 +39,7 @@ Float = sgqlc.types.Float
 
 class GamePhase(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('PREGAME', 'PLAYING', 'HALFTIME', 'SUSPENDED', 'COMPLETE')
+    __choices__ = ('PLAYING', 'HALFTIME', 'SUSPENDED', 'COMPLETE', 'PREGAME')
 
 
 ID = sgqlc.types.ID
@@ -52,42 +52,42 @@ class LongInt(sgqlc.types.Scalar):
 
 class OfficialPosition(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('TECHNICIAN', 'VIDEO_EVALUATOR', 'LINE_JUDGE', 'BACK_JUDGE', 'SUPERVISOR', 'UMPIRE', 'FIELD_JUDGE', 'REFEREE', 'GAME_CLOCK_OPERATOR', 'COACH_TO_PLAYER_CUTOFF_OFFICIAL', 'DOWN_JUDGE', 'PLAY_CLOCK_OPERATOR', 'REPLAY_COMMUNICATOR', 'REPLAY_OFFICIAL', 'CENTER_JUDGE', 'SIDE_JUDGE')
+    __choices__ = ('REPLAY_OFFICIAL', 'SUPERVISOR', 'CENTER_JUDGE', 'GAME_CLOCK_OPERATOR', 'REFEREE', 'DOWN_JUDGE', 'BACK_JUDGE', 'UMPIRE', 'SIDE_JUDGE', 'PLAY_CLOCK_OPERATOR', 'VIDEO_EVALUATOR', 'LINE_JUDGE', 'FIELD_JUDGE', 'REPLAY_COMMUNICATOR', 'COACH_TO_PLAYER_CUTOFF_OFFICIAL', 'TECHNICIAN')
 
 
 class Platoon(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('DEFENSE', 'SPECIAL_TEAMS', 'OFFENSE')
+    __choices__ = ('OFFENSE', 'DEFENSE', 'SPECIAL_TEAMS')
 
 
 class PlayStatSubtype(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('SPECIAL_TEAMS', 'MISCELLANEOUS', 'REGULAR')
+    __choices__ = ('MISCELLANEOUS', 'REGULAR', 'SPECIAL_TEAMS')
 
 
 class PlayStatType(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('OPPONENT_FUMBLE_RECOVERY_YARDS_WITHOUT_RECOVERY', 'OPPOSING_FIELD_GOAL_BLOCKED', 'QUARTERBACK_HIT', 'TACKLE_FOR_LOSS', 'FIRST_DOWN_BY_PASSING', 'SACK_YARDS_OFFENSE', 'OWN_FUMBLE_RECOVERY_YARDS_WITHOUT_RECOVERY', 'HALF_SACK_YARDS_DEFENSE', 'PASSING_YARDS', 'PUNT_RETURN_YARDS', 'RUSHING_YARDS_FOR_TOUCHDOWN_WITHOUT_RUSH', 'OWN_FUMBLE_RECOVERY_YARDS', 'FOURTH_DOWN_UNCONVERTED', 'RUSHING_YARDS_WITHOUT_RUSH', 'PASSING_YARDS_WITHOUT_PASS', 'INTERCEPTION_RETURN_YARDS_FOR_TOUCHDOWN', 'FUMBLE_FORCED', 'TWO_POINT_PASS_GOOD', 'PASS_INCOMPLETE', 'PUNT_RETURN_YARDS_WITHOUT_RETURN', 'TACKLE', 'PENALTY_YARDS', 'PASSING_YARDS_FOR_TOUCHDOWN', 'INTERCEPTION_RETURN_YARDS_WITHOUT_INTERCEPTION', 'RECEIVING_YARDS_WITHOUT_RECEPTION', 'FIRST_DOWN_BY_RUSHING', 'PUNTING_YARDS', 'FIRST_DOWN_BY_PENALTY', 'MISCELLANEOUS_YARDS', 'OPPONENT_FUMBLE_RECOVERY_YARDS_FOR_TOUCHDOWN', 'RECEIVING_YARDS_FOR_TOUCHDOWN_WITHOUT_RECEPTION', 'PUNT_RETURN_YARDS_FOR_TOUCHDOWN', 'PUNT_RETURN_YARDS_FOR_TOUCHDOWN_WITHOUT_RETURN', 'RUSHING_YARDS_FOR_TOUCHDOWN', 'FUMBLE', 'TWO_POINT_RUSH_GOOD', 'MISCELLANEOUS_YARDS_FOR_TOUCHDOWN', 'PASSING_YARDS_FOR_TOUCHDOWN_WITHOUT_PASS', 'YARDS_AFTER_CATCH', 'PASS_TARGET', 'TWO_POINT_PASS_RECEPTION_GOOD', 'SACK_YARDS_DEFENSE', 'PASS_INTERCEPTED', 'THIRD_DOWN_CONVERTED', 'FIELD_GOAL_YARDS', 'FIELD_GOAL_MISSED_YARDS', 'OPPONENT_FUMBLE_RECOVERY_YARDS_FOR_TOUCHDOWN_WITHOUT_RECOVERY', 'SAFETY', 'THIRD_DOWN_UNCONVERTED', 'FIELD_GOAL_BLOCKED', 'ASSISTED_TACKLE', 'PUNT_BLOCKED', 'RUSHING_YARDS', 'OPPONENT_FUMBLE_FORCED', 'RECEIVING_YARDS_FOR_TOUCHDOWN', 'RECEIVING_YARDS', 'TACKLE_ASSIST', 'INTERCEPTION_RETURN_YARDS_FOR_TOUCHDOWN_WITHOUT_INTERCEPTION', 'OWN_FUMBLE_RECOVERY_YARDS_FOR_TOUCHDOWN', 'INTERCEPTION_RETURN_YARDS', 'PASS_DEFENSE', 'OPPONENT_FUMBLE_RECOVERY_YARDS', 'AIR_YARDS_INCOMPLETE', 'OWN_FUMBLE_RECOVERY_YARDS_FOR_TOUCHDOWN_WITHOUT_RECOVERY', 'FOURTH_DOWN_CONVERTED', 'AIR_YARDS_COMPLETE')
+    __choices__ = ('INTERCEPTION_RETURN_YARDS_WITHOUT_INTERCEPTION', 'TACKLE', 'PASS_INTERCEPTED', 'PUNTING_YARDS_WITH_TOUCHBACK', 'FOURTH_DOWN_UNCONVERTED', 'PASSING_YARDS_FOR_TOUCHDOWN_WITHOUT_PASS', 'FUMBLE', 'PENALTY_YARDS', 'FIELD_GOAL_BLOCKED', 'THIRD_DOWN_CONVERTED', 'TACKLE_FOR_LOSS', 'RECEIVING_YARDS', 'FIRST_DOWN_BY_PASSING', 'SACK_YARDS_OFFENSE', 'PUNT_RETURN_YARDS_FOR_TOUCHDOWN_WITHOUT_RETURN', 'PUNTING_YARDS', 'QUARTERBACK_HIT', 'PUNT_BLOCKED', 'PUNTING_YARDS_INTO_END_ZONE_WITHOUT_TOUCHBACK', 'RECEIVING_YARDS_WITHOUT_RECEPTION', 'TACKLE_ASSIST', 'AIR_YARDS_INCOMPLETE', 'TWO_POINT_PASS_RECEPTION_GOOD', 'OWN_FUMBLE_RECOVERY_YARDS_FOR_TOUCHDOWN_WITHOUT_RECOVERY', 'PASS_TARGET', 'SAFETY', 'THIRD_DOWN_UNCONVERTED', 'OWN_FUMBLE_RECOVERY_YARDS_WITHOUT_RECOVERY', 'OPPOSING_FIELD_GOAL_BLOCKED', 'ASSISTED_TACKLE', 'TWO_POINT_RUSH_GOOD', 'SACK_YARDS_DEFENSE', 'OPPONENT_FUMBLE_FORCED', 'RUSHING_YARDS_FOR_TOUCHDOWN_WITHOUT_RUSH', 'RECEIVING_YARDS_FOR_TOUCHDOWN', 'PUNT_INSIDE_20', 'OPPONENT_FUMBLE_RECOVERY_YARDS_FOR_TOUCHDOWN_WITHOUT_RECOVERY', 'PUNT_RETURN_YARDS_WITHOUT_RETURN', 'MISCELLANEOUS_YARDS_FOR_TOUCHDOWN', 'OWN_FUMBLE_RECOVERY_YARDS_FOR_TOUCHDOWN', 'MISCELLANEOUS_YARDS', 'INTERCEPTION_RETURN_YARDS_FOR_TOUCHDOWN_WITHOUT_INTERCEPTION', 'FIELD_GOAL_YARDS', 'PUNT_RETURN_YARDS', 'INTERCEPTION_RETURN_YARDS', 'AIR_YARDS_COMPLETE', 'FUMBLE_FORCED', 'OPPONENT_FUMBLE_RECOVERY_YARDS_FOR_TOUCHDOWN', 'RUSHING_YARDS', 'OWN_FUMBLE_RECOVERY_YARDS', 'RUSHING_YARDS_WITHOUT_RUSH', 'TWO_POINT_PASS_GOOD', 'OPPONENT_FUMBLE_RECOVERY_YARDS_WITHOUT_RECOVERY', 'PASSING_YARDS', 'FIRST_DOWN_BY_PENALTY', 'RECEIVING_YARDS_FOR_TOUCHDOWN_WITHOUT_RECEPTION', 'OPPONENT_FUMBLE_RECOVERY_YARDS', 'PASSING_YARDS_WITHOUT_PASS', 'PASSING_YARDS_FOR_TOUCHDOWN', 'PUNT_RETURN_YARDS_FOR_TOUCHDOWN', 'HALF_SACK_YARDS_DEFENSE', 'FOURTH_DOWN_CONVERTED', 'INTERCEPTION_RETURN_YARDS_FOR_TOUCHDOWN', 'FIELD_GOAL_MISSED_YARDS', 'PASS_INCOMPLETE', 'PASS_DEFENSE', 'FIRST_DOWN_BY_RUSHING', 'YARDS_AFTER_CATCH', 'RUSHING_YARDS_FOR_TOUCHDOWN')
 
 
 class PlayType(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('FIELD_GOAL', 'KICKOFF', 'PENALTY', 'PUNT', 'RUSH', 'PASS')
+    __choices__ = ('KICKOFF', 'PENALTY', 'PUNT', 'RUSH', 'PASS', 'FIELD_GOAL')
 
 
 class PlayerPosition(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('MIDDLE_LINEBACKER', 'DEFENSIVE_LINEMAN', 'WIDE_RECEIVER', 'OFFENSIVE_TACKLE', 'CENTER', 'NOSE_TACKLE', 'CORNERBACK', 'TIGHT_END', 'LONG_SNAPPER', 'LINEBACKER', 'DEFENSIVE_BACK', 'HOLDER', 'OFFENSIVE_GUARD', 'QUARTERBACK', 'FREE_SAFETY', 'OUTSIDE_LINEBACKER', 'KICKER', 'DEFENSIVE_TACKLE', 'FULLBACK', 'HALFBACK', 'STRONG_SAFETY', 'RUNNING_BACK', 'PUNTER', 'DEFENSIVE_END', 'SAFETY', 'OFFENSIVE_LINEMAN', 'PUNT_RETURNER')
+    __choices__ = ('WIDE_RECEIVER', 'RUNNING_BACK', 'PUNTER', 'OFFENSIVE_TACKLE', 'DEFENSIVE_LINEMAN', 'HALFBACK', 'NOSE_TACKLE', 'HOLDER', 'STRONG_SAFETY', 'DEFENSIVE_END', 'FULLBACK', 'OFFENSIVE_LINEMAN', 'OFFENSIVE_GUARD', 'PUNT_RETURNER', 'MIDDLE_LINEBACKER', 'LINEBACKER', 'KICKER', 'TIGHT_END', 'CENTER', 'LONG_SNAPPER', 'DEFENSIVE_BACK', 'OUTSIDE_LINEBACKER', 'CORNERBACK', 'QUARTERBACK', 'DEFENSIVE_TACKLE', 'SAFETY', 'FREE_SAFETY')
 
 
 class PlayerRosterStatus(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('RESERVE_TENDERED', 'ACTIVE_LIST', 'RESERVE_NONFOOTBALL_ILLNESS', 'RESERVE_MILITARY', 'FREE_AGENT_ALLOCATED', 'WAIVER_REQUEST', 'TERMINATION_OF_RIGHTS', 'RESERVE_INJURED', 'RESERVE_SUSPENDED', 'RESERVE_PHYSICALLY_UNABLE_TO_PLAY', 'RESERVE_DID_NOT_REPORT', 'RESERVE_NONFOOTBALL_INJURY', 'RESERVE_OTHER_LEAGUE', 'RIGHTS_LIST', 'RESERVE_RETIRED', 'OTHER', 'FREE_AGENT_UNALLOCATED')
+    __choices__ = ('WAIVER_REQUEST', 'RESERVE_TENDERED', 'RESERVE_PHYSICALLY_UNABLE_TO_PLAY', 'RESERVE_NONFOOTBALL_INJURY', 'RESERVE_MILITARY', 'RIGHTS_LIST', 'RESERVE_RETIRED', 'RESERVE_INJURED', 'ACTIVE_LIST', 'OTHER', 'RESERVE_NONFOOTBALL_ILLNESS', 'FREE_AGENT_ALLOCATED', 'TERMINATION_OF_RIGHTS', 'RESERVE_OTHER_LEAGUE', 'RESERVE_DID_NOT_REPORT', 'FREE_AGENT_UNALLOCATED', 'RESERVE_SUSPENDED')
 
 
 class Possession(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('HOME_TEAM', 'AWAY_TEAM', 'NONE')
+    __choices__ = ('NONE', 'HOME_TEAM', 'AWAY_TEAM')
 
 
 class PrincipalWind(sgqlc.types.Enum):
@@ -114,7 +114,7 @@ class TeamBackgroundStyle(sgqlc.types.Enum):
 
 class TeamLogoStyle(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('DARK_BACKGROUND', 'LIGHT_BACKGROUND')
+    __choices__ = ('LIGHT_BACKGROUND', 'DARK_BACKGROUND')
 
 
 class TeamWordmarkStyle(sgqlc.types.Enum):
@@ -129,7 +129,7 @@ class TimeoutType(sgqlc.types.Enum):
 
 class UserRole(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('AV_SERVICE', 'NEWS_EDITOR', 'PERSONNEL_READER', 'PERSONNEL_WRITER', 'STADIUM', 'TEAM_PERSONNEL_WRITER', 'ADMIN')
+    __choices__ = ('AV_READER', 'NEWS_EDITOR', 'PERSONNEL_READER', 'PERSONNEL_WRITER', 'STADIUM', 'AV_SERVICE', 'ADMIN', 'AV_WRITER', 'TEAM_PERSONNEL_WRITER')
 
 
 class UserTokenType(sgqlc.types.Enum):
@@ -139,7 +139,7 @@ class UserTokenType(sgqlc.types.Enum):
 
 class YardLineTeam(sgqlc.types.Enum):
     __schema__ = aaf_schema
-    __choices__ = ('NONE', 'HOME_TEAM', 'AWAY_TEAM')
+    __choices__ = ('AWAY_TEAM', 'NONE', 'HOME_TEAM')
 
 
 
@@ -148,101 +148,131 @@ class YardLineTeam(sgqlc.types.Enum):
 ########################################################################
 class AVProgramInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
     is_private = sgqlc.types.Field(Boolean, graphql_name='isPrivate')
     hls_event_master_playlist_url = sgqlc.types.Field(String, graphql_name='hlsEventMasterPlaylistURL')
-    game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
-    name = sgqlc.types.Field(String, graphql_name='name')
 
 
 class AVProgramPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    is_private = sgqlc.types.Field(Boolean, graphql_name='isPrivate')
     name = sgqlc.types.Field(String, graphql_name='name')
     hls_event_master_playlist_url = sgqlc.types.Field(String, graphql_name='hlsEventMasterPlaylistURL')
     thumbnail_file_id = sgqlc.types.Field(ID, graphql_name='thumbnailFileId')
-    is_private = sgqlc.types.Field(Boolean, graphql_name='isPrivate')
+
+
+class AVStreamInput(sgqlc.types.Input):
+    __schema__ = aaf_schema
+    bitrate = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='bitrate')
+    codecs = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(String)), graphql_name='codecs')
+    game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
+    program_id = sgqlc.types.Field(ID, graphql_name='programId')
+    maximum_segment_duration_milliseconds = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='maximumSegmentDurationMilliseconds')
+    video_height = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='videoHeight')
+    video_width = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='videoWidth')
+    is_live = sgqlc.types.Field(Boolean, graphql_name='isLive')
+
+
+class AVStreamPatchInput(sgqlc.types.Input):
+    __schema__ = aaf_schema
+    codecs = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='codecs')
+    time_adjustment_milliseconds = sgqlc.types.Field(Int, graphql_name='timeAdjustmentMilliseconds')
+    is_live = sgqlc.types.Field(Boolean, graphql_name='isLive')
+    program_id = sgqlc.types.Field(ID, graphql_name='programId')
+
+
+class AVStreamSegmentReplicaInput(sgqlc.types.Input):
+    __schema__ = aaf_schema
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='url')
+    duration_milliseconds = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='durationMilliseconds')
+    discontinuity = sgqlc.types.Field(Boolean, graphql_name='discontinuity')
+    time = sgqlc.types.Field(DateTime, graphql_name='time')
+    stream_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='streamId')
+    segment_number = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='segmentNumber')
 
 
 class AddressInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    line1 = sgqlc.types.Field(String, graphql_name='line1')
     line2 = sgqlc.types.Field(String, graphql_name='line2')
     locality = sgqlc.types.Field(String, graphql_name='locality')
     administrative_area = sgqlc.types.Field(String, graphql_name='administrativeArea')
     administrative_area_abbreviation = sgqlc.types.Field(String, graphql_name='administrativeAreaAbbreviation')
     postal_code = sgqlc.types.Field(String, graphql_name='postalCode')
     country_code = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='countryCode')
-    line1 = sgqlc.types.Field(String, graphql_name='line1')
 
 
 class AgentInput(sgqlc.types.Input):
     __schema__ = aaf_schema
     phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
-    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
-    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
-    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
-    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
+    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
+    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
     height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
-    biography = sgqlc.types.Field(String, graphql_name='biography')
     avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
     phone_number_alternative = sgqlc.types.Field(String, graphql_name='phoneNumberAlternative')
-    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
-    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
+    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
+    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
+    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
+    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
+    biography = sgqlc.types.Field(String, graphql_name='biography')
     email_address_alternative = sgqlc.types.Field(String, graphql_name='emailAddressAlternative')
 
 
 class AgentPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
     avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
-    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
-    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
-    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
     birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
-    email_address_alternative = sgqlc.types.Field(String, graphql_name='emailAddressAlternative')
-    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
-    phone_number_alternative = sgqlc.types.Field(String, graphql_name='phoneNumberAlternative')
-    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
-    biography = sgqlc.types.Field(String, graphql_name='biography')
-    phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
+    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
     height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
+    phone_number_alternative = sgqlc.types.Field(String, graphql_name='phoneNumberAlternative')
+    biography = sgqlc.types.Field(String, graphql_name='biography')
+    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
+    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
+    email_address_alternative = sgqlc.types.Field(String, graphql_name='emailAddressAlternative')
+    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
+    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
+    phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
 
 
 class BallTelemetrySampleInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    position_meters = sgqlc.types.Field('Point3DInput', graphql_name='positionMeters')
-    orientation = sgqlc.types.Field('QuaternionInput', graphql_name='orientation')
     ball_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='ballId')
     time = sgqlc.types.Field(DateTime, graphql_name='time')
+    position_meters = sgqlc.types.Field('Point3DInput', graphql_name='positionMeters')
+    orientation = sgqlc.types.Field('QuaternionInput', graphql_name='orientation')
 
 
 class CoachInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
-    team_id = sgqlc.types.Field(ID, graphql_name='teamId')
-    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
-    position = sgqlc.types.Field(CoachPosition, graphql_name='position')
-    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
-    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
     biography = sgqlc.types.Field(String, graphql_name='biography')
-    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
-    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
-    title = sgqlc.types.Field(String, graphql_name='title')
+    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
+    team_id = sgqlc.types.Field(ID, graphql_name='teamId')
+    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
+    position = sgqlc.types.Field(CoachPosition, graphql_name='position')
     career_summary = sgqlc.types.Field(String, graphql_name='careerSummary')
+    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
     personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
+    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
+    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
+    title = sgqlc.types.Field(String, graphql_name='title')
+    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
 
 
 class CoachPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
-    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
     birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
-    team_id = sgqlc.types.Field(ID, graphql_name='teamId')
-    title = sgqlc.types.Field(String, graphql_name='title')
-    position = sgqlc.types.Field(CoachPosition, graphql_name='position')
-    career_summary = sgqlc.types.Field(String, graphql_name='careerSummary')
-    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
-    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
-    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
     weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
+    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
+    career_summary = sgqlc.types.Field(String, graphql_name='careerSummary')
+    title = sgqlc.types.Field(String, graphql_name='title')
+    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
+    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
     biography = sgqlc.types.Field(String, graphql_name='biography')
+    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
+    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
+    team_id = sgqlc.types.Field(ID, graphql_name='teamId')
+    position = sgqlc.types.Field(CoachPosition, graphql_name='position')
 
 
 class CoinTossChoiceInput(sgqlc.types.Input):
@@ -253,23 +283,23 @@ class CoinTossChoiceInput(sgqlc.types.Input):
 
 class CoinTossInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    winning_choice = sgqlc.types.Field(sgqlc.types.non_null(CoinTossChoiceInput), graphql_name='winningChoice')
     losing_choice = sgqlc.types.Field(sgqlc.types.non_null(CoinTossChoiceInput), graphql_name='losingChoice')
     winning_team_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='winningTeamId')
     before_quarter = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='beforeQuarter')
-    winning_choice = sgqlc.types.Field(sgqlc.types.non_null(CoinTossChoiceInput), graphql_name='winningChoice')
 
 
 class DivisionInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
     abbreviation = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='abbreviation')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
 
 
 class EventAvailabilityInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    logo_file_id = sgqlc.types.Field(ID, graphql_name='logoFileId')
     short_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='shortName')
     url = sgqlc.types.Field(String, graphql_name='url')
+    logo_file_id = sgqlc.types.Field(ID, graphql_name='logoFileId')
 
 
 class GameBallInput(sgqlc.types.Input):
@@ -280,123 +310,124 @@ class GameBallInput(sgqlc.types.Input):
 
 class GameClockInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
     seconds = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='seconds')
     time = sgqlc.types.Field(DateTime, graphql_name='time')
-    game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
 
 
 class GameInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    ticketing_website_url = sgqlc.types.Field(String, graphql_name='ticketingWebsiteURL')
-    time_to_be_determined = sgqlc.types.Field(Boolean, graphql_name='timeToBeDetermined')
-    stadium_id = sgqlc.types.Field(ID, graphql_name='stadiumId')
     telemetry_xdirection = sgqlc.types.Field(PrincipalWind, graphql_name='telemetryXDirection')
+    time = sgqlc.types.Field(DateTime, graphql_name='time')
+    time_to_be_determined = sgqlc.types.Field(Boolean, graphql_name='timeToBeDetermined')
     home_team_id = sgqlc.types.Field(ID, graphql_name='homeTeamId')
     away_team_id = sgqlc.types.Field(ID, graphql_name='awayTeamId')
-    time = sgqlc.types.Field(DateTime, graphql_name='time')
     season_id = sgqlc.types.Field(ID, graphql_name='seasonId')
+    ticketing_website_url = sgqlc.types.Field(String, graphql_name='ticketingWebsiteURL')
+    stadium_id = sgqlc.types.Field(ID, graphql_name='stadiumId')
 
 
 class GamePatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    subseason = sgqlc.types.Field(Subseason, graphql_name='subseason')
-    coin_tosses = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(CoinTossInput)), graphql_name='coinTosses')
-    hls_event_master_playlist_url = sgqlc.types.Field(String, graphql_name='hlsEventMasterPlaylistURL')
-    availability = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(EventAvailabilityInput)), graphql_name='availability')
     away_team_id = sgqlc.types.Field(ID, graphql_name='awayTeamId')
-    home_team_id = sgqlc.types.Field(ID, graphql_name='homeTeamId')
+    subseason = sgqlc.types.Field(Subseason, graphql_name='subseason')
+    availability = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(EventAvailabilityInput)), graphql_name='availability')
+    vod_start_time = sgqlc.types.Field(DateTime, graphql_name='vodStartTime')
     default_avprogram_id = sgqlc.types.Field(ID, graphql_name='defaultAVProgramId')
-    telemetry_xdirection = sgqlc.types.Field(PrincipalWind, graphql_name='telemetryXDirection')
-    stadium_id = sgqlc.types.Field(ID, graphql_name='stadiumId')
     time = sgqlc.types.Field(DateTime, graphql_name='time')
     ticketing_website_url = sgqlc.types.Field(String, graphql_name='ticketingWebsiteURL')
     duration_milliseconds = sgqlc.types.Field(Int, graphql_name='durationMilliseconds')
+    stadium_id = sgqlc.types.Field(ID, graphql_name='stadiumId')
+    telemetry_xdirection = sgqlc.types.Field(PrincipalWind, graphql_name='telemetryXDirection')
+    hls_event_master_playlist_url = sgqlc.types.Field(String, graphql_name='hlsEventMasterPlaylistURL')
+    home_team_id = sgqlc.types.Field(ID, graphql_name='homeTeamId')
+    coin_tosses = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(CoinTossInput)), graphql_name='coinTosses')
     time_to_be_determined = sgqlc.types.Field(Boolean, graphql_name='timeToBeDetermined')
-    vod_start_time = sgqlc.types.Field(DateTime, graphql_name='vodStartTime')
 
 
 class GamePlayClockInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    time = sgqlc.types.Field(DateTime, graphql_name='time')
     game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
     seconds = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='seconds')
+    time = sgqlc.types.Field(DateTime, graphql_name='time')
 
 
 class GamePlayerFormationDepthInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    team_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='teamId')
     depth = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='depth')
     formation = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='formation')
     platoon = sgqlc.types.Field(sgqlc.types.non_null(Platoon), graphql_name='platoon')
     game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
     player_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='playerId')
-    team_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='teamId')
 
 
 class GameStatusInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    yard_line = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardLine')
-    yards_to_go = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardsToGo')
-    away_team_timeouts_remaining = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='awayTeamTimeoutsRemaining')
-    down = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='down')
-    quarter = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='quarter')
-    game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
-    play_is_under_review = sgqlc.types.Field(Boolean, graphql_name='playIsUnderReview')
-    play_direction = sgqlc.types.Field(PrincipalWind, graphql_name='playDirection')
-    away_team_points_by_quarter = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Int)), graphql_name='awayTeamPointsByQuarter')
     possession = sgqlc.types.Field(sgqlc.types.non_null(Possession), graphql_name='possession')
-    home_team_timeouts_remaining = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='homeTeamTimeoutsRemaining')
+    quarter = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='quarter')
+    yards_to_go = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardsToGo')
+    down = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='down')
+    play_direction = sgqlc.types.Field(PrincipalWind, graphql_name='playDirection')
+    yard_line = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardLine')
+    play_is_under_review = sgqlc.types.Field(Boolean, graphql_name='playIsUnderReview')
+    game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
     yard_line_team = sgqlc.types.Field(sgqlc.types.non_null(YardLineTeam), graphql_name='yardLineTeam')
-    phase = sgqlc.types.Field(sgqlc.types.non_null(GamePhase), graphql_name='phase')
+    home_team_timeouts_remaining = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='homeTeamTimeoutsRemaining')
     home_team_points_by_quarter = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Int)), graphql_name='homeTeamPointsByQuarter')
+    away_team_points_by_quarter = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Int)), graphql_name='awayTeamPointsByQuarter')
+    away_team_timeouts_remaining = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='awayTeamTimeoutsRemaining')
+    phase = sgqlc.types.Field(sgqlc.types.non_null(GamePhase), graphql_name='phase')
     time = sgqlc.types.Field(DateTime, graphql_name='time')
 
 
 class NamedTimeRangeInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    season_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='seasonId')
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
     time = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='time')
     duration_milliseconds = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='durationMilliseconds')
+    season_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='seasonId')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
 
 
 class NamedTimeRangePatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    name = sgqlc.types.Field(String, graphql_name='name')
     time = sgqlc.types.Field(DateTime, graphql_name='time')
     subseason = sgqlc.types.Field(Subseason, graphql_name='subseason')
-    name = sgqlc.types.Field(String, graphql_name='name')
 
 
 class OfficialInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
+    biography = sgqlc.types.Field(String, graphql_name='biography')
+    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
     avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
     legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
     common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
     birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
     height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
-    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
-    biography = sgqlc.types.Field(String, graphql_name='biography')
-    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
 
 
 class OfficialPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
-    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
-    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
     birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
     height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
     weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
     biography = sgqlc.types.Field(String, graphql_name='biography')
     personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
+    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
+    legal_name = sgqlc.types.Field('PersonNameInput', graphql_name='legalName')
+    common_name = sgqlc.types.Field('PersonNameInput', graphql_name='commonName')
 
 
 class PersonNameInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    family_name_pronunciation = sgqlc.types.Field(String, graphql_name='familyNamePronunciation')
+    given_name = sgqlc.types.Field(String, graphql_name='givenName')
     middle_name = sgqlc.types.Field(String, graphql_name='middleName')
     family_name = sgqlc.types.Field(String, graphql_name='familyName')
     suffix = sgqlc.types.Field(String, graphql_name='suffix')
-    pronunciation = sgqlc.types.Field(String, graphql_name='pronunciation')
-    given_name = sgqlc.types.Field(String, graphql_name='givenName')
+    given_name_pronunciation = sgqlc.types.Field(String, graphql_name='givenNamePronunciation')
 
 
 class PersonTelemetrySampleInput(sgqlc.types.Input):
@@ -409,115 +440,115 @@ class PersonTelemetrySampleInput(sgqlc.types.Input):
 
 class PlayInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    possession = sgqlc.types.Field(sgqlc.types.non_null(Possession), graphql_name='possession')
-    game_clock_seconds = sgqlc.types.Field(Int, graphql_name='gameClockSeconds')
     time = sgqlc.types.Field(DateTime, graphql_name='time')
-    duration_milliseconds = sgqlc.types.Field(Int, graphql_name='durationMilliseconds')
-    is_complete = sgqlc.types.Field(Boolean, graphql_name='isComplete')
     is_conversion = sgqlc.types.Field(Boolean, graphql_name='isConversion')
-    no_play = sgqlc.types.Field(Boolean, graphql_name='noPlay')
-    yards_to_go = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardsToGo')
-    game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
+    game_clock_seconds = sgqlc.types.Field(Int, graphql_name='gameClockSeconds')
     direction = sgqlc.types.Field(PrincipalWind, graphql_name='direction')
-    yard_line = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardLine')
-    down = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='down')
-    yard_line_team = sgqlc.types.Field(sgqlc.types.non_null(YardLineTeam), graphql_name='yardLineTeam')
-    description = sgqlc.types.Field(String, graphql_name='description')
-    quarter = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='quarter')
+    duration_milliseconds = sgqlc.types.Field(Int, graphql_name='durationMilliseconds')
     type = sgqlc.types.Field(PlayType, graphql_name='type')
+    yard_line_team = sgqlc.types.Field(sgqlc.types.non_null(YardLineTeam), graphql_name='yardLineTeam')
+    game_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='gameId')
+    description = sgqlc.types.Field(String, graphql_name='description')
+    yards_to_go = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardsToGo')
+    down = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='down')
+    possession = sgqlc.types.Field(sgqlc.types.non_null(Possession), graphql_name='possession')
+    yard_line = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardLine')
+    no_play = sgqlc.types.Field(Boolean, graphql_name='noPlay')
+    quarter = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='quarter')
+    is_complete = sgqlc.types.Field(Boolean, graphql_name='isComplete')
 
 
 class PlayPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    no_play = sgqlc.types.Field(Boolean, graphql_name='noPlay')
-    has_injury = sgqlc.types.Field(Boolean, graphql_name='hasInjury')
-    description = sgqlc.types.Field(String, graphql_name='description')
+    type = sgqlc.types.Field(PlayType, graphql_name='type')
+    is_complete = sgqlc.types.Field(Boolean, graphql_name='isComplete')
     sequence = sgqlc.types.Field(Float, graphql_name='sequence')
     time = sgqlc.types.Field(DateTime, graphql_name='time')
-    duration_milliseconds = sgqlc.types.Field(Int, graphql_name='durationMilliseconds')
-    is_complete = sgqlc.types.Field(Boolean, graphql_name='isComplete')
-    type = sgqlc.types.Field(PlayType, graphql_name='type')
-    has_penalty = sgqlc.types.Field(Boolean, graphql_name='hasPenalty')
+    description = sgqlc.types.Field(String, graphql_name='description')
     game_clock_seconds = sgqlc.types.Field(Int, graphql_name='gameClockSeconds')
+    has_injury = sgqlc.types.Field(Boolean, graphql_name='hasInjury')
+    duration_milliseconds = sgqlc.types.Field(Int, graphql_name='durationMilliseconds')
+    no_play = sgqlc.types.Field(Boolean, graphql_name='noPlay')
+    has_penalty = sgqlc.types.Field(Boolean, graphql_name='hasPenalty')
 
 
 class PlayerInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    schools = sgqlc.types.Field(sgqlc.types.list_of('PlayerSchoolInput'), graphql_name='schools')
-    agent_id = sgqlc.types.Field(ID, graphql_name='agentId')
-    is_allocated = sgqlc.types.Field(Boolean, graphql_name='isAllocated')
-    biography = sgqlc.types.Field(String, graphql_name='biography')
-    cfl_status = sgqlc.types.Field('PlayerLeagueStatusInput', graphql_name='cflStatus')
-    position = sgqlc.types.Field(PlayerPosition, graphql_name='position')
-    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
-    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
+    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
+    depth = sgqlc.types.Field(Int, graphql_name='depth')
     weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
-    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
-    common_name = sgqlc.types.Field(PersonNameInput, graphql_name='commonName')
+    tender_date = sgqlc.types.Field(Date, graphql_name='tenderDate')
+    schools = sgqlc.types.Field(sgqlc.types.list_of('PlayerSchoolInput'), graphql_name='schools')
     phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
     hometown = sgqlc.types.Field(AddressInput, graphql_name='hometown')
-    tender_date = sgqlc.types.Field(Date, graphql_name='tenderDate')
-    depth = sgqlc.types.Field(Int, graphql_name='depth')
-    nfl_status = sgqlc.types.Field('PlayerLeagueStatusInput', graphql_name='nflStatus')
-    legal_name = sgqlc.types.Field(PersonNameInput, graphql_name='legalName')
-    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
-    team_id = sgqlc.types.Field(ID, graphql_name='teamId')
-    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
+    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
     jersey_number = sgqlc.types.Field(Int, graphql_name='jerseyNumber')
+    nfl_status = sgqlc.types.Field('PlayerLeagueStatusInput', graphql_name='nflStatus')
+    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
+    biography = sgqlc.types.Field(String, graphql_name='biography')
+    team_id = sgqlc.types.Field(ID, graphql_name='teamId')
+    position = sgqlc.types.Field(PlayerPosition, graphql_name='position')
+    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
+    is_allocated = sgqlc.types.Field(Boolean, graphql_name='isAllocated')
+    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
+    cfl_status = sgqlc.types.Field('PlayerLeagueStatusInput', graphql_name='cflStatus')
+    legal_name = sgqlc.types.Field(PersonNameInput, graphql_name='legalName')
+    common_name = sgqlc.types.Field(PersonNameInput, graphql_name='commonName')
+    agent_id = sgqlc.types.Field(ID, graphql_name='agentId')
 
 
 class PlayerLeagueStatusInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    jersey_number = sgqlc.types.Field(Int, graphql_name='jerseyNumber')
-    status = sgqlc.types.Field(String, graphql_name='status')
     date = sgqlc.types.Field(Date, graphql_name='date')
     team = sgqlc.types.Field(String, graphql_name='team')
+    jersey_number = sgqlc.types.Field(Int, graphql_name='jerseyNumber')
+    status = sgqlc.types.Field(String, graphql_name='status')
 
 
 class PlayerPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
+    jersey_number = sgqlc.types.Field(Int, graphql_name='jerseyNumber')
+    agent_id = sgqlc.types.Field(ID, graphql_name='agentId')
+    schools = sgqlc.types.Field(sgqlc.types.list_of('PlayerSchoolInput'), graphql_name='schools')
+    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
+    hometown = sgqlc.types.Field(AddressInput, graphql_name='hometown')
+    legal_name = sgqlc.types.Field(PersonNameInput, graphql_name='legalName')
+    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
+    is_allocated = sgqlc.types.Field(Boolean, graphql_name='isAllocated')
+    nfl_status = sgqlc.types.Field(PlayerLeagueStatusInput, graphql_name='nflStatus')
     cfl_status = sgqlc.types.Field(PlayerLeagueStatusInput, graphql_name='cflStatus')
     tender_date = sgqlc.types.Field(Date, graphql_name='tenderDate')
-    sportradar_ncaafbid = sgqlc.types.Field(String, graphql_name='sportradarNCAAFBId')
-    legal_name = sgqlc.types.Field(PersonNameInput, graphql_name='legalName')
-    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
-    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
-    nfl_status = sgqlc.types.Field(PlayerLeagueStatusInput, graphql_name='nflStatus')
-    schools = sgqlc.types.Field(sgqlc.types.list_of('PlayerSchoolInput'), graphql_name='schools')
-    agent_id = sgqlc.types.Field(ID, graphql_name='agentId')
-    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
-    biography = sgqlc.types.Field(String, graphql_name='biography')
-    jersey_number = sgqlc.types.Field(Int, graphql_name='jerseyNumber')
-    team_id = sgqlc.types.Field(ID, graphql_name='teamId')
     phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
-    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
-    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
-    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
-    common_name = sgqlc.types.Field(PersonNameInput, graphql_name='commonName')
-    community_activities_summary = sgqlc.types.Field(String, graphql_name='communityActivitiesSummary')
-    hometown = sgqlc.types.Field(AddressInput, graphql_name='hometown')
-    position = sgqlc.types.Field(PlayerPosition, graphql_name='position')
     career_summary = sgqlc.types.Field(String, graphql_name='careerSummary')
+    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
+    common_name = sgqlc.types.Field(PersonNameInput, graphql_name='commonName')
+    biography = sgqlc.types.Field(String, graphql_name='biography')
+    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
     depth = sgqlc.types.Field(Int, graphql_name='depth')
-    is_allocated = sgqlc.types.Field(Boolean, graphql_name='isAllocated')
+    community_activities_summary = sgqlc.types.Field(String, graphql_name='communityActivitiesSummary')
+    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
+    sportradar_ncaafbid = sgqlc.types.Field(String, graphql_name='sportradarNCAAFBId')
+    position = sgqlc.types.Field(PlayerPosition, graphql_name='position')
+    team_id = sgqlc.types.Field(ID, graphql_name='teamId')
 
 
 class PlayerSchoolInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    end_date = sgqlc.types.Field(Date, graphql_name='endDate')
-    school_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='schoolId')
     jersey_number = sgqlc.types.Field(Int, graphql_name='jerseyNumber')
     start_date = sgqlc.types.Field(Date, graphql_name='startDate')
+    end_date = sgqlc.types.Field(Date, graphql_name='endDate')
+    school_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='schoolId')
 
 
 class PlayerTransactionInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    roster_status = sgqlc.types.Field(sgqlc.types.non_null(PlayerRosterStatus), graphql_name='rosterStatus')
     waiver_deadline = sgqlc.types.Field(DateTime, graphql_name='waiverDeadline')
     player_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='playerId')
     team_id = sgqlc.types.Field(ID, graphql_name='teamId')
     date = sgqlc.types.Field(sgqlc.types.non_null(Date), graphql_name='date')
     description = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='description')
+    roster_status = sgqlc.types.Field(sgqlc.types.non_null(PlayerRosterStatus), graphql_name='rosterStatus')
 
 
 class Point3DInput(sgqlc.types.Input):
@@ -529,24 +560,24 @@ class Point3DInput(sgqlc.types.Input):
 
 class QuaternionInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    x = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='x')
     y = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='y')
     z = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='z')
     w = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='w')
+    x = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='x')
 
 
 class SchoolInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    is_ncaa = sgqlc.types.Field(Boolean, graphql_name='isNCAA')
     abbreviation = sgqlc.types.Field(String, graphql_name='abbreviation')
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
+    is_ncaa = sgqlc.types.Field(Boolean, graphql_name='isNCAA')
 
 
 class SchoolPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    name = sgqlc.types.Field(String, graphql_name='name')
     is_ncaa = sgqlc.types.Field(Boolean, graphql_name='isNCAA')
     abbreviation = sgqlc.types.Field(String, graphql_name='abbreviation')
-    name = sgqlc.types.Field(String, graphql_name='name')
 
 
 class SeasonInput(sgqlc.types.Input):
@@ -562,8 +593,8 @@ class SeasonPatchInput(sgqlc.types.Input):
 
 class StadiumInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
     address = sgqlc.types.Field(AddressInput, graphql_name='address')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
 
 
 class StadiumPatchInput(sgqlc.types.Input):
@@ -574,61 +605,87 @@ class StadiumPatchInput(sgqlc.types.Input):
 
 class TeamInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    abbreviation = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='abbreviation')
-    stadium_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='stadiumId')
     region_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='regionName')
     nickname = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='nickname')
+    abbreviation = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='abbreviation')
+    stadium_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='stadiumId')
 
 
 class TeamPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    wordmark_file_id = sgqlc.types.Field(ID, graphql_name='wordmarkFileId')
-    shop_website_url = sgqlc.types.Field(String, graphql_name='shopWebsiteURL')
-    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
     instagram_handle = sgqlc.types.Field(String, graphql_name='instagramHandle')
-    ticketing_website_url = sgqlc.types.Field(String, graphql_name='ticketingWebsiteURL')
-    facebook_handle = sgqlc.types.Field(String, graphql_name='facebookHandle')
-    stadium_id = sgqlc.types.Field(ID, graphql_name='stadiumId')
-    colors = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Color)), graphql_name='colors')
-    twitter_handle = sgqlc.types.Field(String, graphql_name='twitterHandle')
+    shop_website_url = sgqlc.types.Field(String, graphql_name='shopWebsiteURL')
     abbreviation = sgqlc.types.Field(String, graphql_name='abbreviation')
-    nickname = sgqlc.types.Field(String, graphql_name='nickname')
+    background_banner_dark_file_id = sgqlc.types.Field(ID, graphql_name='backgroundBannerDarkFileId')
+    avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
+    ticketing_website_url = sgqlc.types.Field(String, graphql_name='ticketingWebsiteURL')
+    stadium_id = sgqlc.types.Field(ID, graphql_name='stadiumId')
+    twitter_handle = sgqlc.types.Field(String, graphql_name='twitterHandle')
+    wordmark_light_background_file_id = sgqlc.types.Field(ID, graphql_name='wordmarkLightBackgroundFileId')
     website_url = sgqlc.types.Field(String, graphql_name='websiteURL')
     division_id = sgqlc.types.Field(ID, graphql_name='divisionId')
-    wordmark_light_background_file_id = sgqlc.types.Field(ID, graphql_name='wordmarkLightBackgroundFileId')
-    background_banner_dark_file_id = sgqlc.types.Field(ID, graphql_name='backgroundBannerDarkFileId')
-    logo_light_background_file_id = sgqlc.types.Field(ID, graphql_name='logoLightBackgroundFileId')
-    logo_file_id = sgqlc.types.Field(ID, graphql_name='logoFileId')
+    wordmark_file_id = sgqlc.types.Field(ID, graphql_name='wordmarkFileId')
     region_name = sgqlc.types.Field(String, graphql_name='regionName')
+    colors = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Color)), graphql_name='colors')
+    nickname = sgqlc.types.Field(String, graphql_name='nickname')
+    logo_file_id = sgqlc.types.Field(ID, graphql_name='logoFileId')
+    facebook_handle = sgqlc.types.Field(String, graphql_name='facebookHandle')
+    logo_light_background_file_id = sgqlc.types.Field(ID, graphql_name='logoLightBackgroundFileId')
 
 
 class UserLevelInput(sgqlc.types.Input):
     __schema__ = aaf_schema
+    number = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='number')
     required_xp = sgqlc.types.Field(sgqlc.types.non_null(LongInt), graphql_name='requiredXP')
     title = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='title')
-    number = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='number')
 
 
 class UserLevelPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    number = sgqlc.types.Field(Int, graphql_name='number')
     required_xp = sgqlc.types.Field(LongInt, graphql_name='requiredXP')
     title = sgqlc.types.Field(String, graphql_name='title')
+    number = sgqlc.types.Field(Int, graphql_name='number')
 
 
 class UserPatchInput(sgqlc.types.Input):
     __schema__ = aaf_schema
-    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
-    phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
     handle = sgqlc.types.Field(String, graphql_name='handle')
     avatar_file_id = sgqlc.types.Field(ID, graphql_name='avatarFileId')
     roles = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(UserRole)), graphql_name='roles')
+    email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
+    phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
 
 
 
 ########################################################################
 # Output Objects and Interfaces
 ########################################################################
+class AVProgramAVStreamEdge(sgqlc.types.Type):
+    __schema__ = aaf_schema
+    cursor = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='cursor')
+    node = sgqlc.types.Field(sgqlc.types.non_null('AVStream'), graphql_name='node')
+
+
+class AVProgramAVStreamsConnection(sgqlc.types.relay.Connection):
+    __schema__ = aaf_schema
+    edges = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(AVProgramAVStreamEdge)), graphql_name='edges')
+    nodes = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of('AVStream')), graphql_name='nodes')
+    page_info = sgqlc.types.Field(sgqlc.types.non_null('PageInfo'), graphql_name='pageInfo')
+
+
+class AVStreamAVStreamSegmentReplicaEdge(sgqlc.types.Type):
+    __schema__ = aaf_schema
+    cursor = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='cursor')
+    node = sgqlc.types.Field(sgqlc.types.non_null('AVStreamSegmentReplica'), graphql_name='node')
+
+
+class AVStreamAVStreamSegmentReplicasConnection(sgqlc.types.relay.Connection):
+    __schema__ = aaf_schema
+    edges = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(AVStreamAVStreamSegmentReplicaEdge)), graphql_name='edges')
+    nodes = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of('AVStreamSegmentReplica')), graphql_name='nodes')
+    page_info = sgqlc.types.Field(sgqlc.types.non_null('PageInfo'), graphql_name='pageInfo')
+
+
 class Address(sgqlc.types.Type):
     __schema__ = aaf_schema
     administrative_area = sgqlc.types.Field(String, graphql_name='administrativeArea')
@@ -787,10 +844,10 @@ class DepthChartFormation(sgqlc.types.Type):
     __schema__ = aaf_schema
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
     players_connection = sgqlc.types.Field('DepthChartFormationPlayersConnection', graphql_name='playersConnection', args=sgqlc.types.ArgDict((
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
 ))
     )
 
@@ -930,10 +987,13 @@ class GamePlayEdge(sgqlc.types.Type):
 
 class GamePlayerEdge(sgqlc.types.Type):
     __schema__ = aaf_schema
+    active = sgqlc.types.Field(Boolean, graphql_name='active')
     cursor = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='cursor')
     jersey_number = sgqlc.types.Field(Int, graphql_name='jerseyNumber')
     node = sgqlc.types.Field(sgqlc.types.non_null('Player'), graphql_name='node')
+    played = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='played')
     position = sgqlc.types.Field(PlayerPosition, graphql_name='position')
+    starter = sgqlc.types.Field(Boolean, graphql_name='starter')
     stats = sgqlc.types.Field('PlayerStats', graphql_name='stats')
     team = sgqlc.types.Field('Team', graphql_name='team')
 
@@ -1038,25 +1098,34 @@ class Mutation(sgqlc.types.Type):
 ))
     )
     complete_u2_fdevice_verification = sgqlc.types.Field(CompleteU2FDeviceVerificationResult, graphql_name='completeU2FDeviceVerification', args=sgqlc.types.ArgDict((
+        ('key_handle_base64', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='keyHandleBase64', default=None)),
         ('client_data_base64', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='clientDataBase64', default=None)),
         ('signature_data_base64', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='signatureDataBase64', default=None)),
-        ('key_handle_base64', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='keyHandleBase64', default=None)),
 ))
     )
     complete_user_password_reset = sgqlc.types.Field('User', graphql_name='completeUserPasswordReset', args=sgqlc.types.ArgDict((
-        ('token', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='token', default=None)),
         ('password', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='password', default=None)),
+        ('token', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='token', default=None)),
 ))
     )
     create_avprogram = sgqlc.types.Field('AVProgram', graphql_name='createAVProgram', args=sgqlc.types.ArgDict((
         ('program', sgqlc.types.Arg(sgqlc.types.non_null(AVProgramInput), graphql_name='program', default=None)),
 ))
     )
+    create_avstream = sgqlc.types.Field('AVStream', graphql_name='createAVStream', args=sgqlc.types.ArgDict((
+        ('stream', sgqlc.types.Arg(sgqlc.types.non_null(AVStreamInput), graphql_name='stream', default=None)),
+))
+    )
+    create_avstream_segment_replica = sgqlc.types.Field('AVStreamSegmentReplica', graphql_name='createAVStreamSegmentReplica', args=sgqlc.types.ArgDict((
+        ('replica', sgqlc.types.Arg(sgqlc.types.non_null(AVStreamSegmentReplicaInput), graphql_name='replica', default=None)),
+))
+    )
     create_access_token = sgqlc.types.Field(CreateAccessTokenResult, graphql_name='createAccessToken', args=sgqlc.types.ArgDict((
-        ('bearer_token', sgqlc.types.Arg(String, graphql_name='bearerToken', default=None)),
-        ('email_address', sgqlc.types.Arg(String, graphql_name='emailAddress', default=None)),
         ('password', sgqlc.types.Arg(String, graphql_name='password', default=None)),
         ('lifespan_seconds', sgqlc.types.Arg(Int, graphql_name='lifespanSeconds', default=None)),
+        ('human_readable', sgqlc.types.Arg(Boolean, graphql_name='humanReadable', default=None)),
+        ('bearer_token', sgqlc.types.Arg(String, graphql_name='bearerToken', default=None)),
+        ('email_address', sgqlc.types.Arg(String, graphql_name='emailAddress', default=None)),
 ))
     )
     create_agent = sgqlc.types.Field('Agent', graphql_name='createAgent', args=sgqlc.types.ArgDict((
@@ -1066,8 +1135,8 @@ class Mutation(sgqlc.types.Type):
     create_anonymous_user = sgqlc.types.Field(CreateAnonymousUserResult, graphql_name='createAnonymousUser')
     create_ball = sgqlc.types.Field('Ball', graphql_name='createBall')
     create_ball_telemetry_samples = sgqlc.types.Field(CreateBallTelemetrySamplesResult, graphql_name='createBallTelemetrySamples', args=sgqlc.types.ArgDict((
-        ('samples', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(BallTelemetrySampleInput))), graphql_name='samples', default=None)),
         ('game_id', sgqlc.types.Arg(ID, graphql_name='gameId', default=None)),
+        ('samples', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(BallTelemetrySampleInput))), graphql_name='samples', default=None)),
 ))
     )
     create_coach = sgqlc.types.Field('Player', graphql_name='createCoach', args=sgqlc.types.ArgDict((
@@ -1091,8 +1160,8 @@ class Mutation(sgqlc.types.Type):
 ))
     )
     create_person_telemetry_samples = sgqlc.types.Field(CreatePersonTelemetrySamplesResult, graphql_name='createPersonTelemetrySamples', args=sgqlc.types.ArgDict((
-        ('samples', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(PersonTelemetrySampleInput))), graphql_name='samples', default=None)),
         ('game_id', sgqlc.types.Arg(ID, graphql_name='gameId', default=None)),
+        ('samples', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(PersonTelemetrySampleInput))), graphql_name='samples', default=None)),
 ))
     )
     create_play = sgqlc.types.Field('Play', graphql_name='createPlay', args=sgqlc.types.ArgDict((
@@ -1124,12 +1193,20 @@ class Mutation(sgqlc.types.Type):
 ))
     )
     create_user = sgqlc.types.Field('User', graphql_name='createUser', args=sgqlc.types.ArgDict((
-        ('handle', sgqlc.types.Arg(String, graphql_name='handle', default=None)),
         ('email_address', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='emailAddress', default=None)),
+        ('handle', sgqlc.types.Arg(String, graphql_name='handle', default=None)),
 ))
     )
     create_user_level = sgqlc.types.Field('UserLevel', graphql_name='createUserLevel', args=sgqlc.types.ArgDict((
         ('level', sgqlc.types.Arg(sgqlc.types.non_null(UserLevelInput), graphql_name='level', default=None)),
+))
+    )
+    delete_avprogram = sgqlc.types.Field(Boolean, graphql_name='deleteAVProgram', args=sgqlc.types.ArgDict((
+        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
+))
+    )
+    delete_avstream = sgqlc.types.Field(Boolean, graphql_name='deleteAVStream', args=sgqlc.types.ArgDict((
+        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
 ))
     )
     delete_access_token = sgqlc.types.Field(Boolean, graphql_name='deleteAccessToken', args=sgqlc.types.ArgDict((
@@ -1157,6 +1234,11 @@ class Mutation(sgqlc.types.Type):
         ('patch', sgqlc.types.Arg(sgqlc.types.non_null(AVProgramPatchInput), graphql_name='patch', default=None)),
 ))
     )
+    patch_avstream = sgqlc.types.Field('AVStream', graphql_name='patchAVStream', args=sgqlc.types.ArgDict((
+        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
+        ('patch', sgqlc.types.Arg(sgqlc.types.non_null(AVStreamPatchInput), graphql_name='patch', default=None)),
+))
+    )
     patch_agent = sgqlc.types.Field('Agent', graphql_name='patchAgent', args=sgqlc.types.ArgDict((
         ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
         ('patch', sgqlc.types.Arg(sgqlc.types.non_null(AgentPatchInput), graphql_name='patch', default=None)),
@@ -1173,18 +1255,18 @@ class Mutation(sgqlc.types.Type):
 ))
     )
     patch_named_time_range = sgqlc.types.Field('NamedTimeRange', graphql_name='patchNamedTimeRange', args=sgqlc.types.ArgDict((
-        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
         ('patch', sgqlc.types.Arg(sgqlc.types.non_null(NamedTimeRangePatchInput), graphql_name='patch', default=None)),
+        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
 ))
     )
     patch_official = sgqlc.types.Field('Official', graphql_name='patchOfficial', args=sgqlc.types.ArgDict((
-        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
         ('patch', sgqlc.types.Arg(sgqlc.types.non_null(OfficialPatchInput), graphql_name='patch', default=None)),
+        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
 ))
     )
     patch_play = sgqlc.types.Field('Play', graphql_name='patchPlay', args=sgqlc.types.ArgDict((
-        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
         ('patch', sgqlc.types.Arg(sgqlc.types.non_null(PlayPatchInput), graphql_name='patch', default=None)),
+        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
 ))
     )
     patch_player = sgqlc.types.Field('Player', graphql_name='patchPlayer', args=sgqlc.types.ArgDict((
@@ -1223,9 +1305,9 @@ class Mutation(sgqlc.types.Type):
 ))
     )
     put_game_official = sgqlc.types.Field(Boolean, graphql_name='putGameOfficial', args=sgqlc.types.ArgDict((
-        ('game_id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='gameId', default=None)),
         ('official_id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='officialId', default=None)),
         ('position', sgqlc.types.Arg(sgqlc.types.non_null(OfficialPosition), graphql_name='position', default=None)),
+        ('game_id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='gameId', default=None)),
 ))
     )
     redeem_user_token_code = sgqlc.types.Field('RedeemUserTokenCodeResult', graphql_name='redeemUserTokenCode', args=sgqlc.types.ArgDict((
@@ -1295,23 +1377,25 @@ class PageInfo(sgqlc.types.Type):
 
 class Person(sgqlc.types.Interface):
     __schema__ = aaf_schema
-    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
-    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
-    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
-    telemetry_samples_connection = sgqlc.types.Field('PersonPersonTelemetrySampleConnection', graphql_name='telemetrySamplesConnection')
-    legal_name = sgqlc.types.Field('PersonName', graphql_name='legalName')
-    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
-    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     common_name = sgqlc.types.Field('PersonName', graphql_name='commonName')
+    height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
     name = sgqlc.types.Field(sgqlc.types.non_null('PersonName'), graphql_name='name')
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
+    telemetry_samples_connection = sgqlc.types.Field('PersonPersonTelemetrySampleConnection', graphql_name='telemetrySamplesConnection')
     biography = sgqlc.types.Field(String, graphql_name='biography')
+    legal_name = sgqlc.types.Field('PersonName', graphql_name='legalName')
     avatar = sgqlc.types.Field('File', graphql_name='avatar')
+    birth_date = sgqlc.types.Field(Date, graphql_name='birthDate')
+    personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
+    weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
 
 
 class PersonName(sgqlc.types.Type):
     __schema__ = aaf_schema
     family_name = sgqlc.types.Field(String, graphql_name='familyName')
+    family_name_pronunciation = sgqlc.types.Field(String, graphql_name='familyNamePronunciation')
     given_name = sgqlc.types.Field(String, graphql_name='givenName')
+    given_name_pronunciation = sgqlc.types.Field(String, graphql_name='givenNamePronunciation')
     middle_name = sgqlc.types.Field(String, graphql_name='middleName')
     pronunciation = sgqlc.types.Field(String, graphql_name='pronunciation')
     suffix = sgqlc.types.Field(String, graphql_name='suffix')
@@ -1507,6 +1591,9 @@ class PlayerStats(sgqlc.types.Type):
     punting_yards = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='puntingYards')
     punting_yards_net = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='puntingYardsNet')
     punts_attempted = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='puntsAttempted')
+    punts_inside20 = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='puntsInside20')
+    punts_into_end_zone_without_touchbacks = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='puntsIntoEndZoneWithoutTouchbacks')
+    punts_with_touchbacks = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='puntsWithTouchbacks')
     quarterback_hits = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='quarterbackHits')
     receiving_longest_gain = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='receivingLongestGain')
     receiving_touchdowns = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='receivingTouchdowns')
@@ -1578,20 +1665,20 @@ class Query(sgqlc.types.Type):
     access_token = sgqlc.types.Field('AccessToken', graphql_name='accessToken')
     agents_connection = sgqlc.types.Field(AgentsConnection, graphql_name='agentsConnection', args=sgqlc.types.ArgDict((
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('autocomplete', sgqlc.types.Arg(String, graphql_name='autocomplete', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
-        ('autocomplete', sgqlc.types.Arg(String, graphql_name='autocomplete', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
 ))
     )
     effective_user_roles = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(UserRole))), graphql_name='effectiveUserRoles')
     games_connection = sgqlc.types.Field(GamesConnection, graphql_name='gamesConnection', args=sgqlc.types.ArgDict((
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
-        ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
         ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
 ))
     )
     me = sgqlc.types.Field('User', graphql_name='me')
@@ -1605,36 +1692,36 @@ class Query(sgqlc.types.Type):
 ))
     )
     player_transactions_connection = sgqlc.types.Field(PlayerTransactionsConnection, graphql_name='playerTransactionsConnection', args=sgqlc.types.ArgDict((
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
-        ('at_or_after_date', sgqlc.types.Arg(Date, graphql_name='atOrAfterDate', default=None)),
         ('before_date', sgqlc.types.Arg(Date, graphql_name='beforeDate', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('at_or_after_date', sgqlc.types.Arg(Date, graphql_name='atOrAfterDate', default=None)),
 ))
     )
     players_connection = sgqlc.types.Field(PlayersConnection, graphql_name='playersConnection', args=sgqlc.types.ArgDict((
-        ('roster_status', sgqlc.types.Arg(PlayerRosterStatus, graphql_name='rosterStatus', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
-        ('autocomplete', sgqlc.types.Arg(String, graphql_name='autocomplete', default=None)),
         ('platoon', sgqlc.types.Arg(Platoon, graphql_name='platoon', default=None)),
         ('position', sgqlc.types.Arg(PlayerPosition, graphql_name='position', default=None)),
+        ('roster_status', sgqlc.types.Arg(PlayerRosterStatus, graphql_name='rosterStatus', default=None)),
+        ('autocomplete', sgqlc.types.Arg(String, graphql_name='autocomplete', default=None)),
 ))
     )
     schools_connection = sgqlc.types.Field('SchoolsConnection', graphql_name='schoolsConnection', args=sgqlc.types.ArgDict((
-        ('autocomplete', sgqlc.types.Arg(String, graphql_name='autocomplete', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('autocomplete', sgqlc.types.Arg(String, graphql_name='autocomplete', default=None)),
 ))
     )
     seasons_connection = sgqlc.types.Field('SeasonsConnection', graphql_name='seasonsConnection', args=sgqlc.types.ArgDict((
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
 ))
     )
     sportradar_ncaafbplayer_search = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('SportradarNCAAFBPlayerSearchResult')), graphql_name='sportradarNCAAFBPlayerSearch', args=sgqlc.types.ArgDict((
@@ -1651,15 +1738,15 @@ class Query(sgqlc.types.Type):
 ))
     )
     user_avatars_connection = sgqlc.types.Field('UserAvatarsConnection', graphql_name='userAvatarsConnection', args=sgqlc.types.ArgDict((
-        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
 ))
     )
     user_levels_connection = sgqlc.types.Field('UserLevelsConnection', graphql_name='userLevelsConnection', args=sgqlc.types.ArgDict((
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
 ))
     )
 
@@ -1977,12 +2064,53 @@ class VerifyU2FDeviceResult(sgqlc.types.Type):
 
 class AVProgram(sgqlc.types.Type, Node):
     __schema__ = aaf_schema
+    av_streams_connection = sgqlc.types.Field(AVProgramAVStreamsConnection, graphql_name='avStreamsConnection', args=sgqlc.types.ArgDict((
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+))
+    )
     creation_time = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='creationTime')
     hls_master_playlist_url = sgqlc.types.Field(String, graphql_name='hlsMasterPlaylistURL')
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     is_private = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isPrivate')
     name = sgqlc.types.Field(String, graphql_name='name')
     thumbnail = sgqlc.types.Field('File', graphql_name='thumbnail')
+
+
+class AVStream(sgqlc.types.Type, Node):
+    __schema__ = aaf_schema
+    av_stream_segment_replicas_connection = sgqlc.types.Field(AVStreamAVStreamSegmentReplicasConnection, graphql_name='avStreamSegmentReplicasConnection', args=sgqlc.types.ArgDict((
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
+        ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+))
+    )
+    bitrate = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='bitrate')
+    codecs = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(String)), graphql_name='codecs')
+    creation_time = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='creationTime')
+    hls_master_playlist_url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='hlsMasterPlaylistURL')
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
+    is_live = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isLive')
+    maximum_segment_duration_milliseconds = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='maximumSegmentDurationMilliseconds')
+    time_adjustment_milliseconds = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='timeAdjustmentMilliseconds')
+    video_height = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='videoHeight')
+    video_width = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='videoWidth')
+
+
+class AVStreamSegmentReplica(sgqlc.types.Type, Node):
+    __schema__ = aaf_schema
+    creation_time = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='creationTime')
+    discontinuity = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='discontinuity')
+    duration_milliseconds = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='durationMilliseconds')
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
+    segment_number = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='segmentNumber')
+    time = sgqlc.types.Field(DateTime, graphql_name='time')
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='url')
 
 
 class AccessToken(sgqlc.types.Type, Node):
@@ -2011,12 +2139,12 @@ class Agent(sgqlc.types.Type, Person, Node):
     phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
     phone_number_alternative = sgqlc.types.Field(String, graphql_name='phoneNumberAlternative')
     telemetry_samples_connection = sgqlc.types.Field(PersonPersonTelemetrySampleConnection, graphql_name='telemetrySamplesConnection', args=sgqlc.types.ArgDict((
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
         ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
 ))
     )
     weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
@@ -2025,20 +2153,20 @@ class Agent(sgqlc.types.Type, Person, Node):
 class Ball(sgqlc.types.Type, Node):
     __schema__ = aaf_schema
     games_connection = sgqlc.types.Field(BallGamesConnection, graphql_name='gamesConnection', args=sgqlc.types.ArgDict((
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
 ))
     )
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     telemetry_samples_connection = sgqlc.types.Field(BallBallTelemetrySampleConnection, graphql_name='telemetrySamplesConnection', args=sgqlc.types.ArgDict((
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
-        ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
         ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
-        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
 ))
     )
 
@@ -2049,6 +2177,7 @@ class BallTelemetrySample(sgqlc.types.Type, Node):
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     orientation = sgqlc.types.Field(Quaternion, graphql_name='orientation')
     position_meters = sgqlc.types.Field(Point3D, graphql_name='positionMeters')
+    position_yards = sgqlc.types.Field(Point3D, graphql_name='positionYards')
     time = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='time')
 
 
@@ -2067,12 +2196,12 @@ class Coach(sgqlc.types.Type, Person, Node):
     position = sgqlc.types.Field(CoachPosition, graphql_name='position')
     team = sgqlc.types.Field('Team', graphql_name='team')
     telemetry_samples_connection = sgqlc.types.Field(PersonPersonTelemetrySampleConnection, graphql_name='telemetrySamplesConnection', args=sgqlc.types.ArgDict((
+        ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
-        ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
 ))
     )
     title = sgqlc.types.Field(String, graphql_name='title')
@@ -2107,30 +2236,30 @@ class File(sgqlc.types.Type, Node):
 class Game(sgqlc.types.Type, Node):
     __schema__ = aaf_schema
     av_programs_connection = sgqlc.types.Field(GameAVProgramsConnection, graphql_name='avProgramsConnection', args=sgqlc.types.ArgDict((
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
 ))
     )
     availability = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(EventAvailability))), graphql_name='availability')
     away_team = sgqlc.types.Field('Team', graphql_name='awayTeam')
     away_team_edge = sgqlc.types.Field(GameTeamEdge, graphql_name='awayTeamEdge')
     balls_connection = sgqlc.types.Field(GameBallsConnection, graphql_name='ballsConnection', args=sgqlc.types.ArgDict((
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
-        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
 ))
     )
     clock = sgqlc.types.Field(GameClock, graphql_name='clock')
     clock_history_connection = sgqlc.types.Field(GameClockHistoryConnection, graphql_name='clockHistoryConnection', args=sgqlc.types.ArgDict((
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
-        ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
 ))
     )
     coin_tosses = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(CoinToss)), graphql_name='coinTosses')
@@ -2142,47 +2271,47 @@ class Game(sgqlc.types.Type, Node):
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     named_time_range = sgqlc.types.Field('NamedTimeRange', graphql_name='namedTimeRange')
     officials_connection = sgqlc.types.Field(GameOfficialsConnection, graphql_name='officialsConnection', args=sgqlc.types.ArgDict((
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
 ))
     )
     play_clock = sgqlc.types.Field(GamePlayClock, graphql_name='playClock')
     play_clock_history_connection = sgqlc.types.Field(GamePlayClockHistoryConnection, graphql_name='playClockHistoryConnection', args=sgqlc.types.ArgDict((
-        ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
+        ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
 ))
     )
     players_connection = sgqlc.types.Field(GamePlayersConnection, graphql_name='playersConnection', args=sgqlc.types.ArgDict((
-        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
 ))
     )
     plays_connection = sgqlc.types.Field(GamePlaysConnection, graphql_name='playsConnection', args=sgqlc.types.ArgDict((
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
         ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
-        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
 ))
     )
     stadium = sgqlc.types.Field('Stadium', graphql_name='stadium')
     status = sgqlc.types.Field(GameStatus, graphql_name='status')
     status_history_connection = sgqlc.types.Field(GameStatusHistoryConnection, graphql_name='statusHistoryConnection', args=sgqlc.types.ArgDict((
-        ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
+        ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
 ))
     )
     subseason = sgqlc.types.Field(sgqlc.types.non_null(Subseason), graphql_name='subseason')
@@ -2191,12 +2320,12 @@ class Game(sgqlc.types.Type, Node):
     time = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='time')
     time_to_be_determined = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='timeToBeDetermined')
     timeouts_connection = sgqlc.types.Field(GameTimeoutsConnection, graphql_name='timeoutsConnection', args=sgqlc.types.ArgDict((
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
         ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
 ))
     )
 
@@ -2224,12 +2353,12 @@ class Official(sgqlc.types.Type, Person, Node):
     name = sgqlc.types.Field(sgqlc.types.non_null(PersonName), graphql_name='name')
     personnel_notes = sgqlc.types.Field(String, graphql_name='personnelNotes')
     telemetry_samples_connection = sgqlc.types.Field(PersonPersonTelemetrySampleConnection, graphql_name='telemetrySamplesConnection', args=sgqlc.types.ArgDict((
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
         ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
 ))
     )
     weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
@@ -2241,6 +2370,7 @@ class PersonTelemetrySample(sgqlc.types.Type, Node):
     orientation = sgqlc.types.Field(Quaternion, graphql_name='orientation')
     person = sgqlc.types.Field(Person, graphql_name='person')
     position_meters = sgqlc.types.Field(Point3D, graphql_name='positionMeters')
+    position_yards = sgqlc.types.Field(Point3D, graphql_name='positionYards')
     time = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='time')
 
 
@@ -2261,6 +2391,7 @@ class Play(sgqlc.types.Type, Node):
     sequence = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='sequence')
     stats = sgqlc.types.Field(sgqlc.types.list_of(PlayStat), graphql_name='stats')
     time = sgqlc.types.Field(DateTime, graphql_name='time')
+    type = sgqlc.types.Field(PlayType, graphql_name='type')
     yard_line = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardLine')
     yard_line_team = sgqlc.types.Field(YardLineTeam, graphql_name='yardLineTeam')
     yards_to_go = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yardsToGo')
@@ -2279,10 +2410,10 @@ class Player(sgqlc.types.Type, Person, Node):
     creation_time = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='creationTime')
     email_address = sgqlc.types.Field(String, graphql_name='emailAddress')
     games_connection = sgqlc.types.Field(PlayerGamesConnection, graphql_name='gamesConnection', args=sgqlc.types.ArgDict((
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
 ))
     )
     height_millimeters = sgqlc.types.Field(Int, graphql_name='heightMillimeters')
@@ -2305,30 +2436,30 @@ class Player(sgqlc.types.Type, Person, Node):
 ))
     )
     seasons_connection = sgqlc.types.Field(PlayerSeasonsConnection, graphql_name='seasonsConnection', args=sgqlc.types.ArgDict((
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
 ))
     )
     sportradar_ncaafbid = sgqlc.types.Field(String, graphql_name='sportradarNCAAFBId')
     team = sgqlc.types.Field('Team', graphql_name='team')
     telemetry_samples_connection = sgqlc.types.Field(PersonPersonTelemetrySampleConnection, graphql_name='telemetrySamplesConnection', args=sgqlc.types.ArgDict((
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
         ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
         ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
-        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
 ))
     )
     transactions_connection = sgqlc.types.Field(PlayerPlayerTransactionsConnection, graphql_name='transactionsConnection', args=sgqlc.types.ArgDict((
-        ('before_date', sgqlc.types.Arg(Date, graphql_name='beforeDate', default=None)),
-        ('at_or_after_date', sgqlc.types.Arg(Date, graphql_name='atOrAfterDate', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('at_or_after_date', sgqlc.types.Arg(Date, graphql_name='atOrAfterDate', default=None)),
+        ('before_date', sgqlc.types.Arg(Date, graphql_name='beforeDate', default=None)),
 ))
     )
     weight_grams = sgqlc.types.Field(Int, graphql_name='weightGrams')
@@ -2349,7 +2480,6 @@ class School(sgqlc.types.Type, Node):
     __schema__ = aaf_schema
     abbreviation = sgqlc.types.Field(String, graphql_name='abbreviation')
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
-    is_ncaa = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isNCAA')
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
 
 
@@ -2370,10 +2500,10 @@ class Season(sgqlc.types.Type, Node):
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
     named_time_ranges_connection = sgqlc.types.Field(SeasonNamedTimeRangesConnection, graphql_name='namedTimeRangesConnection', args=sgqlc.types.ArgDict((
-        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
-        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
+        ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
 ))
     )
     year = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='year')
@@ -2399,8 +2529,8 @@ class Team(sgqlc.types.Type, Node):
 ))
     )
     coaches_connection = sgqlc.types.Field(TeamCoachesConnection, graphql_name='coachesConnection', args=sgqlc.types.ArgDict((
-        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
+        ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
 ))
     )
     colors = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Color)), graphql_name='colors')
@@ -2408,11 +2538,11 @@ class Team(sgqlc.types.Type, Node):
     facebook_handle = sgqlc.types.Field(String, graphql_name='facebookHandle')
     games_connection = sgqlc.types.Field(TeamGamesConnection, graphql_name='gamesConnection', args=sgqlc.types.ArgDict((
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
-        ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
         ('at_or_after_time', sgqlc.types.Arg(DateTime, graphql_name='atOrAfterTime', default=None)),
-        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('before_time', sgqlc.types.Arg(DateTime, graphql_name='beforeTime', default=None)),
+        ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
 ))
     )
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
@@ -2424,19 +2554,19 @@ class Team(sgqlc.types.Type, Node):
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
     nickname = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='nickname')
     players_connection = sgqlc.types.Field(TeamPlayersConnection, graphql_name='playersConnection', args=sgqlc.types.ArgDict((
-        ('platoon', sgqlc.types.Arg(Platoon, graphql_name='platoon', default=None)),
-        ('position', sgqlc.types.Arg(PlayerPosition, graphql_name='position', default=None)),
         ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
+        ('platoon', sgqlc.types.Arg(Platoon, graphql_name='platoon', default=None)),
+        ('position', sgqlc.types.Arg(PlayerPosition, graphql_name='position', default=None)),
         ('roster_status', sgqlc.types.Arg(PlayerRosterStatus, graphql_name='rosterStatus', default=None)),
 ))
     )
     region_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='regionName')
     seasons_connection = sgqlc.types.Field(TeamSeasonsConnection, graphql_name='seasonsConnection', args=sgqlc.types.ArgDict((
-        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
         ('first', sgqlc.types.Arg(Int, graphql_name='first', default=None)),
         ('before', sgqlc.types.Arg(String, graphql_name='before', default=None)),
         ('last', sgqlc.types.Arg(Int, graphql_name='last', default=None)),
+        ('after', sgqlc.types.Arg(String, graphql_name='after', default=None)),
 ))
     )
     shop_website_url = sgqlc.types.Field(String, graphql_name='shopWebsiteURL')
