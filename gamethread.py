@@ -134,8 +134,8 @@ class AAFGameThread:
             stored_game = self.games[game.id]
             if now() > game.time - gt_buffer and 'gamethread' not in stored_game.threads:
                 self.submit_thread(game, 'gamethread')
-            # If game.phase = COMPLETED a post game thread has been posted
-            if game.status and game.status.phase == GamePhase.COMPLETE and 'post_gamethread' not in stored_game.threads:
+            # If game.status.phase = COMPLETED a post game thread has been posted
+            if hasattr(game.status, 'phase') and game.status.phase == GamePhase.COMPLETE and 'post_gamethread' not in stored_game.threads:
                 self.submit_thread(game, 'post_gamethread')
 
     def submit_thread(self, game, thread_type):
@@ -180,10 +180,10 @@ class AAFGameThread:
 
     def decide_sleep(self, games):
         def updating(g):
-            return hasattr(g, "status") and g.status.phase in (GamePhase.PREGAME, GamePhase.PLAYING, GamePhase.HALFTIME, GamePhase.SUSPENDED)
+            return hasattr(g.status, "phase") and g.status.phase in (GamePhase.PREGAME, GamePhase.PLAYING, GamePhase.HALFTIME, GamePhase.SUSPENDED)
 
         def completed(g):
-            return hasattr(g, "status") and g.status.phase == GamePhase.COMPLETE
+            return hasattr(g.status, "phase") and g.status.phase == GamePhase.COMPLETE
 
         def first_snap(g):
             return g.time
@@ -201,6 +201,8 @@ class AAFGameThread:
         for game in sorted(games, key=first_snap):
             if game.time > now():
                 return min(LONG_SLEEP, max(game.time - now() - (self.gamethread_buffer*2), ACTIVE_SLEEP))
+
+        return ACTIVE_SLEEP
 
 
 def main():
