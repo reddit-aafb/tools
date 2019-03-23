@@ -48,7 +48,7 @@
 {% if inactives %}
 ----
 
-* First snap
+* Inactives
 * 
 
 {% set home_inactives=inactives[0] -%}
