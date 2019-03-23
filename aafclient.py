@@ -174,6 +174,8 @@ fragment gameTeamEdge on GameTeamEdge {
 
         players = games.nodes.players_connection(first=500)
         players.edges.team.abbreviation()
+        players.edges.starter()
+        players.edges.active()
         players.edges.stats().__fields__()
         players.edges.node.legal_name().__fields__('family_name', 'given_name', 'pronunciation')
 

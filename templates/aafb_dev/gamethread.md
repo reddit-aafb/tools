@@ -45,6 +45,29 @@
 
 {% if gameclock != "--:--" %}Countdown to first snap: `{{ gameclock }}`{% endif %}
 
+{% if inactives %}
+----
+
+* First snap
+* 
+
+{% set home_inactives=inactives[0] -%}
+{% set away_inactives=inactives[1] -%}
+{% set x=home_inactives|length -%}
+{% set y=away_inactives|length -%}
+{% if x > y -%}
+{% set z=x -%}
+{% else -%}
+{% set z=y -%}
+{% endif -%}
+| | |
+|:--|:--|
+| [](/r/{{ away|team_sr }}) **{{ away.nickname }}** | [](/r/{{ home|team_sr }}) **{{ home.nickname }}** |
+{% for i in range(z) -%}
+| {% if home_inactives|length > i %}{{ player_name(home_inactives[i]) }}{% endif %} | {% if away_inactives|length > i %}{{ player_name(away_inactives[i]) }}{% endif %} | 
+{% endfor -%}
+{% endif %}
+
 {% else %}
 
 {% if phase == 'HALFTIME' %}

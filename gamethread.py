@@ -80,8 +80,11 @@ class GameThreadRenderer(RenderHelper):
         players = game.players_connection.edges
         performers_home = build_stats(filter(lambda p: p.team.abbreviation == game.home_team_edge.node.abbreviation, players))
         performers_away = build_stats(filter(lambda p: p.team.abbreviation == game.away_team_edge.node.abbreviation, players))
+        inactives_home = list(filter(lambda p: p.team.abbreviation == game.home_team_edge.node.abbreviation and not p.active, players))
+        inactives_away = list(filter(lambda p: p.team.abbreviation == game.away_team_edge.node.abbreviation and not p.active, players))
         ctx = dict(game=game,
-                   performers=(performers_home, performers_away)
+                   performers=(performers_home, performers_away),
+                   inactives=(inactives_home, inactives_away),
                    )
         ctx.update(kwargs)
         title = self.try_render(template + '_title.md', ctx).replace("\n", " ").strip()
@@ -160,7 +163,7 @@ class AAFGameThread:
                     thread_id = stored_game.threads[thread_type]
                     thread = Submission(self.r, id=thread_id)
                     title, body = self.renderer.render_game(game, thread_type, thread=thread)
-                    if body != thread.selftext:
+                    if body is not None and body != thread.selftext:
                         print("Update %s (/r/%s, %s)" % (title, self.sub.display_name, thread_id))
                         print(diff_strings(thread.selftext, body))
                         thread.edit(body)
