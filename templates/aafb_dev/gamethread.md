@@ -45,7 +45,7 @@
 
 {% if gameclock != "--:--" %}Countdown to first snap: `{{ gameclock }}`{% endif %}
 
-{% if inactives %}
+{% if inactives and (inactives[0]|length > 0 or inactives[1]|length > 0) %}
 ----
 
 * Inactives
