@@ -63,11 +63,11 @@
 {% else -%}
 {% set z=y -%}
 {% endif -%}
-| | |
-|:--|:--|
-| [](/r/{{ away|team_sr }}) **{{ away.nickname }}** | [](/r/{{ home|team_sr }}) **{{ home.nickname }}** |
+| | | | |
+|:--|:--|:--|:--|
+| [](/r/{{ away|team_sr }}) | **{{ away.nickname }}** | [](/r/{{ home|team_sr }}) | **{{ home.nickname }}** |
 {% for i in range(z) -%}
-| {% if home_inactives|length > i %}{{ player_name(home_inactives[i]) }}{% endif %} | {% if away_inactives|length > i %}{{ player_name(away_inactives[i]) }}{% endif %} | 
+| {% if home_inactives|length > i %}{{ home_inactives[i].node.position|position }} | {{ player_name(home_inactives[i]) }}{% endif %} | {% if away_inactives|length > i %}{{ away_inactives[i].node.position|position }} | {{ player_name(away_inactives[i]) }}{% endif %} | 
 {% endfor -%}
 {% endif %}
 

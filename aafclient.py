@@ -178,6 +178,7 @@ fragment gameTeamEdge on GameTeamEdge {
         players.edges.active()
         players.edges.stats().__fields__()
         players.edges.node.legal_name().__fields__('family_name', 'given_name', 'pronunciation')
+        players.edges.node.position()
 
         games.nodes.stadium().__fields__('name')
         games.nodes.stadium().address().__fields__('locality', 'administrative_area_abbreviation')

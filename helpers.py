@@ -51,6 +51,7 @@ class RenderHelper:
         self.env.filters['format_date'] = format_date
         self.env.filters['short_channel'] = short_channel
         self.env.filters['passer_rating'] = pr_filter
+        self.env.filters['position'] = pos_filter
 
 
 def team_sr(team):
@@ -59,6 +60,39 @@ def team_sr(team):
     if hasattr(team, 'abbreviation'):
         return team_sr(team.abbreviation)
     return 'aafb'
+
+
+def pos_filter(position):
+    positions = {
+        'WIDE_RECEIVER': 'WR',
+        'RUNNING_BACK': 'RB',
+        'PUNTER': 'P',
+        'OFFENSIVE_TACKLE': 'OT',
+        'DEFENSIVE_LINEMAN': 'DL',
+        'HALFBACK': 'HB',
+        'NOSE_TACKLE': 'NT',
+        'HOLDER': 'H',
+        'STRONG_SAFETY': 'SS',
+        'DEFENSIVE_END': 'DE',
+        'FULLBACK': 'FB',
+        'OFFENSIVE_LINEMAN': 'OL',
+        'OFFENSIVE_GUARD': 'OG',
+        'PUNT_RETURNER': 'PR',
+        'MIDDLE_LINEBACKER': 'MLB',
+        'LINEBACKER': 'LB',
+        'KICKER': 'K',
+        'TIGHT_END': 'TE',
+        'CENTER': 'C',
+        'LONG_SNAPPER': 'LS',
+        'DEFENSIVE_BACK': 'DB',
+        'OUTSIDE_LINEBACKER': 'OLB',
+        'CORNERBACK': 'CB',
+        'QUARTERBACK': 'QB',
+        'DEFENSIVE_TACKLE': 'DT',
+        'SAFETY': 'S',
+        'FREE_SAFETY': 'FS',
+    }
+    return positions.get(position, position)
 
 
 def format_date(datetime, format, tz='US/Eastern'):
@@ -74,10 +108,12 @@ def short_channel(channel):
     }
     return channels.get(channel, channel)
 
+
 def pr_filter(s):
     if hasattr(s, "stats"):
         return pr_filter(s.stats)
-    return passer_rating(s.passes_attempted, s.passes_completed, s.passing_yards, s.passing_touchdowns, s.passes_intercepted)
+    return passer_rating(s.passes_attempted, s.passes_completed, s.passing_yards, s.passing_touchdowns,
+                         s.passes_intercepted)
 
 
 def diff_strings(a, b, **kwargs):
@@ -110,6 +146,7 @@ def dir_path_type(must_exist=True, create=False, mode=0o777):
                 except Exception as e:
                     raise argparse.ArgumentError("Could not create path %s" % path) from e
         return p
+
     return f
 
 
