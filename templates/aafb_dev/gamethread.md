@@ -1,3 +1,6 @@
+{% macro player_name(p) -%}
+{% if p.node.legal_name.pronunciation %}[{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}](//# "{{ p.node.legal_name.pronunciation }}"){% else %}{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}{% endif %}
+{%- endmacro -%}
 {% set home = game.home_team_edge.node %}
 {% set away = game.away_team_edge.node %}
 
@@ -38,10 +41,10 @@
 * First snap
 * 
 
-| | | | | | |
-|:--|:--|:--|:--|:--|:--|
-| **{{ game.time|format_date('zz', tz='US/Eastern') }}** | **{{ game.time|format_date('zz', tz='US/Central') }}** | **{{ game.time|format_date('zz', tz='US/Mountain') }}** | **{{ game.time|format_date('zz', tz='US/Pacific') }}** | **{{ game.time|format_date('zz', tz='America/Anchorage') }}** | **{{ game.time|format_date('zz', tz='UTC') }}** |
-| {{ game.time|format_date('h:mmA', tz='US/Eastern') }} | {{ game.time|format_date('h:mmA', tz='US/Central') }} | {{ game.time|format_date('h:mmA', tz='US/Mountain') }} | {{ game.time|format_date('h:mmA', tz='US/Pacific') }} | {{ game.time|format_date('h:mmA', tz='America/Anchorage') }} | {{ game.time|format_date('h:mmA', tz='UTC') }} |
+| | | | | | | |
+|:--|:--|:--|:--|:--|:--|:--|
+| **{{ game.time|format_date('zz', tz='US/Eastern') }}** | **{{ game.time|format_date('zz', tz='US/Central') }}** | **{{ game.time|format_date('zz', tz='US/Mountain') }}** | **{{ game.time|format_date('zz', tz='US/Pacific') }}** | **{{ game.time|format_date('zz', tz='America/Anchorage') }}** | **{{ game.time|format_date('zz', tz='Pacific/Honolulu') }}** | **{{ game.time|format_date('zz', tz='UTC') }}** |
+| {{ game.time|format_date('h:mmA', tz='US/Eastern') }} | {{ game.time|format_date('h:mmA', tz='US/Central') }} | {{ game.time|format_date('h:mmA', tz='US/Mountain') }} | {{ game.time|format_date('h:mmA', tz='US/Pacific') }} | {{ game.time|format_date('h:mmA', tz='America/Anchorage') }} | {{ game.time|format_date('h:mmA', tz='Pacific/Honolulu') }} | {{ game.time|format_date('h:mmA', tz='UTC') }} |
 
 {% if gameclock != "--:--" %}Countdown to first snap: `{{ gameclock }}`{% endif %}
 
@@ -127,10 +130,6 @@
 {% set pa=performers[1] %}
 
 ----
-
-{% macro player_name(p) -%}
-{% if p.node.legal_name.pronunciation %}[{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}](//# "{{ p.node.legal_name.pronunciation }}"){% else %}{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}{% endif %}
-{%- endmacro -%}
 
 {% if phase == 'COMPLETE' -%}
 {%set passers=2 -%}
