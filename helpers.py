@@ -155,7 +155,7 @@ def yaml_file_type(filename):
         return yaml.load(fp, Loader=yaml.SafeLoader)
 
 
-parent_parser = argparse.ArgumentParser('Subreddit flair swiss army knife', add_help=False)
+parent_parser = argparse.ArgumentParser('', add_help=False)
 parent_parser.add_argument('--site', help="Reddit 'site' (praw.ini section) to use")
 parent_parser.add_argument('--dry-run', action="store_true", help="Prevent any action on reddit being taken "
                                                                   "(other side-effects are not prevented!)")
