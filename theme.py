@@ -50,25 +50,33 @@ class ThemeUpdater:
 
     def main(self):
         try:
-            self.update_repo()
-            self.build_theme()
-            self.upload_theme("Automatic update")
+            commits = self.update_repo()
+            if commits:
+                self.build_theme()
+                self.upload_theme("Automatic update")
+            else:
+                print("No new changes")
         except Exception as e:
             traceback.print_exc()
             pass
 
     def update_repo(self):
         repo = Repo(self.args.repo)
+        start_commit = repo.head.commit
         print("Currently on %s" % repo.active_branch.name)
         print("Currently at %s" % repo.head.commit.hexsha)
         origin = list(filter(lambda r: r.name == 'origin', repo.remotes))[0]
         origin.pull()
         print("Pulled!")
         print("Now at %s" % repo.head.commit.hexsha)
-        c = repo.head.commit
-        while c:
-            print(c.summary)
-            c = c.parents[0] if c.parents else None
+        commit = repo.head.commit
+        commits = []
+        while commit:
+            if commit == start_commit:
+                break
+            commits.append(commit)
+            commit = commit.parents[0] if commit.parents else None
+        return commits
 
     def build_theme(self):
         cmd = [self.args.repo + "/node_modules/.bin/gulp", 'build']
