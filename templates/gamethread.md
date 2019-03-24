@@ -1,3 +1,6 @@
+{% macro player_name(p) -%}
+{% if p.node.legal_name.pronunciation %}[{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}](//# "{{ p.node.legal_name.pronunciation }}"){% else %}{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}{% endif %}
+{%- endmacro -%}
 {% set home = game.home_team_edge.node %}
 {% set away = game.away_team_edge.node %}
 
@@ -44,6 +47,29 @@
 | {{ game.time|format_date('h:mmA', tz='US/Eastern') }} | {{ game.time|format_date('h:mmA', tz='US/Central') }} | {{ game.time|format_date('h:mmA', tz='US/Mountain') }} | {{ game.time|format_date('h:mmA', tz='US/Pacific') }} | {{ game.time|format_date('h:mmA', tz='America/Anchorage') }} | {{ game.time|format_date('h:mmA', tz='Pacific/Honolulu') }} | {{ game.time|format_date('h:mmA', tz='UTC') }} |
 
 {% if gameclock != "--:--" %}Countdown to first snap: `{{ gameclock }}`{% endif %}
+
+{% if inactives and (inactives[0]|length > 0 or inactives[1]|length > 0) %}
+----
+
+* Inactives
+* 
+
+{% set home_inactives=inactives[0] -%}
+{% set away_inactives=inactives[1] -%}
+{% set x=home_inactives|length -%}
+{% set y=away_inactives|length -%}
+{% if x > y -%}
+{% set z=x -%}
+{% else -%}
+{% set z=y -%}
+{% endif -%}
+| | | | |
+|:--|:--|:--|:--|
+| [](/r/{{ away|team_sr }}) | **{{ away.nickname }}** | [](/r/{{ home|team_sr }}) | **{{ home.nickname }}** |
+{% for i in range(z) -%}
+| {% if home_inactives|length > i %}{{ home_inactives[i].node.position|position }} | {{ player_name(home_inactives[i]) }}{% endif %} | {% if away_inactives|length > i %}{{ away_inactives[i].node.position|position }} | {{ player_name(away_inactives[i]) }}{% endif %} | 
+{% endfor -%}
+{% endif %}
 
 {% else %}
 
@@ -105,10 +131,6 @@
 
 ----
 
-{% macro player_name(p) -%}
-{% if p.node.legal_name.pronunciation %}[{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}](//# "{{ p.node.legal_name.pronunciation }}"){% else %}{{ p.node.legal_name.given_name[0] }}.{{ p.node.legal_name.family_name }}{% endif %}
-{%- endmacro -%}
-
 {% if phase == 'COMPLETE' -%}
 {%set passers=2 -%}
 {%set rushers=2 -%}
@@ -151,6 +173,7 @@
 | {{ player_name(p) }} | [*{{ home.abbreviation }}*](/r/{{ home|team_sr }}) | {{ p.stats.field_goals_attempted }} | {{ p.stats.field_goals_made }} | {{ p.stats.field_goals_blocked }} | {{ p.stats.field_goals_longest_made }} |
 {% endfor -%}
 {% endif -%}
+
 
 {% endif %}
 
