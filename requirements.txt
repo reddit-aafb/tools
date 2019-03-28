@@ -5,3 +5,4 @@ praw==6.1.1
 sgqlc==6.0
 recordclass==0.9
 PyYAML==5.1
+GitPython==2.1.11
