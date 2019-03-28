@@ -88,7 +88,7 @@ Stderr:
             except Exception as e:
                 trace = traceback.format_exc()
                 subject = "Theme upload failed"
-                msg = "Updated theme could not be uploaded.\n\nCommits:\n\n{0}\n\nError:\n{1}".format(
+                msg = "Updated theme could not be uploaded.\n\nCommits:\n\n{0}\n\nError:\n\n    {1}".format(
                     commits_str,
                     "\n    ".join(trace.split("\n")))
                 self.sub.message(subject, msg)
