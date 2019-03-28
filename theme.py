@@ -57,10 +57,10 @@ class ThemeUpdater:
             traceback.print_exc()
 
         if commits:
+            commits_str = "\n".join(["* {c.summary}".format(c=commit) for commit in commits])
             retcode, stdout, stderr = self.build_theme()
             if retcode > 0:
                 subject = "Theme compilation failed"
-                commits_str = "\n".join(["* {c.summary}".format(c=commit) for commit in commits])
                 msg = """
 Updated theme could not be built.
 
@@ -121,6 +121,9 @@ Stderr:
                                 encoding="UTF-8", env=my_env)
 
         stdout, stderr = proc.communicate()
+        print("Built theme: %d" % proc.returncode)
+        print("Stdout: %s" % stdout)
+        print("Stderr: %s" % stderr)
         return proc.returncode, stdout, stderr
 
     def upload_theme(self, reason: str):
