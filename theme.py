@@ -17,8 +17,9 @@ import sys
 import traceback
 from glob import glob
 from pathlib import Path
+from typing import Tuple, List
 
-from git import Repo
+from git import Repo, Commit
 from praw import Reddit
 from praw.exceptions import ClientException
 
@@ -26,7 +27,7 @@ from deployer import Deployer
 from helpers import parent_parser
 
 
-def get_reddit(site, parser):
+def get_reddit(site: str, parser: argparse.ArgumentParser) -> Reddit:
     try:
         return Reddit(site)
     except ClientException:
@@ -49,18 +50,49 @@ class ThemeUpdater:
         self.sub = self.r.subreddit(self.args.subreddit)
 
     def main(self):
+        commits = []
         try:
             commits = self.update_repo()
-            if commits:
-                self.build_theme()
-                self.upload_theme("Automatic update")
-            else:
-                print("No new changes")
         except Exception as e:
             traceback.print_exc()
-            pass
 
-    def update_repo(self):
+        if commits:
+            retcode, stdout, stderr = self.build_theme()
+            if retcode > 0:
+                subject = "Theme compilation failed"
+                commits_str = "\n".join(["* {c.summary}".format(c=commit) for commit in commits])
+                msg = """
+Updated theme could not be built.
+
+Commits:
+{0}
+
+Stdout:
+{1}
+
+Stderr:
+{2}
+""".format(commits_str,
+                    "\n    ".join(stdout.split("\n")),
+                    "\n    ".join(stderr.split("\n")))
+                self.sub.message(subject, msg)
+
+            try:
+                self.upload_theme("Automatic update")
+                subject = "Theme updated"
+                msg = "Theme updated. Commits:\n\n{0}".format(commits_str)
+                self.sub.message(subject, msg)
+            except Exception as e:
+                trace = traceback.format_exc()
+                subject = "Theme upload failed"
+                msg = "Updated theme could not be uploaded.\n\nCommits: {0}\n\nError:\n{1}".format(
+                    commits_str,
+                    "\n    ".join(trace.split("\n")))
+                self.sub.message(subject, msg)
+        else:
+            print("No new changes")
+
+    def update_repo(self) -> List[Commit]:
         repo = Repo(self.args.repo)
         start_commit = repo.head.commit
         print("Currently on %s" % repo.active_branch.name)
@@ -78,7 +110,7 @@ class ThemeUpdater:
             commit = commit.parents[0] if commit.parents else None
         return commits
 
-    def build_theme(self):
+    def build_theme(self) -> Tuple[int, str, str]:
         cmd = [self.args.repo + "/node_modules/.bin/gulp", 'build']
         import subprocess
         import os
@@ -88,13 +120,10 @@ class ThemeUpdater:
         proc = subprocess.Popen(cmd, cwd=self.args.repo, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                 encoding="UTF-8", env=my_env)
 
-        o, e = proc.communicate()
+        stdout, stderr = proc.communicate()
+        return proc.returncode, stdout, stderr
 
-        print('Output: ' + o)
-        print('Error: ' + e)
-        print('code: ' + str(proc.returncode))
-
-    def upload_theme(self, reason):
+    def upload_theme(self, reason: str):
         d = Deployer(self.sub)
         stylesheet = open(self.args.repo + "/dist/assets/css/screen.css").read()
         images = []
