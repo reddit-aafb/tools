@@ -65,13 +65,16 @@ class ThemeUpdater:
 Updated theme could not be built.
 
 Commits:
+
 {0}
 
 Stdout:
-{1}
+
+    {1}
 
 Stderr:
-{2}
+
+    {2}
 """.format(commits_str,
                     "\n    ".join(stdout.split("\n")),
                     "\n    ".join(stderr.split("\n")))
@@ -85,7 +88,7 @@ Stderr:
             except Exception as e:
                 trace = traceback.format_exc()
                 subject = "Theme upload failed"
-                msg = "Updated theme could not be uploaded.\n\nCommits: {0}\n\nError:\n{1}".format(
+                msg = "Updated theme could not be uploaded.\n\nCommits:\n\n{0}\n\nError:\n{1}".format(
                     commits_str,
                     "\n    ".join(trace.split("\n")))
                 self.sub.message(subject, msg)
